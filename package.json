@@ -1,19 +1,34 @@
 {
-  "name": "movie-inner-backend",
-  "version": "1.0.0",
-  "description": "movie inner project",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HoonDongKang/movieinner-project-backend.git"
-  },
-  "author": "HoonDongKang",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/HoonDongKang/movieinner-project-backend/issues"
-  },
-  "homepage": "https://github.com/HoonDongKang/movieinner-project-backend#readme"
+    "name": "movie-inner-backend",
+    "version": "1.0.0",
+    "description": "movie inner project",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon ./src/index.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HoonDongKang/movieinner-project-backend.git"
+    },
+    "author": "HoonDongKang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/HoonDongKang/movieinner-project-backend/issues"
+    },
+    "homepage": "https://github.com/HoonDongKang/movieinner-project-backend#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "mailgun-js": "^0.22.0",
+        "mysql2": "^2.3.3"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.12",
+        "@types/express": "^4.17.13",
+        "@types/mailgun-js": "^0.22.12",
+        "nodemon": "^2.0.19",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.7.4"
+    }
 }
