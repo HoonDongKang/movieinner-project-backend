@@ -1,0 +1,19 @@
+{
+  "name": "movie-inner-backend",
+  "version": "1.0.0",
+  "description": "movie inner project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoonDongKang/movieinner-project-backend.git"
+  },
+  "author": "HoonDongKang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HoonDongKang/movieinner-project-backend/issues"
+  },
+  "homepage": "https://github.com/HoonDongKang/movieinner-project-backend#readme"
+}
