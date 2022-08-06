@@ -76,6 +76,7 @@ signUpRouter.post('/verify', async (req, res) => {
     //이메일 인증 확인
 })
 
+//이메일 인증 유효 확인
 signUpRouter.get('/verify/:insertId', async (req, res) => {
     const { insertId } = req.params
     const { key } = req.query
