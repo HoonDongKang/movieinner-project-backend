@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express'
-import mysql, { connectionWithRunFunction } from '../modules/connect'
+import mysql, { DbConnection } from '../modules/connect'
 
-interface RequestConnection extends Request {
-    mysqlConnection?: connectionWithRunFunction
+interface ReqConnectionUndefined extends Request {
+    mysqlConnection?: DbConnection
+}
+
+export interface ReqConnection extends Request {
+    mysqlConnection: DbConnection
 }
 
 export const useMysql = (
-    req: RequestConnection,
+    req: ReqConnectionUndefined,
     res: Response,
     next: NextFunction
 ) => {

@@ -12,11 +12,9 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
-// app.use(useMysql)
+app.use(useMysql)
 
 app.use('/', router)
-app.use('/signup', signUpRouter)
-app.use('/signin', signInRouter)
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
