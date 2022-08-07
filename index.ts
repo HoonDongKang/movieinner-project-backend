@@ -3,6 +3,7 @@ import cors from 'cors'
 import { router } from './src/apis/testAPI'
 import { signUpRouter } from './src/apis/signup'
 import { signInRouter } from './src/apis/signin'
+import { dbConnect } from './src/middlewares/dbConnect'
 
 const app = express()
 const PORT = 3714
@@ -11,6 +12,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
+app.use(dbConnect)
 
 app.use('/', router)
 app.use('/signup', signUpRouter)
