@@ -1,18 +1,22 @@
-import mysql,{ DbConnection, DbConnectionWithUndefined } from "../modules/connect";
-import { Request, Response, NextFunction } from "express";
-import { ErrorRequestHandler } from "express";
+import { Request, Response, NextFunction } from 'express'
+import mysql, { connectionWithRunFunction } from '../modules/connect'
 
- interface RequestWithUndfinedDbConnect extends Request{
-    dbConnect?:DbConnection
+interface RequestConnection extends Request {
+    mysqlConnection?: connectionWithRunFunction
 }
 
-
-
-export const dbConnect = (req: RequestWithUndfinedDbConnect, res: Response, next: NextFunction) => {
-  mysql.connect()
-    .then((connection) => {
-      req.dbConnect = connection;
-    })
-    .catch((e:ErrorRequestHandler) => next(e));
-};
-//
+export const useMysql = (
+    req: RequestConnection,
+    res: Response,
+    next: NextFunction
+) => {
+    mysql
+        .connect()
+        .then((connection) => {
+            req.mysqlConnection = connection
+            next()
+        })
+        .catch((e: Error) => {
+            next(e)
+        })
+}

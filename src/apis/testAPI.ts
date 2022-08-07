@@ -1,9 +1,9 @@
 import express from 'express'
 import { Request } from 'express'
-import {  DbConnection } from '../modules/connect'
+import { connectionWithRunFunction } from '../modules/connect'
 
-interface RequestWithDbConnect extends Request{
-    dbConnect:DbConnection
+interface RequestConnection extends Request {
+    mysqlConnection?: connectionWithRunFunction
 }
 
 export const router = express.Router()
