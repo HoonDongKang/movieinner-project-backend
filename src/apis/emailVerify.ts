@@ -6,6 +6,7 @@ const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
 const emailVerifyLink = async (params: any, connection: DbConnection) => {
     const { email } = params
+    //email hash화로 key값 생성
     const salt = await bcrypt.genSalt(10)
     const hashedEmail = await bcrypt.hash(email, salt)
     const expiredDate = new Date(Date.now() + 60 * 1000 * 1) //만료기간 1분
@@ -46,6 +47,22 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     }
 }
 
+const checkEmailLink = async (params: any, connection: DbConnection) => {
+    const { insertId, key } = params
+    const response = await connection.run(
+        `SELECT expired_date FROM email_verify WHERE idx=? AND email_code=?`,
+        [insertId, key]
+    )
+    const { expired_date: expiredDate } = response[0]
+    const intExpiredDate = expiredDate.getTime()
+    const nowDate = new Date().getTime()
+    const isVerified = nowDate > intExpiredDate ? false : true
+    return {
+        status: 200,
+        data: { isverified: isVerified },
+    }
+}
 export default {
     emailVerifyLink,
+    checkEmailLink,
 }
