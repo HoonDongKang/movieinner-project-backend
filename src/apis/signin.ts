@@ -1,4 +1,4 @@
-import { DbConnection } from './../modules/connect'
+import { DbConnection } from '../modules/connect'
 
 const signIn = async (params: any, connection: DbConnection) => {
     const { id, password } = params

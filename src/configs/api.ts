@@ -22,4 +22,16 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getUserInfo',
         handlerPath: './src/apis/signin.ts',
     },
+    signup: {
+        urlPath: '/signup',
+        method: 'post',
+        handlerName: 'signup',
+        handlerPath: './src/apis/signup.ts',
+    },
+    emailVerifyLink: {
+        urlPath: '/email-verify',
+        method: 'post',
+        handlerName: 'emailVerifyLink',
+        handlerPath: './src/apis/emailVerify.ts',
+    },
 }
