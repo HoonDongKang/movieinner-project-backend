@@ -16,4 +16,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'testAPI',
         handlerPath: './src/apis/testAPI.ts',
     },
+    getUserInfo: {
+        urlPath: '/signin',
+        method: 'get',
+        handlerName: 'getUserInfo',
+        handlerPath: './src/apis/signin.ts',
+    },
 }

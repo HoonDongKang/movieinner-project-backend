@@ -1,7 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import { signUpRouter } from './src/apis/signup'
-import { signInRouter } from './src/apis/signin'
 import { useMysql } from './src/middlewares/dbConnect'
 import { registerAllApis } from './src/controllers'
 import { apiConfigs } from './src/configs/api'
