@@ -22,6 +22,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getUserInfo',
         handlerPath: './src/apis/signin.ts',
     },
+    signIn: {
+        urlPath: '/signin/:insertId',
+        method: 'post',
+        handlerName: 'signIn',
+        handlerPath: './src/apis/signin.ts',
+    },
     signup: {
         urlPath: '/signup',
         method: 'post',
