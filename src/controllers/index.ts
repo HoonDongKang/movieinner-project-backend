@@ -7,6 +7,7 @@ import { DbConnection } from '../modules/connect'
 interface responseType {
     status: number
     data: { [key: string]: any }
+    render: any
 }
 
 export const registerAllApis = async (
@@ -34,9 +35,15 @@ export const registerAllApis = async (
             const connection = req.mysqlConnection
             apiHandlerFunc(params, connection)
                 .then((resObj: responseType) => {
-                    const { status, data } = resObj
-                    res.status(status)
-                    res.json(data)
+                    const { status, data, render } = resObj
+                    if (!render) {
+                        res.status(status)
+                        res.json(data)
+                    } else {
+                        res.status(status)
+                        res.json(data)
+                        res.render(render)
+                    }
                 })
                 .catch((e: Error) => next(e))
         }
