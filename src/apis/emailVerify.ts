@@ -9,7 +9,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     //email hash화로 key값 생성
     const salt = await bcrypt.genSalt(10)
     const hashedEmail = await bcrypt.hash(email, salt)
-    const expiredDate = new Date(Date.now() + 60 * 1000 * 1) //만료기간 1분
+    const expiredDate = new Date(Date.now() + 60 * 1000 * 5) //만료기간 5분
     const getResponse = await connection.run(
         `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
         [email]
@@ -26,7 +26,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
     // 존재하지 않을 경우 이메일 링크 전송
     const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
-    const emailLink = `http://localhost:3000/signup/${insertId}?key=${hashedEmail}` //임시 verify 주소
+    const emailLink = `http://localhost:3000/signup/pw/${insertId}?key=${hashedEmail}` //임시 verify 주소
     const data = {
         from: MAILGUN_FROM,
         to: email,
@@ -49,18 +49,20 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
 const checkEmailLink = async (params: any, connection: DbConnection) => {
     const { insertId, key } = params
-    console.log(`${insertId} , ${key}`)
     const response = await connection.run(
         `SELECT expired_date FROM email_verify WHERE idx=? AND email_code=?`,
         [insertId, key]
     )
+
     const { expired_date: expiredDate } = response[0]
     const intExpiredDate = expiredDate.getTime()
     const nowDate = new Date().getTime()
+    console.log(`now:${nowDate}, expire:${intExpiredDate}`)
     const isVerified = nowDate > intExpiredDate ? false : true
+    console.log(isVerified)
     return {
         status: 200,
-        data: { isverified: isVerified },
+        data: { isVerified: isVerified },
     }
 }
 export default {
