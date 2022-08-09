@@ -17,31 +17,31 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/testAPI.ts',
     },
     getUserInfo: {
-        urlPath: '/signin',
+        urlPath: '/users',
         method: 'get',
         handlerName: 'getUserInfo',
         handlerPath: './src/apis/signin.ts',
     },
-    signIn: {
-        urlPath: '/signin/:insertId',
+    signin: {
+        urlPath: '/users/:insertId',
         method: 'post',
         handlerName: 'signIn',
         handlerPath: './src/apis/signin.ts',
     },
     signup: {
-        urlPath: '/signup',
+        urlPath: '/users',
         method: 'post',
         handlerName: 'signup',
         handlerPath: './src/apis/signup.ts',
     },
     emailVerifyLink: {
-        urlPath: '/email-verify',
+        urlPath: '/users/verify',
         method: 'post',
         handlerName: 'emailVerifyLink',
         handlerPath: './src/apis/emailVerify.ts',
     },
     checkEmailLink: {
-        urlPath: '/email-verify/:insertId',
+        urlPath: '/users/verify/:inserId',
         method: 'get',
         handlerName: 'checkEmailLink',
         handlerPath: './src/apis/emailVerify.ts',

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { DbConnection } from '../modules/connect'
 
-const signIn = async (params: any, connection: DbConnection) => {
+const signin = async (params: any, connection: DbConnection) => {
     const { email, insertId, password } = params //idx값을 줘야하나?
     const response = await connection.run(
         `SELECT password FROM user_info WHERE email=? AND idx=?`,
@@ -13,8 +13,11 @@ const signIn = async (params: any, connection: DbConnection) => {
 }
 
 const getUserInfo = async (params: any, connection: DbConnection) => {
-    const response = await connection.run(`SELECT * FROM user_info`, [])
+    const response = await connection.run(
+        `SELECT email,name FROM user_info`,
+        []
+    )
     return { status: 200, data: response }
 }
 
-export default { signIn, getUserInfo }
+export default { signin, getUserInfo }
