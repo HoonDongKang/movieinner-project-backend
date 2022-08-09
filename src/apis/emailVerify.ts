@@ -26,7 +26,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
     // 존재하지 않을 경우 이메일 링크 전송
     const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
-    const emailLink = `http://localhost:3000/verify/${insertId}?key=${hashedEmail}` //임시 verify 주소
+    const emailLink = `http://localhost:3000/signup/${insertId}?key=${hashedEmail}` //임시 verify 주소
     const data = {
         from: MAILGUN_FROM,
         to: email,
@@ -49,6 +49,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
 const checkEmailLink = async (params: any, connection: DbConnection) => {
     const { insertId, key } = params
+    console.log(`${insertId} , ${key}`)
     const response = await connection.run(
         `SELECT expired_date FROM email_verify WHERE idx=? AND email_code=?`,
         [insertId, key]

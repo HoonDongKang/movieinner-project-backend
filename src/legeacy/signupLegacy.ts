@@ -4,7 +4,6 @@ import mysql from 'mysql2/promise'
 import bcrypt from 'bcrypt'
 import mailgun from 'mailgun-js'
 import MAIL from '../configs/mailgun'
-import { DbConnection } from '../modules/connect'
 export const signUpRouter = express.Router()
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL

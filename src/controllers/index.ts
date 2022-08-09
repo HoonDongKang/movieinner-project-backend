@@ -32,6 +32,7 @@ export const registerAllApis = async (
             const req = request as ReqConnection
             const res = response
             const params = Object.assign({}, req.body, req.query, req.params)
+            console.log(params)
             const connection = req.mysqlConnection
             apiHandlerFunc(params, connection)
                 .then((resObj: responseType) => {
