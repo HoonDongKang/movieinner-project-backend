@@ -12,7 +12,7 @@ const signin = async (params: any, connection: DbConnection) => {
     return { status: 200, data: { success: isEqual } }
 }
 
-const getUserInfo = async (params: any, connection: DbConnection) => {
+const getUsersInfo = async (params: any, connection: DbConnection) => {
     const response = await connection.run(
         `SELECT email,name FROM user_info`,
         []
@@ -20,4 +20,12 @@ const getUserInfo = async (params: any, connection: DbConnection) => {
     return { status: 200, data: response }
 }
 
-export default { signin, getUserInfo }
+const getIdxUserInfo = async (params: any, connection: DbConnection) => {
+    const { insertId } = params
+    const response = await connection.run(
+        `SELECT * FROM user_info WHERE idx=?`,
+        [insertId]
+    )
+    return { status: 200, data: response }
+}
+export default { signin, getUsersInfo, getIdxUserInfo }
