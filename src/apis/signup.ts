@@ -8,7 +8,7 @@ const signup = async (params: any, connection: DbConnection) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPw = await bcrypt.hash(password, salt)
     await connection.run(
-        `INSERT INTO user_info(email,pw,image_URL,name,gender,age,nickname) VALUES(?,?,?,?,?,?,?)`,
+        `INSERT INTO user_info(email,password,image_URL,name,gender,age,nickname) VALUES(?,?,?,?,?,?,?)`,
         [email, hashedPw, image_URL, name, gender, age, nickname]
     )
     return {
