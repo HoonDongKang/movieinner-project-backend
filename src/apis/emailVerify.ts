@@ -57,9 +57,8 @@ const checkEmailLink = async (params: any, connection: DbConnection) => {
     const { expired_date: expiredDate } = response[0]
     const intExpiredDate = expiredDate.getTime()
     const nowDate = new Date().getTime()
-    console.log(`now:${nowDate}, expire:${intExpiredDate}`)
     const isVerified = nowDate > intExpiredDate ? false : true
-    console.log(isVerified)
+
     return {
         status: 200,
         data: { isVerified: isVerified },
