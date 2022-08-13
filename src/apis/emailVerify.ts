@@ -19,7 +19,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     if (count > 0) throw new Error('Alreayd Existed Email')
 
     //이메일 정보 및 만료 기한 저장
-    const postResponse: any = await connection.execute(
+    await connection.execute(
         `INSERT INTO email_verify(email,email_code,expired_date) VALUES(?,?,?)`,
         [email, hashedEmail, expiredDate]
     )
@@ -57,7 +57,6 @@ const checkEmailLink = async (params: any, connection: DbConnection) => {
     const intExpiredDate = expiredDate.getTime()
     const nowDate = new Date().getTime()
     const isVerified = nowDate > intExpiredDate ? false : true
-
     return {
         status: 200,
         data: { isVerified: isVerified },
