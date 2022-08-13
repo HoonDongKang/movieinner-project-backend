@@ -9,6 +9,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     //email hash화로 key값 생성
 
     const expiredDate = new Date(Date.now() + 60 * 1000 * 5) //만료기간 5분
+    console.log(expiredDate)
     const hashedEmailFull = md5(email + expiredDate)
     const hashedEmail = hashedEmailFull.substr(0, 12)
     const getResponse = await connection.run(
