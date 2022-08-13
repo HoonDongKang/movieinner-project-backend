@@ -1,6 +1,5 @@
 import mailgun from 'mailgun-js'
 import MAIL from '../configs/mailgun'
-import bcrypt from 'bcrypt'
 import { DbConnection } from '../modules/connect'
 import md5 from 'md5'
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
@@ -24,7 +23,6 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
         `INSERT INTO email_verify(email,email_code,expired_date) VALUES(?,?,?)`,
         [email, hashedEmail, expiredDate]
     )
-    const { insertId } = postResponse[0]
 
     // 존재하지 않을 경우 이메일 링크 전송
     const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
@@ -42,7 +40,6 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     return {
         status: 201,
         data: {
-            hash: hashedEmail,
             success: true,
             message: '이메일로 링크 발송 성공',
         },
