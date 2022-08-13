@@ -47,7 +47,7 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/emailVerify.ts',
     },
     checkEmailLink: {
-        urlPath: '/verify/:insertId',
+        urlPath: '/verify',
         method: 'get',
         handlerName: 'checkEmailLink',
         handlerPath: './src/apis/emailVerify.ts',
