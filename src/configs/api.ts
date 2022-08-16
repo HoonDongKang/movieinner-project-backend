@@ -20,13 +20,13 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/users',
         method: 'get',
         handlerName: 'getUsersInfo',
-        handlerPath: './src/apis/signin.ts',
+        handlerPath: './src/apis/user.ts',
     },
     getIdxUserInfo: {
         urlPath: '/users/:insertId',
         method: 'get',
         handlerName: 'getIdxUserInfo',
-        handlerPath: './src/apis/signin.ts',
+        handlerPath: './src/apis/user.ts',
     },
     signin: {
         urlPath: '/users/:insertId',

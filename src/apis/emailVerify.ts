@@ -1,3 +1,4 @@
+// 이메일 인증 링크 전송 및 인증 API
 import mailgun from 'mailgun-js'
 import MAIL from '../configs/mailgun'
 import { DbConnection } from '../modules/connect'
