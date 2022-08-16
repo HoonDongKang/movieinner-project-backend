@@ -22,10 +22,12 @@ const getIdxUserInfo = async (params: any, connection: DbConnection) => {
 
 //모든 유저 정보 삭제
 const deleteUsers = async (params: any, connection: DbConnection) => {
-    await connection.run(`DELETE FROM `)
+    await connection.run(`DELETE FROM user_info`)
+    return { status: 200, data: { success: true } }
 }
 
 export default {
     getUsersInfo,
     getIdxUserInfo,
+    deleteUsers,
 }
