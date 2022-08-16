@@ -2,7 +2,7 @@
 import { DbConnection } from './../modules/connect'
 
 //모든 유저 이메일, 이름 가져오기
-const getUsersInfo = async (params: any, connection: DbConnection) => {
+const getUsers = async (params: any, connection: DbConnection) => {
     const response = await connection.run(
         `SELECT email,name FROM user_info`,
         []
@@ -11,11 +11,11 @@ const getUsersInfo = async (params: any, connection: DbConnection) => {
 }
 
 //특정 유저의 정보 가져오기
-const getIdxUserInfo = async (params: any, connection: DbConnection) => {
-    const { insertId } = params
+const getEmailUser = async (params: any, connection: DbConnection) => {
+    const { email } = params
     const response = await connection.run(
-        `SELECT * FROM user_info WHERE idx=?`,
-        [insertId]
+        `SELECT * FROM user_info WHERE email=?`,
+        [email]
     )
     return { status: 200, data: response }
 }
@@ -26,8 +26,15 @@ const deleteUsers = async (params: any, connection: DbConnection) => {
     return { status: 200, data: { success: true } }
 }
 
+//특정 유저 정보 삭제
+const deleteEmailUser = async (params: any, connection: DbConnection) => {
+    const { email } = params
+    await connection.run(`DELETE FROM user_info WHERE email=?`, [email])
+    return { status: 200, data: { success: true } }
+}
 export default {
-    getUsersInfo,
-    getIdxUserInfo,
+    getUsers,
+    getEmailUser,
     deleteUsers,
+    deleteEmailUser,
 }

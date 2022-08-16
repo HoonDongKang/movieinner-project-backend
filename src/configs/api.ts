@@ -16,18 +16,31 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'testAPI',
         handlerPath: './src/apis/testAPI.ts',
     },
-    getUsersInfo: {
+    getUsers: {
         urlPath: '/users',
         method: 'get',
-        handlerName: 'getUsersInfo',
+        handlerName: 'getUsers',
         handlerPath: './src/apis/user.ts',
     },
-    getIdxUserInfo: {
+    getEmailUser: {
         urlPath: '/users/:insertId',
         method: 'get',
-        handlerName: 'getIdxUserInfo',
+        handlerName: 'getEmailUser',
         handlerPath: './src/apis/user.ts',
     },
+    deleteUsers: {
+        urlPath: '/users/:insertId',
+        method: 'delete',
+        handlerName: 'deleteUsers',
+        handlerPath: './src/apis/user.ts',
+    },
+    deleteEmailUser: {
+        urlPath: '/users/:insertId',
+        method: 'delete',
+        handlerName: 'deleteEmailUser',
+        handlerPath: './src/apis/user.ts',
+    },
+
     signin: {
         urlPath: '/users/:insertId',
         method: 'post',
