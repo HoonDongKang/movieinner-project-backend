@@ -28,7 +28,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
     // 존재하지 않을 경우 이메일 링크 전송
     const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
-    const emailLink = `http://localhost:3000/?key=${hashedEmail}` //임시 verify 주소
+    const emailLink = `http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}` //임시 verify 주소
     const data = {
         from: MAILGUN_FROM,
         to: email,
