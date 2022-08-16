@@ -22,22 +22,22 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getUsers',
         handlerPath: './src/apis/user.ts',
     },
-    getEmailUser: {
+    getIdxUser: {
         urlPath: '/users/:insertId',
         method: 'get',
-        handlerName: 'getEmailUser',
+        handlerName: 'getIdxUser',
         handlerPath: './src/apis/user.ts',
     },
     deleteUsers: {
-        urlPath: '/users/:insertId',
+        urlPath: '/users',
         method: 'delete',
         handlerName: 'deleteUsers',
         handlerPath: './src/apis/user.ts',
     },
-    deleteEmailUser: {
+    deleteIdxUser: {
         urlPath: '/users/:insertId',
         method: 'delete',
-        handlerName: 'deleteEmailUser',
+        handlerName: 'deleteIdxUser',
         handlerPath: './src/apis/user.ts',
     },
 
