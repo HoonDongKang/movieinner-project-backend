@@ -12,10 +12,10 @@ const getUsers = async (params: any, connection: DbConnection) => {
 
 //특정 유저의 정보 가져오기
 const getIdxUser = async (params: any, connection: DbConnection) => {
-    const { userIdx } = params
+    const { insertId } = params
     const response = await connection.run(
         `SELECT * FROM user_info WHERE idx=?`,
-        [userIdx]
+        [insertId]
     )
     return { status: 200, data: response }
 }
@@ -28,8 +28,8 @@ const deleteUsers = async (params: any, connection: DbConnection) => {
 
 //특정 유저 정보 삭제
 const deleteIdxUser = async (params: any, connection: DbConnection) => {
-    const { userIdx } = params
-    await connection.run(`DELETE FROM user_info WHERE idx=?`, [userIdx])
+    const { insertId } = params
+    await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId])
     return { status: 200, data: { success: true } }
 }
 export default {
