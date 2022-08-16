@@ -40,6 +40,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'deleteIdxUser',
         handlerPath: './src/apis/user.ts',
     },
+    changeUserPassword: {
+        urlPath: '/users/password',
+        method: 'put',
+        handlerName: 'changeUserPassword',
+        handlerPath: './src/apis/user.ts',
+    },
 
     signin: {
         urlPath: '/users/:insertId',

@@ -32,9 +32,20 @@ const deleteIdxUser = async (params: any, connection: DbConnection) => {
     await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId])
     return { status: 200, data: { success: true } }
 }
+
+//특정 유저 비밀번호 변경
+const changeUserPassword = async (params: any, connection: DbConnection) => {
+    const { email, newPassword } = params
+    await connection.run(`UPDATE user_info SET password=? WHERE email=?`, [
+        newPassword,
+        email,
+    ])
+    return { status: 200, data: { success: true } }
+}
 export default {
     getUsers,
     getIdxUser,
     deleteUsers,
     deleteIdxUser,
+    changeUserPassword,
 }
