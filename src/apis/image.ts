@@ -3,7 +3,7 @@ import express from 'express'
 import upload from '../modules/multer'
 const router = express.Router()
 router.post('/', upload.single('file'), (req, res) => {
-    console.log('uploaded')
+    console.log(res)
 })
 
 export default router
