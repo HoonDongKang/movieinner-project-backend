@@ -1,9 +1,9 @@
 import { DbConnection } from '../modules/connect'
-import express from 'express'
+import express,{Request} from 'express'
 import upload from '../modules/multer'
 const router = express.Router()
-router.post('/', upload.single('file'), (req, res) => {
-    console.log(res)
+router.post('/', upload.single('image'), (req:Request, res) => {
+    console.log(req.file)
 })
 
 export default router
