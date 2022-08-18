@@ -8,6 +8,7 @@ const { AWS_S3_ACCESS_ID, AWS_S3_ACCESS_KEY, AWS_S3_REGION } = s3AccessKey
 aws.config.update({
     accessKeyId: AWS_S3_ACCESS_ID,
     secretAccessKey: AWS_S3_ACCESS_KEY,
+    region: AWS_S3_REGION,
 })
 
 const s3 = new aws.S3() as any
@@ -21,6 +22,7 @@ const upload = multer({
             cb(null, `${Date.now()}_${file.originalname}`)
         },
     }),
+    limits: { fileSize: 5 * 1024 * 1024 },
 })
 
 export default upload
