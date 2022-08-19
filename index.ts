@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(cors())
 app.use(useMysql)
 app.use('/image', router)
-// registerAllApis(app, apiConfigs)
+registerAllApis(app, apiConfigs)
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
