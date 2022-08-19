@@ -1,7 +1,7 @@
 import { ApiConfigObj } from '../configs/api'
 import { Express, NextFunction, Request, Response } from 'express'
 import path from 'path'
-import { ReqConnection, ReqConnectionUndefined } from '../middlewares/dbConnect'
+import { ReqConnection } from '../middlewares/dbConnect'
 import { DbConnection } from '../modules/connect'
 
 interface responseType {
