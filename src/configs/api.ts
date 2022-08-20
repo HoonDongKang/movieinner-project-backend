@@ -71,4 +71,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'checkEmailLink',
         handlerPath: './src/apis/emailVerify.ts',
     },
+    postAuth: {
+        urlPath: '/auth',
+        method: 'post',
+        handlerName: 'postAuth',
+        handlerPath: './src/apis/token.ts',
+    },
 }
