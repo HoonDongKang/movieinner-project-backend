@@ -1,6 +1,7 @@
 import { DbConnection } from '../modules/connect'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
+dotenv.config()
 
 const postAuth = async (params: any, connection: DbConnection) => {
     const { email, password } = params
