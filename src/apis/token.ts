@@ -1,6 +1,7 @@
 import { DbConnection } from '../modules/connect'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
+import JWT from 'jsonwebtoken'
 dotenv.config()
 
 const postAuth = async (params: any, connection: DbConnection) => {
@@ -14,5 +15,22 @@ const postAuth = async (params: any, connection: DbConnection) => {
         getHashedPassword[0].password
     )
 
-    const payload = {}
+    if (!isEqual) {
+        throw new Error('Password is wrong')
+    }
+
+    const payload = { email }
+    const JWT_SECRET = process.env.JWT_SECRET as string
+    const token = JWT.sign(payload, JWT_SECRET)
+
+    return {
+        status: 201,
+        data: {
+            token,
+        },
+    }
+}
+
+export default {
+    postAuth,
 }
