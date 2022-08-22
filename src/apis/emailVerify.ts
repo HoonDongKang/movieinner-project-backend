@@ -10,7 +10,6 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     //email hash화로 key값 생성
 
     const expiredDate = new Date(Date.now() + 60 * 1000 * 5) //만료기간 5분
-    console.log(expiredDate)
     const hashedEmailFull = md5(email + expiredDate)
     const hashedEmail = hashedEmailFull.substr(0, 12)
     const getResponse = await connection.run(
@@ -18,13 +17,17 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
         [email]
     )
     const { count } = getResponse[0]
-    if (count > 0) throw new Error('Alreayd Existed Email')
+    if (count > 0) throw new Error('E0000')
 
     //이메일 정보 및 만료 기한 저장
-    await connection.execute(
-        `INSERT INTO email_verify(email,email_code,expired_date) VALUES(?,?,?)`,
-        [email, hashedEmail, expiredDate]
-    )
+    await connection
+        .execute(
+            `INSERT INTO email_verify(email,email_code,expired_date) VALUES(?,?,?)`,
+            [email, hashedEmail, expiredDate]
+        )
+        .catch(() => {
+            throw new Error('E0001')
+        })
 
     // 존재하지 않을 경우 이메일 링크 전송
     const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
@@ -54,6 +57,9 @@ const checkEmailLink = async (params: any, connection: DbConnection) => {
         `SELECT expired_date FROM email_verify WHERE email_code=?`,
         [key]
     )
+    if (!response) {
+        throw new Error('E0002')
+    }
 
     const { expired_date: expiredDate } = response[0]
     const intExpiredDate = expiredDate.getTime()
