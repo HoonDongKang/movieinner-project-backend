@@ -1,5 +1,5 @@
 // 유저 정보 CRUD API
-import { DbConnection } from './../modules/connect'
+import { DbConnection } from '../../modules/connect'
 
 //모든 유저 이메일, 이름 가져오기
 const getUsers = async (params: any, connection: DbConnection) => {

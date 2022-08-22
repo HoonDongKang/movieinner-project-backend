@@ -3,6 +3,7 @@ import { Express, NextFunction, Request, Response } from 'express'
 import path from 'path'
 import { ReqConnection } from '../middlewares/dbConnect'
 import { DbConnection } from '../modules/connect'
+import { authorizer } from '../middlewares/authorizer'
 
 interface responseType {
     status: number

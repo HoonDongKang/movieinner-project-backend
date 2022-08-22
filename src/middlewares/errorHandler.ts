@@ -6,6 +6,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     let errCode = errMsg.replace('Error: ', '')
     let errConfig = errorConfigs[errCode]
     if (!errConfig) {
+        console.log(errMsg)
         errCode = 'E0004'
         errConfig = errorConfigs[errCode]
     }

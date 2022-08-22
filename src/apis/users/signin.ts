@@ -1,6 +1,6 @@
 // 로그인 API
 import bcrypt from 'bcrypt'
-import { DbConnection } from '../modules/connect'
+import { DbConnection } from '../../modules/connect'
 
 const signin = async (params: any, connection: DbConnection) => {
     const { email, insertId, password } = params //idx값을 줘야하나?

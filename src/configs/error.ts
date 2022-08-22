@@ -28,6 +28,16 @@ const errorConfigs: ErrorConfigsType = {
         message: '원인을 알 수 없는 에러.',
         status: 500,
     },
+    E0005: {
+        code: 'E0005',
+        message: '권한이 올바르지 않습니다.',
+        status: 500,
+    },
+    E0006: {
+        code: 'E0006',
+        message: '이메일이 존재하지 않습니다.',
+        status: 403,
+    },
 }
 
 export default errorConfigs
