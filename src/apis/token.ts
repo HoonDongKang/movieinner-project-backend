@@ -15,17 +15,18 @@ const postAuth = async (params: any, connection: DbConnection) => {
     const isEqual = await bcrypt.compare(password, hashedpassword)
 
     if (!isEqual) {
-        throw new Error('Password is wrong')
+        throw new Error('E0003')
     }
 
     const payload = { email }
     const JWT_SECRET = process.env.JWT_SECRET as string
     const token = JWT.sign(payload, JWT_SECRET)
 
-    await connection.run(`UPDATE user_info SET token=? WHERE email=?`, [
-        token,
-        email,
-    ])
+    await connection
+        .run(`UPDATE user_info SET token=? WHERE email=?`, [token, email])
+        .catch(() => {
+            throw new Error('E0001')
+        })
     return {
         status: 201,
         data: {

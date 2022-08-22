@@ -7,10 +7,14 @@ const signup = async (params: any, connection: DbConnection) => {
     const { email, password, image_URL, name, gender, birth, nickname } = params
     const salt = await bcrypt.genSalt(10)
     const hashedPw = await bcrypt.hash(password, salt)
-    await connection.run(
-        `INSERT INTO user_info(email,password,image_URL,name,gender,birth,nickname) VALUES(?,?,?,?,?,?,?)`,
-        [email, hashedPw, image_URL, name, gender, birth, nickname]
-    )
+    await connection
+        .run(
+            `INSERT INTO user_info(email,password,image_URL,name,gender,birth,nickname) VALUES(?,?,?,?,?,?,?)`,
+            [email, hashedPw, image_URL, name, gender, birth, nickname]
+        )
+        .catch(() => {
+            throw new Error('E0001')
+        })
     return {
         status: 201,
         data: { success: true },
