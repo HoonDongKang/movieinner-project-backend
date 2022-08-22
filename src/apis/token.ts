@@ -7,14 +7,12 @@ dotenv.config()
 //JWT 토큰 발급
 const postAuth = async (params: any, connection: DbConnection) => {
     const { email, password } = params
-    const getHashedPassword = await connection.run(
+    const response = await connection.run(
         `SELECT password FROM user_info WHERE email=?`,
         [email]
     )
-    const isEqual = await bcrypt.compare(
-        password,
-        getHashedPassword[0].password
-    )
+    const { password: hashedpassword } = response[0]
+    const isEqual = await bcrypt.compare(password, hashedpassword)
 
     if (!isEqual) {
         throw new Error('Password is wrong')
