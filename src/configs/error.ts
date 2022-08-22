@@ -2,7 +2,7 @@ interface ErrorConfigsType {
     [key: string]: { code: string; message: string; status: number }
 }
 
-const errorConfigs = {
+const errorConfigs: ErrorConfigsType = {
     E0000: {
         code: 'E0000',
         message: '이미 존재하는 이메일입니다.',

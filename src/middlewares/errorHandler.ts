@@ -3,7 +3,6 @@ import errorConfigs from '../configs/error'
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const errMsg: string = err.toString()
-    console.log(errMsg)
     let errCode = errMsg.replace('Error: ', '')
     let errConfig = errorConfigs[errCode]
     if (!errConfig) {

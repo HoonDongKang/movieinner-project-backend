@@ -4,6 +4,7 @@ import { useMysql } from './src/middlewares/dbConnect'
 import { registerAllApis } from './src/controllers'
 import { apiConfigs } from './src/configs/api'
 import router from './src/apis/image'
+import { errorHandler } from './src/middlewares/errorHandler'
 
 const app = express()
 const PORT = 3714
@@ -16,7 +17,13 @@ app.use(useMysql)
 
 app.use('/image', router)
 registerAllApis(app, apiConfigs)
-
-app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`)
-})
+    .then(() => {
+        app.use(errorHandler)
+        app.listen(PORT, () => {
+            console.log(`Example app listening at http://localhost:${PORT}`)
+        })
+    })
+    .catch((e) => {
+        console.error(e)
+        process.exit(-1)
+    })
