@@ -22,9 +22,14 @@ const postAuth = async (params: any, connection: DbConnection) => {
     const JWT_SECRET = process.env.JWT_SECRET as string
     const token = JWT.sign(payload, JWT_SECRET)
 
+    await connection.run(`UPDATE user_info SET token=? WHERE email=?`, [
+        token,
+        email,
+    ])
     return {
         status: 201,
         data: {
+            success: true,
             token,
         },
     }
