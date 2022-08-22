@@ -1,6 +1,20 @@
 import { ErrorRequestHandler } from 'express'
+import errorConfigs from '../configs/error'
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    const errMsg = err.toString()
+    const errMsg: string = err.toString()
     console.log(errMsg)
+    let errCode = errMsg.replace('Error: ', '')
+    let errConfig = errorConfigs[errCode]
+    if (!errConfig) {
+        errCode = 'E0004'
+        errConfig = errorConfigs[errCode]
+    }
+
+    const { code, message, status } = errConfig
+    res.status(status)
+    res.send({
+        errCode: code,
+        errMessage: message,
+    })
 }
