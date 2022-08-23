@@ -2,6 +2,7 @@ import { Response, Request } from 'express'
 import dotenv from 'dotenv'
 import s3AccessKey from '../configs/s3'
 import aws from 'aws-sdk'
+import { Error } from 'aws-sdk/clients/s3'
 dotenv.config()
 
 const { AWS_S3_ACCESS_ID, AWS_S3_ACCESS_KEY, AWS_S3_REGION } = s3AccessKey
@@ -40,11 +41,28 @@ export const deleteImage = async (req: Request, res: Response) => {
         Key: imageName,
     }
     try {
-        s3.deleteObject(params, function (err: any, data: any) {
-            if (err) console.log(err)
-            else console.log(data)
+        await s3.deleteObject(params, function (err: Error, data: any) {
+            if (err) {
+                console.log(err)
+                res.status(400)
+                res.json({
+                    success: false,
+                    error: err,
+                })
+            } else {
+                console.log(data)
+                res.status(201)
+                res.json({
+                    success: true,
+                })
+            }
         })
     } catch (e) {
         console.log(e)
+        res.status(400)
+        res.json({
+            success: false,
+            error: e,
+        })
     }
 }
