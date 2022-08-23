@@ -42,6 +42,7 @@ export const deleteImage = async (req: Request, res: Response) => {
     }
     try {
         await s3.deleteObject(params, function (err: Error, data: any) {
+            //data의 값을 못받아옴
             if (err) {
                 console.log(err)
                 res.status(400)
