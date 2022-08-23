@@ -25,18 +25,3 @@ export const upload = multer({
     }),
     limits: { fileSize: 5 * 1024 * 1024 },
 })
-
-export const deleteImage = (imageName: string) => {
-    const params = {
-        Bucket: 'movie-inner',
-        Key: imageName,
-    }
-    try {
-        s3.deleteObject(params, function (err, data) {
-            if (err) console.log(err, err.stack)
-            else console.log(data)
-        })
-    } catch (e) {
-        console.log(e)
-    }
-}
