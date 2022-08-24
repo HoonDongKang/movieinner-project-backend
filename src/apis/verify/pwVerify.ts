@@ -3,6 +3,7 @@ import mailgun from 'mailgun-js'
 import MAIL from '../../configs/mailgun'
 import { DbConnection } from '../../modules/connect'
 import md5 from 'md5'
+import { paramsErrorHandler } from './../../modules/paramsError'
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
 const pwResetEmailLink = async (params: any, connection: DbConnection) => {
@@ -29,11 +30,10 @@ const pwResetEmailLink = async (params: any, connection: DbConnection) => {
         }
 
         //이메일 정보 및 만료 기한 저장
-        const postResponse = await connection.run(
+        await connection.run(
             `INSERT INTO email_verify(type,email,email_code,expired_date) VALUES(?,?,?,?)`,
             [type, email, hashedEmail, expiredDate]
         )
-        //Error: TypeError: Bind parameters must not contain undefined. To pass SQL NULL specify JS null
 
         // 존재하지 않을 경우 이메일 링크 전송
         const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
@@ -48,7 +48,7 @@ const pwResetEmailLink = async (params: any, connection: DbConnection) => {
             console.log(body)
         })
     } catch (e: any) {
-        throw new Error(e)
+        paramsErrorHandler(e)
     }
 
     return {
@@ -61,19 +61,24 @@ const pwResetEmailLink = async (params: any, connection: DbConnection) => {
 }
 
 const checkPwResetEmailLink = async (params: any, connection: DbConnection) => {
-    const { key, type } = params
-    const response = await connection.run(
-        `SELECT expired_date FROM email_verify WHERE email_code=? AND type=?`,
-        [key, type]
-    )
-    if (!response) {
-        throw new Error('E0002')
-    }
+    let isVerified = false
+    try {
+        const { key, type } = params
+        const response = await connection.run(
+            `SELECT expired_date FROM email_verify WHERE email_code=? AND type=?`,
+            [key, type]
+        )
+        if (!response[0]) {
+            throw new Error('E0002')
+        }
 
-    const { expired_date: expiredDate } = response[0]
-    const intExpiredDate = expiredDate.getTime()
-    const nowDate = new Date().getTime()
-    const isVerified = nowDate > intExpiredDate ? false : true
+        const { expired_date: expiredDate } = response[0]
+        const intExpiredDate = expiredDate.getTime()
+        const nowDate = new Date().getTime()
+        isVerified = nowDate > intExpiredDate ? false : true
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
     return {
         status: 200,
         data: { isVerified: isVerified },
