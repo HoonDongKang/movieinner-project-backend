@@ -56,7 +56,7 @@ const changeUserPassword = async (params: any, connection: DbConnection) => {
             newPassword,
             email,
         ])
-    } catch (e) {
+    } catch (e: any) {
         throw new Error(e)
     }
     return { status: 200, data: { success: true } }
