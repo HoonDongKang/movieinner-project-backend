@@ -1,6 +1,7 @@
 //회원가입 API
 import bcrypt from 'bcrypt'
 import { DbConnection } from '../../modules/connect'
+import { paramsErrorHandler } from '../../modules/paramsError'
 
 //회원가입
 
@@ -30,14 +31,7 @@ const signup = async (params: SignupParamsType, connection: DbConnection) => {
             data: { success: true },
         }
     } catch (e: any) {
-        if (
-            e.message ===
-            'Bind parameters must not contain undefined. To pass SQL NULL specify JS null'
-        ) {
-            throw new Error('E0001')
-        } else {
-            throw new Error(e)
-        }
+        paramsErrorHandler(e)
     }
 }
 
