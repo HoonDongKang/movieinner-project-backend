@@ -19,7 +19,8 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
             [email]
         )
         const { count } = getResponse[0]
-        if (count > 0) throw new Error('E0000')
+        //이미 등록된 이메일일 경우
+        if (count > 0) throw 'E0000'
 
         //이메일 정보 및 만료 기한 저장
         await connection.run(
@@ -60,7 +61,7 @@ const checkEmailLink = async (params: any, connection: DbConnection) => {
             [key, type]
         )
         if (!response[0]) {
-            throw new Error('E0002')
+            throw 'E0002'
         }
 
         const { expired_date: expiredDate } = response[0]
