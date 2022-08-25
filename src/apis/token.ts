@@ -2,6 +2,7 @@ import { DbConnection } from '../modules/connect'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import JWT from 'jsonwebtoken'
+import { paramsErrorHandler } from './../modules/paramsError'
 dotenv.config()
 
 //JWT 토큰 발급
@@ -24,13 +25,12 @@ const postAuth = async (params: any, connection: DbConnection) => {
         const JWT_SECRET = process.env.JWT_SECRET as string
         token = JWT.sign(payload, JWT_SECRET)
 
-        await connection
-            .run(`UPDATE user_info SET token=? WHERE email=?`, [token, email])
-            .catch(() => {
-                throw new Error('E0001')
-            })
+        await connection.run(`UPDATE user_info SET token=? WHERE email=?`, [
+            token,
+            email,
+        ])
     } catch (e: any) {
-        throw new Error(e)
+        paramsErrorHandler(e)
     }
     return {
         status: 201,
