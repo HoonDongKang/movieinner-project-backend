@@ -50,7 +50,7 @@ export const apiConfigs: ApiConfigObj = {
     signin: {
         urlPath: '/users/:insertId',
         method: 'post',
-        handlerName: 'signIn',
+        handlerName: 'signin',
         handlerPath: './src/apis/users/signin.ts',
     },
     signup: {

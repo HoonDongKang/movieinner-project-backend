@@ -11,10 +11,13 @@ const signin = async (params: any, connection: DbConnection) => {
             `SELECT password FROM user_info WHERE email=? AND idx=?`,
             [email, insertId]
         )
+        if (!response[0]) {
+            throw 'E0006'
+        }
         const { password: hashedpassword } = response[0]
         isEqual = await bcrypt.compare(password, hashedpassword)
         if (!isEqual) {
-            throw new Error('E0003')
+            throw 'E0003'
         }
     } catch (e: any) {
         paramsErrorHandler(e)

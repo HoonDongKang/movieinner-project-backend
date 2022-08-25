@@ -20,7 +20,7 @@ const signup = async (params: SignupParamsType, connection: DbConnection) => {
         const { email, password, image_URL, name, gender, birth, nickname } =
             params
         const salt = await bcrypt.genSalt(10)
-        if (!password) throw new Error('password missing')
+        if (!password) throw 'E0003'
         const hashedPw = await bcrypt.hash(password, salt)
         await connection.run(
             `INSERT INTO user_info(email,password,image_URL,name,gender,birth,nickname) VALUES(?,?,?,?,?,?,?)`,
