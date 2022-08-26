@@ -1,8 +1,8 @@
-import { DbConnection } from '../modules/connect'
+import { DbConnection } from '../../modules/connect'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import JWT from 'jsonwebtoken'
-import { paramsErrorHandler } from './../modules/paramsError'
+import { paramsErrorHandler } from '../../modules/paramsError'
 dotenv.config()
 //ytrdy
 //JWT 토큰 발급

@@ -87,6 +87,6 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/auth',
         method: 'post',
         handlerName: 'postAuth',
-        handlerPath: './src/apis/token.ts',
+        handlerPath: './src/apis/auth/token.ts',
     },
 }
