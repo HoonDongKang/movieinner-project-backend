@@ -16,7 +16,7 @@ const postAuth = async (params: any, connection: DbConnection) => {
         )
         const { password: hashedpassword } = response[0]
         const isEqual = await bcrypt.compare(password, hashedpassword)
-
+        //wrong password
         if (!isEqual) {
             throw 'E0003'
         }
