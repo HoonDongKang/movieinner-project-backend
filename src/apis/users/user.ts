@@ -43,7 +43,7 @@ const deleteIdxUser = async (params: any, connection: DbConnection) => {
         const { insertId } = params
         await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId])
     } catch (e: any) {
-        throw new Error(e)
+        paramsErrorHandler(e)
     }
     return { status: 200, data: { success: true } }
 }
@@ -57,9 +57,30 @@ const changeUserPassword = async (params: any, connection: DbConnection) => {
             email,
         ])
     } catch (e: any) {
-        throw new Error(e)
+        paramsErrorHandler(e)
     }
     return { status: 200, data: { success: true } }
+}
+
+const checkUserEmail = async (params: any, connection: DbConnection) => {
+    let isExisted = true
+    try {
+        const { email } = params
+        const response = await connection.run(
+            `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
+            [email]
+        )
+        const { count: existedEmailNumber } = response[0]
+        if (existedEmailNumber === 0) isExisted = false
+        return {
+            status: 201,
+            data: {
+                isEmailExisted: isExisted,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
 }
 export default {
     getUsers,
@@ -67,4 +88,5 @@ export default {
     deleteUsers,
     deleteIdxUser,
     changeUserPassword,
+    checkUserEmail,
 }

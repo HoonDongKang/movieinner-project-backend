@@ -46,6 +46,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'changeUserPassword',
         handlerPath: './src/apis/users/user.ts',
     },
+    checkUserEmail: {
+        urlPath: '/users/email',
+        method: 'post',
+        handlerName: 'checkUserEmail',
+        handlerPath: './src/apis/users/user.ts',
+    },
 
     signin: {
         urlPath: '/users/:insertId',
