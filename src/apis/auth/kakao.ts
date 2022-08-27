@@ -20,7 +20,7 @@ const getKakaoAccessToken = async (params: any, connection: DbConnection) => {
         return {
             status: 201,
             data: {
-                success: tokenResponse,
+                success: tokenResponse.data,
             },
         }
     } catch (e: any) {
