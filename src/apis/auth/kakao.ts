@@ -7,7 +7,7 @@ const { KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY } = KAKAO
 const getKakaoAccessToken = async (params: any, connection: DbConnection) => {
     try {
         const { authorizationCode } = params
-
+        //accessToken 발급
         const tokenResponse = await axios.post(
             `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${authorizationCode}`,
             {
@@ -18,7 +18,7 @@ const getKakaoAccessToken = async (params: any, connection: DbConnection) => {
             }
         )
         const accessToken = tokenResponse.data.access_token
-
+        //사용자 정보 가져오기
         const userInfoResponse = await axios.get(
             'https://kapi.kakao.com/v2/user/me',
             {
@@ -29,6 +29,7 @@ const getKakaoAccessToken = async (params: any, connection: DbConnection) => {
                 },
             }
         )
+
         return {
             status: 201,
             data: {
