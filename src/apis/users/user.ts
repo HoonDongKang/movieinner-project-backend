@@ -62,16 +62,22 @@ const changeUserPassword = async (params: any, connection: DbConnection) => {
     return { status: 200, data: { success: true } }
 }
 
-const checkUserEmail = async (params: any, connection: DbConnection) => {
+const checkUserEmail = async (
+    params: { email: string },
+    connection: DbConnection
+) => {
     let isExisted = true
     try {
         const { email } = params
+        const removeString = email.substring(email.indexOf('.'))
+        const emailRemoveString = email.replace(removeString, '')
+        const emailWithDotCom = emailRemoveString + '.com'
         const response = await connection.run(
             `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
-            [email]
+            [emailWithDotCom]
         )
-        const { count: existedEmailNumber } = response[0]
-        if (existedEmailNumber === 0) isExisted = false
+        const { count: emailExisted } = response[0]
+        if (emailExisted === 0) isExisted = false
         return {
             status: 201,
             data: {

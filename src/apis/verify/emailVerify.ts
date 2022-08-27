@@ -13,7 +13,7 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
 
         const expiredDate = new Date(Date.now() + 60 * 1000 * 5) //만료기간 5분
         const hashedEmailFull = md5(email + expiredDate)
-        const hashedEmail = hashedEmailFull.substr(0, 12)
+        const hashedEmail = hashedEmailFull.substring(0, 12)
         const getResponse = await connection.run(
             `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
             [email]
