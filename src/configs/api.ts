@@ -52,7 +52,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'checkUserEmail',
         handlerPath: './src/apis/users/user.ts',
     },
-
+    checkUserNickname: {
+        urlPath: '/users/nickname',
+        method: 'post',
+        handlerName: 'checkUserNickname',
+        handlerPath: './src/apis/users/user.ts',
+    },
     signin: {
         urlPath: '/users/:insertId',
         method: 'post',

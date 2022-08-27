@@ -88,6 +88,29 @@ const checkUserEmail = async (
         paramsErrorHandler(e)
     }
 }
+const checkUserNickname = async (
+    params: { nickname: string },
+    connection: DbConnection
+) => {
+    let isExisted = true
+    try {
+        const { nickname } = params
+        const response = await connection.run(
+            `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
+            [nickname]
+        )
+        const { count: nicknameExisted } = response[0]
+        if (nicknameExisted === 0) isExisted = false
+        return {
+            status: 201,
+            data: {
+                isNicknameExisted: isExisted,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 export default {
     getUsers,
     getIdxUser,
@@ -95,4 +118,5 @@ export default {
     deleteIdxUser,
     changeUserPassword,
     checkUserEmail,
+    checkUserNickname,
 }
