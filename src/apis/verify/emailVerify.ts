@@ -6,7 +6,10 @@ import md5 from 'md5'
 import { paramsErrorHandler } from './../../modules/paramsError'
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
-const emailVerifyLink = async (params: any, connection: DbConnection) => {
+const emailVerifyLink = async (
+    params: { email: string; type: string },
+    connection: DbConnection
+) => {
     try {
         const { email, type } = params
         //email hash화로 key값 생성
@@ -52,7 +55,10 @@ const emailVerifyLink = async (params: any, connection: DbConnection) => {
     }
 }
 
-const checkEmailLink = async (params: any, connection: DbConnection) => {
+const checkEmailLink = async (
+    params: { key: string; type: string },
+    connection: DbConnection
+) => {
     let isVerified = false
     try {
         const { key, type } = params

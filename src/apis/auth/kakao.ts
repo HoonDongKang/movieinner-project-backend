@@ -4,7 +4,10 @@ import axios from 'axios'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
 const { KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY } = KAKAO
-const getKakaoAccessToken = async (params: any, connection: DbConnection) => {
+const getKakaoAccessToken = async (
+    params: { authorizationCode: string },
+    connection: DbConnection
+) => {
     try {
         const { authorizationCode } = params
         //accessToken 발급

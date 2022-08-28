@@ -6,7 +6,10 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 dotenv.config()
 //ytrdy
 //JWT 토큰 발급
-const postAuth = async (params: any, connection: DbConnection) => {
+const postAuth = async (
+    params: { email: string; password: string },
+    connection: DbConnection
+) => {
     let token = ''
     try {
         const { email, password } = params

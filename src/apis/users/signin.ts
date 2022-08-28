@@ -3,7 +3,10 @@ import bcrypt from 'bcrypt'
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
-const signin = async (params: any, connection: DbConnection) => {
+const signin = async (
+    params: { email: string; insertId: string; password: string },
+    connection: DbConnection
+) => {
     let isEqual = false
     try {
         const { email, insertId, password } = params //idx값을 줘야하나?
