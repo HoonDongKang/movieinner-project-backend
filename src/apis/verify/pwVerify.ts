@@ -6,7 +6,10 @@ import md5 from 'md5'
 import { paramsErrorHandler } from './../../modules/paramsError'
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
-const pwResetEmailLink = async (params: any, connection: DbConnection) => {
+const pwResetEmailLink = async (
+    params: { email: string; type: string },
+    connection: DbConnection
+) => {
     let isEmailExist: boolean = true
     try {
         const { email, type } = params
@@ -60,7 +63,10 @@ const pwResetEmailLink = async (params: any, connection: DbConnection) => {
     }
 }
 
-const checkPwResetEmailLink = async (params: any, connection: DbConnection) => {
+const checkPwResetEmailLink = async (
+    params: { key: string; type: string },
+    connection: DbConnection
+) => {
     let isVerified = false
     try {
         const { key, type } = params
