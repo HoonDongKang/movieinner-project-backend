@@ -100,10 +100,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'postAuth',
         handlerPath: './src/apis/auth/token.ts',
     },
-    getKakaoAccessToken: {
+    getUserInfoKakao: {
         urlPath: '/auth/kakao',
         method: 'post',
-        handlerName: 'getKakaoAccessToken',
+        handlerName: 'getUserInfoKakao',
         handlerPath: './src/apis/auth/kakao.ts',
     },
 }
