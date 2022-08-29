@@ -20,16 +20,11 @@ const getUserInfoNaver = async (
             'https://nid.naver.com/oauth2.0/token',
             null,
             {
-                headers: {
-                    'Content-type':
-                        'application/x-www-form-urlencoded;charset=utf-8',
-                },
                 params: {
                     code: authorizationCode,
                     client_id: NAVER_CLIENT_KEY,
                     client_secret: NAVER_CLIENT_SECRET,
                     grant_type: 'authorization_code',
-                    redirect_uri: NAVER_REDIRECT_URL,
                     state: NAVER_STATE,
                 },
             }
