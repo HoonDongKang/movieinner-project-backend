@@ -106,4 +106,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getUserInfoKakao',
         handlerPath: './src/apis/auth/kakao.ts',
     },
+    getUserInfoGoogle: {
+        urlPath: '/auth/google',
+        method: 'post',
+        handlerName: 'getUserInfoGoogle',
+        handlerPath: './src/apis/auth/google.ts',
+    },
 }

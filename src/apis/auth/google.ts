@@ -1,33 +1,59 @@
-import { google } from 'googleapis'
+import { DbConnection } from '../../modules/connect'
 import GOOGLE from '../../configs/socialLogin'
+import axios from 'axios'
+import { paramsErrorHandler } from '../../modules/paramsError'
 
-const {
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_REDIRECT_URI,
-    GOOGLE_CLIENT_SECURITY_PASSWORD,
-} = GOOGLE
+const { GOOGLE_CLIENT_KEY, GOOGLE_CLIENT_PASSWORD, GOOGLE_REDIRECT_URI } =
+    GOOGLE
+const getUserInfoGoogle = async (
+    params: { authorizationCode: string },
+    connection: DbConnection
+) => {
+    try {
+        const { authorizationCode } = params
+        //accessToken 발급
+        const tokenResponse = await axios.post(
+            'https://oauth2.googleapis.com/token',
+            null,
+            {
+                headers: {
+                    'Content-type':
+                        'application/x-www-form-urlencoded;charset=utf-8',
+                },
+                params: {
+                    code: authorizationCode,
+                    client_id: GOOGLE_CLIENT_KEY,
+                    client_secret: GOOGLE_CLIENT_PASSWORD,
+                    grant_type: 'authorization_code',
+                    redirect_uri: GOOGLE_REDIRECT_URI,
+                },
+            }
+        )
+        const accessToken = tokenResponse.data.access_token
 
-/**
- * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
- * from the client_secret.json file. To get these credentials for your application, visit
- * https://console.cloud.google.com/apis/credentials.
- */
-const oauth2Client = new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECURITY_PASSWORD,
-    GOOGLE_CLIENT_REDIRECT_URI
-)
+        //사용자 정보 가져오기
+        const userInfoResponse = await axios.get(
+            'https://www.googleapis.com/oauth2/v2/userinfo',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-type':
+                        'application/x-www-form-urlencoded;charset=utf-8',
+                },
+            }
+        )
 
-// Access scopes for read-only Drive activity.
-const scopes = ['https://www.googleapis.com/auth/drive.metadata.readonly']
+        return {
+            status: 201,
+            data: {
+                success: userInfoResponse.data,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 
-// Generate a url that asks permissions for the Drive activity scope
-const authorizationUrl = oauth2Client.generateAuthUrl({
-    // 'online' (default) or 'offline' (gets refresh_token)
-    access_type: 'offline',
-    /** Pass in the scopes array defined above.
-     * Alternatively, if only one scope is needed, you can pass a scope URL as a string */
-    scope: scopes,
-    // Enable incremental authorization. Recommended as a best practice.
-    include_granted_scopes: true,
-})
+export default {
+    getUserInfoGoogle,
+}

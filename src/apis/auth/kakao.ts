@@ -1,5 +1,5 @@
 import { DbConnection } from '../../modules/connect'
-import KAKAO from '../../configs/kakao'
+import KAKAO from '../../configs/socialLogin'
 import axios from 'axios'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
