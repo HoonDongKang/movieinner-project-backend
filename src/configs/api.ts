@@ -112,4 +112,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getUserInfoGoogle',
         handlerPath: './src/apis/auth/google.ts',
     },
+    getUserInfoNaver: {
+        urlPath: '/auth/google',
+        method: 'post',
+        handlerName: 'getUserInfoNaver',
+        handlerPath: './src/apis/auth/naver.ts',
+    },
 }
