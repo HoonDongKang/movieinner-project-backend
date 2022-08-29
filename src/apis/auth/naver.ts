@@ -3,12 +3,7 @@ import NAVER from '../../configs/socialLogin'
 import axios from 'axios'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
-const {
-    NAVER_CLIENT_KEY,
-    NAVER_CLIENT_SECRET,
-    NAVER_REDIRECT_URL,
-    NAVER_STATE,
-} = NAVER
+const { NAVER_CLIENT_KEY, NAVER_CLIENT_SECRET, NAVER_STATE } = NAVER
 const getUserInfoNaver = async (
     params: { authorizationCode: string },
     connection: DbConnection
