@@ -43,6 +43,11 @@ const errorConfigs: ErrorConfigsType = {
         message: '인가코드가 유효하지 않거나 만료되었습니다.',
         status: 400,
     },
+    E0008: {
+        code: 'E0008',
+        message: '값이 존재하지 않습니다.',
+        status: 400,
+    },
 }
 
 export default errorConfigs

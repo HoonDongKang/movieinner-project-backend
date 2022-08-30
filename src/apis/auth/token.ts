@@ -59,6 +59,7 @@ const getCookies = async (
     connection: DbConnection
 ) => {
     const { refreshToken } = params
+    if (!refreshToken) throw 'E0008'
     return {
         status: 200,
         data: {
