@@ -1,5 +1,11 @@
 import { ApiConfigObj } from '../configs/api'
-import { Express, NextFunction, Request, Response } from 'express'
+import {
+    CookieOptions,
+    Express,
+    NextFunction,
+    Request,
+    Response,
+} from 'express'
 import path from 'path'
 import { ReqConnection } from '../middlewares/dbConnect'
 import { DbConnection } from '../modules/connect'
@@ -9,6 +15,7 @@ interface responseType {
     status: number
     data: { [key: string]: any }
     render: any
+    cookie: { name: string; val: string; options: CookieOptions }
 }
 
 export const registerAllApis = async (
@@ -37,14 +44,14 @@ export const registerAllApis = async (
             const connection = req.mysqlConnection
             apiHandlerFunc(params, connection)
                 .then((resObj: responseType) => {
-                    const { status, data, render } = resObj
-                    if (!render) {
+                    const { status, data, render, cookie } = resObj
+                    if (!cookie) {
                         res.status(status)
                         res.json(data)
                     } else {
                         res.status(status)
                         res.json(data)
-                        res.render(render)
+                        res.cookie(cookie.name, cookie.val, cookie.options)
                     }
                 })
                 .catch((e: Error) => next(e))

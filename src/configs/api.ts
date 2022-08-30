@@ -94,12 +94,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'checkPwResetEmailLink',
         handlerPath: './src/apis/verify/pwVerify.ts',
     },
-    postAuth: {
-        urlPath: '/auth',
-        method: 'post',
-        handlerName: 'postAuth',
-        handlerPath: './src/apis/auth/token.ts',
-    },
+    // postAuth: {
+    //     urlPath: '/auth',
+    //     method: 'post',
+    //     handlerName: 'postAuth',
+    //     handlerPath: './src/apis/auth/token.ts',
+    // },
     getUserInfoKakao: {
         urlPath: '/auth/kakao',
         method: 'post',

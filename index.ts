@@ -5,6 +5,8 @@ import { registerAllApis } from './src/controllers'
 import { apiConfigs } from './src/configs/api'
 import router from './src/apis/image'
 import { errorHandler } from './src/middlewares/errorHandler'
+import cookieParser from 'cookie-parser'
+import authRouter from './src/apis/tokenTest'
 
 const app = express()
 const PORT = 3714
@@ -14,8 +16,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 app.use(useMysql)
+app.use(cookieParser())
 
 app.use('/image', router)
+app.use('/auth', authRouter)
 registerAllApis(app, apiConfigs)
     .then(() => {
         app.use(errorHandler)
