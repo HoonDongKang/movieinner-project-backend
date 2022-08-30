@@ -45,6 +45,7 @@ authRouter.post('/', async (req: Request, res: Response) => {
         httpOnly: true,
         domain: 'http://localhost:3000',
         path: '/',
+        sameSite: 'lax',
     }).send({
         accessToken,
         refreshToken,
