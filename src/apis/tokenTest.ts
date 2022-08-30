@@ -40,7 +40,6 @@ authRouter.post('/', async (req: Request, res: Response) => {
     }
 
     res.status(201)
-
     res.cookie('accessToken', accessToken, {
         httpOnly: true,
         domain: 'http://localhost:3000',
@@ -50,6 +49,10 @@ authRouter.post('/', async (req: Request, res: Response) => {
         accessToken,
         refreshToken,
     })
+})
+
+authRouter.get('/', async (req: Request, res: Response) => {
+    res.send(req.cookies)
 })
 
 export default authRouter
