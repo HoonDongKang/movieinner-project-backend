@@ -40,9 +40,8 @@ authRouter.post('/', async (req: Request, res: Response) => {
     }
 
     res.status(201)
-    res.cookie('accessToken', accessToken, {
+    res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        domain: 'http://localhost:3000',
         path: '/',
         sameSite: 'lax',
     }).send({
@@ -53,6 +52,10 @@ authRouter.post('/', async (req: Request, res: Response) => {
 
 authRouter.get('/', async (req: Request, res: Response) => {
     res.send(req.cookies)
+})
+
+authRouter.post('/test', async (req: Request, res: Response) => {
+    res.cookie('tets', 'happy').send('cookie saved')
 })
 
 export default authRouter
