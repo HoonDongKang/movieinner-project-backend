@@ -23,6 +23,7 @@ const authToken = async (
             `SELECT password,idx,nickname FROM user_info WHERE email=?`,
             [email]
         )
+        if (!response[0]) throw 'E0006'
         const { password: hashedpassword, idx, nickname } = response[0]
         const isEqual = await bcrypt.compare(password, hashedpassword)
         //wrong password
@@ -36,6 +37,29 @@ const authToken = async (
 
         const refreshTokenPayload = { accessToken, refreshTokenExpiredDate }
         refreshToken = JWT.sign(refreshTokenPayload, JWT_SECRET)
+
+        const putResponse = await connection.run(
+            `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE email=?`,
+            [
+                accessToken,
+                expiredDate,
+                refreshToken,
+                refreshTokenExpiredDate,
+                email,
+            ]
+        )
+        if (putResponse.insertId === 0) {
+            await connection.run(
+                `INSERT INTO user_token(email,access_token,expires_in,refresh_token,refresh_token_expires_in) VALUES(?,?,?,?,?)`,
+                [
+                    email,
+                    accessToken,
+                    expiredDate,
+                    refreshToken,
+                    refreshTokenExpiredDate,
+                ]
+            )
+        }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
