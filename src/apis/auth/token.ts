@@ -7,7 +7,7 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 dotenv.config()
 
 //JWT 토큰 발급
-const postAuth = async (
+const authToken = async (
     params: { email: string; password: string },
     connection: DbConnection
 ) => {
@@ -41,7 +41,11 @@ const postAuth = async (
     }
     return {
         status: 201,
-        cookie: { name: 'accessToken', val: accessToken },
+        cookie: {
+            name: 'refreshToken',
+            val: refreshToken,
+            options: { httpOnly: true, path: '/', sameSite: 'lax' },
+        },
         data: {
             success: true,
             accessToken,
@@ -50,6 +54,20 @@ const postAuth = async (
     }
 }
 
+const getCookies = async (
+    params: { refreshToken: string },
+    connection: DbConnection
+) => {
+    const { refreshToken } = params
+    return {
+        status: 200,
+        data: {
+            refreshToken,
+        },
+    }
+}
+
 export default {
-    postAuth,
+    authToken,
+    getCookies,
 }

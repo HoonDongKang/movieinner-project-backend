@@ -39,7 +39,13 @@ export const registerAllApis = async (
         ) => {
             const req = request as ReqConnection
             const res = response
-            const params = Object.assign({}, req.body, req.query, req.params)
+            const params = Object.assign(
+                {},
+                req.body,
+                req.query,
+                req.params,
+                req.cookies
+            )
             console.log(params)
             const connection = req.mysqlConnection
             apiHandlerFunc(params, connection)
@@ -50,8 +56,11 @@ export const registerAllApis = async (
                         res.json(data)
                     } else {
                         res.status(status)
-                        res.json(data)
-                        res.cookie(cookie.name, cookie.val, cookie.options)
+                        res.cookie(
+                            cookie.name,
+                            cookie.val,
+                            cookie.options
+                        ).json(data)
                     }
                 })
                 .catch((e: Error) => next(e))
