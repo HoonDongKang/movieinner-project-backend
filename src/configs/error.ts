@@ -31,12 +31,17 @@ const errorConfigs: ErrorConfigsType = {
     E0005: {
         code: 'E0005',
         message: '권한이 올바르지 않습니다.',
-        status: 500,
+        status: 401,
     },
     E0006: {
         code: 'E0006',
         message: '이메일이 존재하지 않습니다.',
         status: 403,
+    },
+    E0007: {
+        code: 'E0007',
+        message: '인가코드가 유효하지 않거나 만료되었습니다.',
+        status: 400,
     },
 }
 

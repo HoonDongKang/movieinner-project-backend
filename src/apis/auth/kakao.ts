@@ -1,7 +1,10 @@
 import { DbConnection } from '../../modules/connect'
 import KAKAO from '../../configs/socialLogin'
 import axios from 'axios'
-import { paramsErrorHandler } from '../../modules/paramsError'
+import {
+    paramsErrorHandler,
+    unauthorizedErrorHandler,
+} from '../../modules/paramsError'
 
 const { KAKAO_REDIRECT_URI, KAKAO_REST_API_KEY } = KAKAO
 const getUserInfoKakao = async (
@@ -40,7 +43,7 @@ const getUserInfoKakao = async (
             },
         }
     } catch (e: any) {
-        paramsErrorHandler(e)
+        unauthorizedErrorHandler(e)
     }
 }
 

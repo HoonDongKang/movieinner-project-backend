@@ -1,7 +1,10 @@
 import { DbConnection } from '../../modules/connect'
 import GOOGLE from '../../configs/socialLogin'
 import axios from 'axios'
-import { paramsErrorHandler } from '../../modules/paramsError'
+import {
+    paramsErrorHandler,
+    unauthorizedErrorHandler,
+} from '../../modules/paramsError'
 
 const { GOOGLE_CLIENT_KEY, GOOGLE_CLIENT_PASSWORD, GOOGLE_REDIRECT_URI } =
     GOOGLE
@@ -50,7 +53,7 @@ const getUserInfoGoogle = async (
             },
         }
     } catch (e: any) {
-        paramsErrorHandler(e)
+        unauthorizedErrorHandler(e)
     }
 }
 
