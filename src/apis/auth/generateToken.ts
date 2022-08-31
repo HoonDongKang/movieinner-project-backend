@@ -35,18 +35,22 @@ const authToken = async (
 
         const refreshTokenPayload = { accessToken, refreshTokenExpiredDate }
         refreshToken = JWT.sign(refreshTokenPayload, JWT_SECRET)
-
-        const putResponse = await connection.run(
-            `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE email=?`,
-            [
-                accessToken,
-                expiredDate,
-                refreshToken,
-                refreshTokenExpiredDate,
-                email,
-            ]
+        const getResponse = await connection.run(
+            `SELECT email from user_token WHERE email=?`,
+            [email]
         )
-        if (putResponse.insertId === 0) {
+        if (getResponse[0]) {
+            await connection.run(
+                `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE email=?`,
+                [
+                    accessToken,
+                    expiredDate,
+                    refreshToken,
+                    refreshTokenExpiredDate,
+                    email,
+                ]
+            )
+        } else {
             await connection.run(
                 `INSERT INTO user_token(email,access_token,expires_in,refresh_token,refresh_token_expires_in) VALUES(?,?,?,?,?)`,
                 [

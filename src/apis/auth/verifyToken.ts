@@ -5,12 +5,22 @@ import jsonWebToken from '../../configs/jsonWebToken'
 const { JWT_SECRET } = jsonWebToken
 
 const getPayloadToken = async (params: any, connection: DbConnection) => {
+    let payload = {}
     try {
         const { refreshToken } = params
-        const payload = JWT.verify(refreshToken, JWT_SECRET)
+        payload = JWT.verify(refreshToken, JWT_SECRET)
         console.log(payload)
     } catch (e: any) {
         paramsErrorHandler(e)
+    }
+
+    return {
+        status: 201,
+        data: {
+            data: {
+                payload,
+            },
+        },
     }
 }
 
