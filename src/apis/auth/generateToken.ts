@@ -1,10 +1,9 @@
 import { DbConnection } from '../../modules/connect'
 import bcrypt from 'bcrypt'
-import dotenv from 'dotenv'
+import jsonWebToken from '../../configs/jsonWebToken'
 import JWT from 'jsonwebtoken'
 import { paramsErrorHandler } from '../../modules/paramsError'
-
-dotenv.config()
+const { JWT_SECRET } = jsonWebToken
 
 //JWT 토큰 발급
 const authToken = async (
@@ -32,7 +31,6 @@ const authToken = async (
         }
 
         const accessTokenPayload = { email, idx, nickname, expiredDate }
-        const JWT_SECRET = process.env.JWT_SECRET as string
         accessToken = JWT.sign(accessTokenPayload, JWT_SECRET)
 
         const refreshTokenPayload = { accessToken, refreshTokenExpiredDate }

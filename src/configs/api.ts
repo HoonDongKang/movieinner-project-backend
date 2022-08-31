@@ -98,13 +98,19 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/auth',
         method: 'post',
         handlerName: 'authToken',
-        handlerPath: './src/apis/auth/token.ts',
+        handlerPath: './src/apis/auth/generateToken.ts',
     },
     getCookies: {
         urlPath: '/auth',
         method: 'get',
         handlerName: 'getCookies',
-        handlerPath: './src/apis/auth/token.ts',
+        handlerPath: './src/apis/auth/generateToken.ts',
+    },
+    getPayloadToken: {
+        urlPath: '/auth/verify',
+        method: 'post',
+        handlerName: 'getPayloadToken',
+        handlerPath: './src/apis/auth/verifyToken.ts',
     },
     getUserInfoKakao: {
         urlPath: '/auth/kakao',

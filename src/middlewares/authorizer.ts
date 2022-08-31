@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express'
 import { ReqConnectionUndefined } from './dbConnect'
-import dotenv from 'dotenv'
 import JWT from 'jsonwebtoken'
-dotenv.config()
+import jsonWebToken from '../configs/jsonWebToken'
+const { JWT_SECRET } = jsonWebToken
 
 type ResponseType = { count: number }[]
 
@@ -14,7 +14,6 @@ export const authorizer = (
     const { authorization: bearerToken } = req.headers
     const { mysqlConnection: connection } = req
     const token = bearerToken?.replace('Bearer ', '') || ''
-    const JWT_SECRET = process.env.JWT_SECRET as string
 
     let payload: any = {}
     try {
