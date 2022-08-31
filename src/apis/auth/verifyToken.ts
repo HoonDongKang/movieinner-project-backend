@@ -1,17 +1,16 @@
 import { DbConnection } from '../../modules/connect'
-import { paramsErrorHandler } from '../../modules/paramsError'
-import JWT from 'jsonwebtoken'
+import { jwtErrorHandler, paramsErrorHandler } from '../../modules/paramsError'
+import JWT, { JwtPayload } from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 const { JWT_SECRET } = jsonWebToken
 
 const getPayloadToken = async (params: any, connection: DbConnection) => {
-    let payload = {}
+    let payload: any = {}
     try {
-        const { refreshToken } = params
-        payload = JWT.verify(refreshToken, JWT_SECRET)
-        console.log(payload)
+        const { token } = params
+        payload = JWT.verify(token, JWT_SECRET)
     } catch (e: any) {
-        paramsErrorHandler(e)
+        jwtErrorHandler(e)
     }
 
     return {

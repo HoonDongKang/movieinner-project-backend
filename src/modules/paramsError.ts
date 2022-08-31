@@ -19,3 +19,13 @@ export const unauthorizedErrorHandler = (e: any) => {
         throw new Error(e)
     }
 }
+
+export const jwtErrorHandler = (e: any) => {
+    if (e.message === 'jwt malformed') {
+        throw new Error('E0005')
+    } else if (e.message === 'jwt must be provided') {
+        throw new Error('E0001')
+    } else {
+        throw new Error(e)
+    }
+}
