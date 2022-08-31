@@ -16,9 +16,7 @@ const getPayloadToken = async (params: any, connection: DbConnection) => {
     return {
         status: 201,
         data: {
-            data: {
-                payload,
-            },
+            payload,
         },
     }
 }

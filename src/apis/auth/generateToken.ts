@@ -72,10 +72,9 @@ const authToken = async (
             val: refreshToken,
             options: { httpOnly: true, path: '/', sameSite: 'lax' },
         },
+        //token 값 넘길지 말지 고민중
         data: {
             success: true,
-            accessToken,
-            refreshToken,
         },
     }
 }
