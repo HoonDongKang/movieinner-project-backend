@@ -112,6 +112,12 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'getPayloadToken',
         handlerPath: './src/apis/auth/verifyToken.ts',
     },
+    refreshToken: {
+        urlPath: '/auth/refresh',
+        method: 'post',
+        handlerName: 'refreshToken',
+        handlerPath: './src/apis/auth/refreshToken.ts',
+    },
     getUserInfoKakao: {
         urlPath: '/auth/kakao',
         method: 'post',
