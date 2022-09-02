@@ -75,6 +75,8 @@ const authToken = async (
         //token 값 넘길지 말지 고민중
         data: {
             success: true,
+            accessToken,
+            expire_in: expiredDate,
         },
     }
 }
