@@ -45,7 +45,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                     refreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
-                newRefreshTokenExpireIn = refreshTokenExpiredDate
+                newRefreshTokenExpireIn = new Date(refreshTokenExpiredDate)
             } else {
                 // 새로운 refresh token expiry
                 newAccessTokenPayload = { email, idx, nickname, expiredDate }
@@ -55,11 +55,21 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                     NewRefreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
-                newRefreshTokenExpireIn = NewRefreshTokenExpiredDate
+                newRefreshTokenExpireIn = new Date(NewRefreshTokenExpiredDate)
             }
         } else {
             throw 'E0005'
         }
+        await connection.run(
+            `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE refresh_token=?`,
+            [
+                newAccessToken,
+                expiredDate,
+                newRefreshToken,
+                newRefreshTokenExpireIn,
+                refreshToken,
+            ]
+        )
     } catch (e: any) {
         jwtErrorHandler(e)
     }
