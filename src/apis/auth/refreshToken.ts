@@ -5,17 +5,26 @@ import { jwtErrorHandler } from '../../modules/paramsError'
 const { JWT_SECRET } = jsonWebToken
 
 const refreshToken = async (params: any, connection: DbConnection) => {
+    let refreshTokenPayload: any = {}
+    let newAccessTokenPayload = {}
+    let newAccessToken = ''
     let newRefreshTokenPayload = {}
     let newRefreshToken = ''
     let newRefreshTokenExpiry = new Date()
     const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
-    const refreshTokenExpiredDate = new Date(
+    const NewRefreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
     ) //6개월
+
+    // access Token expiry 기간이 지나거나
+    // access Token 이 header에서 사라지면 재발급
+
     try {
         const { refreshToken } = params
-        const refreshTokenPayload: any = JWT.verify(refreshToken, JWT_SECRET)
-        const { accessToken } = refreshTokenPayload
+        refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET)
+        const { accessToken, refreshTokenExpiredDate } = refreshTokenPayload
+        const accessTokenPayload: any = JWT.verify(accessToken, JWT_SECRET)
+        const { email, idx, nickname } = accessTokenPayload
         const now = Date.now()
         const getResponse = await connection.run(
             `SELECT refresh_token_expires_in FROM user_token WHERE refresh_token=?`,
@@ -23,6 +32,29 @@ const refreshToken = async (params: any, connection: DbConnection) => {
         )
         //refresh token이 db에 존재할 경우
         if (getResponse[0]) {
+            if (
+                // refresh Token 만료가 1달 이상일 경우
+                Date.parse(refreshTokenExpiredDate) >
+                now + 3600 * 1000 * 24 * 30
+            ) {
+                //기존 refresh token expiry 대입
+                newAccessTokenPayload = { email, idx, nickname, expiredDate }
+                newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
+                newRefreshTokenPayload = {
+                    newAccessToken,
+                    refreshTokenExpiredDate,
+                }
+                newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
+            } else {
+                // 새로운 refresh token expiry
+                newAccessTokenPayload = { email, idx, nickname, expiredDate }
+                newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
+                newRefreshTokenPayload = {
+                    newAccessToken,
+                    NewRefreshTokenExpiredDate,
+                }
+                newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
+            }
         } else {
             throw 'E0005'
         }
@@ -33,10 +65,8 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     return {
         status: 201,
         data: {
-            accessToken: newAccessToken,
-            expire_in: expiredDate,
-            refreshToken: newRefreshToken,
-            refreshToken_expire_in: newRefreshTokenExpiry,
+            newAccessToken,
+            newRefreshToken,
         },
     }
 }
