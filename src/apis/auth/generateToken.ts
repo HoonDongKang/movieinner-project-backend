@@ -74,7 +74,7 @@ const generateToken = async (
                 httpOnly: true,
                 path: '/',
                 sameSite: 'lax',
-                domain: 'http://localhost:3000',
+                // domain: 'http://localhost:3000',
             },
         },
         //token 값 넘길지 말지 고민중
