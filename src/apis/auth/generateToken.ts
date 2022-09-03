@@ -70,7 +70,12 @@ const generateToken = async (
         cookie: {
             name: 'refreshToken',
             val: refreshToken,
-            options: { httpOnly: true, path: '/', sameSite: 'lax' },
+            options: {
+                httpOnly: true,
+                path: '/',
+                sameSite: 'lax',
+                domain: 'http://localhost:3000',
+            },
         },
         //token 값 넘길지 말지 고민중
         data: {
