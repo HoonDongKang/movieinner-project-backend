@@ -59,7 +59,7 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/user.ts',
     },
     signin: {
-        urlPath: '/users/:insertId',
+        urlPath: '/users/login',
         method: 'post',
         handlerName: 'signin',
         handlerPath: './src/apis/users/signin.ts',
@@ -94,10 +94,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerName: 'checkPwResetEmailLink',
         handlerPath: './src/apis/verify/pwVerify.ts',
     },
-    authToken: {
+    generateToken: {
         urlPath: '/auth',
         method: 'post',
-        handlerName: 'authToken',
+        handlerName: 'generateToken',
         handlerPath: './src/apis/auth/generateToken.ts',
     },
     getCookies: {

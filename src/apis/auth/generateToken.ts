@@ -6,7 +6,7 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 const { JWT_SECRET } = jsonWebToken
 
 //JWT 토큰 발급
-const authToken = async (
+const generateToken = async (
     params: { email: string; password: string },
     connection: DbConnection
 ) => {
@@ -96,6 +96,6 @@ const getCookies = async (
 }
 
 export default {
-    authToken,
+    generateToken,
     getCookies,
 }

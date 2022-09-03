@@ -83,7 +83,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
         },
         data: {
             accessToken: newAccessToken,
-            refreshToken_expire_in: newRefreshTokenExpireIn,
+            refreshTokenExpireIn: newRefreshTokenExpireIn,
         },
     }
 }
