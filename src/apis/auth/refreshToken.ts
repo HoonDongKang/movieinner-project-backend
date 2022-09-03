@@ -10,7 +10,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     let newAccessToken = ''
     let newRefreshTokenPayload = {}
     let newRefreshToken = ''
-    let newRefreshTokenExpiry = new Date()
+    let newRefreshTokenExpireIn = new Date()
     const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
     const NewRefreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
@@ -45,6 +45,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                     refreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
+                newRefreshTokenExpireIn = refreshTokenExpiredDate
             } else {
                 // 새로운 refresh token expiry
                 newAccessTokenPayload = { email, idx, nickname, expiredDate }
@@ -54,6 +55,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                     NewRefreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
+                newRefreshTokenExpireIn = NewRefreshTokenExpiredDate
             }
         } else {
             throw 'E0005'
@@ -64,9 +66,14 @@ const refreshToken = async (params: any, connection: DbConnection) => {
 
     return {
         status: 201,
+        cookie: {
+            name: 'refreshToken',
+            val: newRefreshToken,
+            options: { httpOnly: true, path: '/', sameSite: 'lax' },
+        },
         data: {
-            newAccessToken,
-            newRefreshToken,
+            accessToken: newAccessToken,
+            refreshToken_expire_in: newRefreshTokenExpireIn,
         },
     }
 }
