@@ -1,6 +1,5 @@
 import { DbConnection } from '../modules/connect'
 
-
 //te
 const testAPI = async (params: any, connection: DbConnection) => {
     return {
@@ -9,4 +8,12 @@ const testAPI = async (params: any, connection: DbConnection) => {
     }
 }
 
-export default { testAPI }
+const authTestAPI = async (params: any, connection: DbConnection) => {
+    return {
+        status: 200,
+        data: {
+            auth: true,
+        },
+    }
+}
+export default { testAPI, authTestAPI }

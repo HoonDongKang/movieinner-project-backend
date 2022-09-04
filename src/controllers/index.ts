@@ -24,7 +24,13 @@ export const registerAllApis = async (
 ) => {
     for (const apiConfigNames in apiConfigs) {
         const apiConfig = apiConfigs[apiConfigNames]
-        const { urlPath, method, handlerName, handlerPath } = apiConfig
+        const {
+            urlPath,
+            method,
+            handlerName,
+            handlerPath,
+            authorizer: isRequireAuthorizer,
+        } = apiConfig
         const getModulePath = path.join(__dirname, '../../', handlerPath)
         const { default: apiModule } = await import(getModulePath)
         const apiHandlerFunc: (
@@ -65,6 +71,8 @@ export const registerAllApis = async (
                 })
                 .catch((e: Error) => next(e))
         }
-        app[method](urlPath, apiHandler)
+        isRequireAuthorizer
+            ? app[method](urlPath, authorizer, apiHandler)
+            : app[method](urlPath, apiHandler)
     }
 }
