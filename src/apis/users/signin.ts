@@ -9,7 +9,7 @@ const signin = async (
 ) => {
     let isEqual = false
     try {
-        const { email, password } = params //idx값을 줘야하나?
+        const { email, password } = params
         const response = await connection.run(
             `SELECT password FROM user_info WHERE email=?`,
             [email]
@@ -25,7 +25,7 @@ const signin = async (
     } catch (e: any) {
         paramsErrorHandler(e)
     }
-    return { status: 200, data: { success: isEqual } }
+    return { status: 200, data: { login: isEqual } }
 }
 
 export default { signin }

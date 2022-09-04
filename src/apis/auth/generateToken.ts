@@ -7,7 +7,7 @@ const { JWT_SECRET } = jsonWebToken
 
 //JWT 토큰 발급
 const generateToken = async (
-    params: { email: string; password: string },
+    params: { email: string },
     connection: DbConnection
 ) => {
     let accessToken = ''
@@ -17,18 +17,11 @@ const generateToken = async (
         Date.now() + 3600 * 1000 * 24 * 180
     ) // 6개월
     try {
-        const { email, password } = params
+        const { email } = params
         const response = await connection.run(
-            `SELECT password,idx,nickname FROM user_info WHERE email=?`,
-            [email]
+            `SELECT idx, nickname FROM user_info WHERE email=?`
         )
-        if (!response[0]) throw 'E0006'
-        const { password: hashedpassword, idx, nickname } = response[0]
-        const isEqual = await bcrypt.compare(password, hashedpassword)
-        //wrong password
-        if (!isEqual) {
-            throw 'E0003'
-        }
+        const { idx, nickname } = response[0]
 
         const accessTokenPayload = { email, idx, nickname, expiredDate }
         accessToken = JWT.sign(accessTokenPayload, JWT_SECRET)
