@@ -19,11 +19,11 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     authTestAPI: {
-        urlPath: '/',
+        urlPath: '/authtest',
         method: 'get',
         handlerName: 'authTestAPI',
         handlerPath: './src/apis/testAPI.ts',
-        authorizer: false,
+        authorizer: true,
     },
     getUsers: {
         urlPath: '/users',
