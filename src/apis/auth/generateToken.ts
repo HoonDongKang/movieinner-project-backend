@@ -19,7 +19,7 @@ const generateToken = async (
     try {
         const { email } = params
         const response = await connection.run(
-            `SELECT idx, nickname FROM user_info WHERE email=?`
+            `SELECT idx, nickname FROM user_info WHERE email=?`,[email]
         )
         const { idx, nickname } = response[0]
 
