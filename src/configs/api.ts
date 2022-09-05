@@ -88,6 +88,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/signup.ts',
         authorizer: false,
     },
+    logout: {
+        urlPath: '/users/logout',
+        method: 'post',
+        handlerName: 'logout',
+        handlerPath: './src/apis/users/logout.ts',
+        authorizer: false,
+    },
     emailVerifyLink: {
         urlPath: '/verify',
         method: 'post',
