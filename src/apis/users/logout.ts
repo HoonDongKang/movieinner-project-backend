@@ -9,7 +9,12 @@ const logout = async (params: any, connection: DbConnection) => {
     );
     const { count } = response[0];
     if (count === 0) throw "E0008";
+    
   } catch (e: any) {
     throw new Error(e);
   }
 };
+
+export default{
+    logout
+}
