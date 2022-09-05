@@ -1,8 +1,10 @@
 import { ErrorRequestHandler } from 'express'
 import errorConfigs from '../configs/error'
+import { jwtErrorHandler, paramsErrorHandler, unauthorizedErrorHandler } from '../modules/paramsError'
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const errMsg: string = err.toString()
+    console.log('error handler')
     let errCode = errMsg.replace('Error: ', '')
     let errConfig = errorConfigs[errCode]
     if (!errConfig) {
