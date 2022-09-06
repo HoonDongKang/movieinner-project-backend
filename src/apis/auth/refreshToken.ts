@@ -11,7 +11,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     let newRefreshTokenPayload = {}
     let newRefreshToken = ''
     let newRefreshTokenExpireIn = new Date()
-    const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
+    const expiredDate = new Date(Date.now() + 3600 * 1000 * 1) //1시간
     const NewRefreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
     ) //6개월
