@@ -1,5 +1,4 @@
 import { DbConnection } from '../../modules/connect'
-import bcrypt from 'bcrypt'
 import jsonWebToken from '../../configs/jsonWebToken'
 import JWT from 'jsonwebtoken'
 import { paramsErrorHandler } from '../../modules/paramsError'
@@ -19,7 +18,8 @@ const generateToken = async (
     try {
         const { email } = params
         const response = await connection.run(
-            `SELECT idx, nickname FROM user_info WHERE email=?`,[email]
+            `SELECT idx, nickname FROM user_info WHERE email=?`,
+            [email]
         )
         const { idx, nickname } = response[0]
 

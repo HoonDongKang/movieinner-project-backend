@@ -1,6 +1,6 @@
 import { DbConnection } from '../../modules/connect'
-import { jwtErrorHandler, paramsErrorHandler } from '../../modules/paramsError'
-import JWT, { JwtPayload } from 'jsonwebtoken'
+import { jwtErrorHandler } from '../../modules/paramsError'
+import JWT from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 const { JWT_SECRET } = jsonWebToken
 
