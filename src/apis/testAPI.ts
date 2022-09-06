@@ -1,6 +1,6 @@
 import { DbConnection } from '../modules/connect'
 
-//te
+//test
 const testAPI = async (params: any, connection: DbConnection) => {
     return {
         status: 200,
@@ -8,6 +8,7 @@ const testAPI = async (params: any, connection: DbConnection) => {
     }
 }
 
+//test bearer token
 const authTestAPI = async (params: any, connection: DbConnection) => {
     return {
         status: 200,
