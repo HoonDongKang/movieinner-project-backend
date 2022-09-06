@@ -20,11 +20,13 @@ const signup = async (params: SignupParamsType, connection: DbConnection) => {
     const { email, password, image_URL, name, gender, birth, nickname } =
       params;
     const salt = await bcrypt.genSalt(10);
+    // 소설 로그인
     if (!password) {
       await connection.run(
         `INSERT INTO user_info(email,image_URL,name,gender,birth,nickname) VALUES(?,?,?,?,?,?)`,
         [email, image_URL, name, gender, birth, nickname]
       );
+      //일반 로그인
     } else {
       const hashedPw = await bcrypt.hash(password, salt);
       await connection.run(
