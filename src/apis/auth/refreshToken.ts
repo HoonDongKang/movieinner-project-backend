@@ -22,6 +22,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     try {
         const { refreshToken } = params
         refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET)
+        console.log(refreshTokenPayload)
         const { accessToken, refreshTokenExpiredDate } = refreshTokenPayload
         const accessTokenPayload: any = JWT.verify(accessToken, JWT_SECRET)
         const { email, idx, nickname } = accessTokenPayload
@@ -41,7 +42,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                 newAccessTokenPayload = { email, idx, nickname, expiredDate }
                 newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
                 newRefreshTokenPayload = {
-                    newAccessToken,
+                    accessToken: newAccessToken,
                     refreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
@@ -51,7 +52,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                 newAccessTokenPayload = { email, idx, nickname, expiredDate }
                 newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
                 newRefreshTokenPayload = {
-                    newAccessToken,
+                    accessToken: newAccessToken,
                     NewRefreshTokenExpiredDate,
                 }
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
@@ -71,7 +72,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
             ]
         )
     } catch (e: any) {
-        jwtErrorHandler(e)
+        throw new Error(e)
     }
 
     return {
