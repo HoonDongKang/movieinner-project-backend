@@ -83,12 +83,14 @@ const getCookies = async (
     params: { refreshToken: string },
     connection: DbConnection
 ) => {
+    let isRefreshToken = false
     const { refreshToken } = params
-    if (!refreshToken) throw 'E0008'
+    if (refreshToken) isRefreshToken = true
     return {
         status: 200,
         data: {
-            refreshToken,
+            isRefreshToken: isRefreshToken,
+            refreshToken: refreshToken,
         },
     }
 }
