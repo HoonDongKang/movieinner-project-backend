@@ -172,4 +172,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/auth/naver.ts',
         authorizer: false,
     },
+    getPopularMovies: {
+        urlPath: '/movies/popular',
+        method: 'get',
+        handlerName: 'getPopularMovies',
+        handlerPath: './src/apis/movie/popular',
+        authorizer: false,
+    },
 }
