@@ -1,20 +1,23 @@
 import { DbConnection } from '../../modules/connect'
 import axios from 'axios'
 import TMDB from '../../configs/tmdb'
+import { paramsErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
 const getPopularMovies = async (params: any, connection: DbConnection) => {
+    const { page } = params
     try {
-        const response = axios.post(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=ko&page=1`
+        const response = await axios.post(
+            `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=ko&page=${page}`
         )
+        const popularMovieList = response.data.results
         return {
             status: 201,
-            data: response,
+            data: popularMovieList,
         }
     } catch (e: any) {
-        throw new Error(e)
+        paramsErrorHandler(e)
     }
 }
 
