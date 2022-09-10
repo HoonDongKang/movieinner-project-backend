@@ -9,7 +9,15 @@ const getPopularMovies = async (params: any, connection: DbConnection) => {
         const response = axios.post(
             `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=ko&page=1`
         )
+        return {
+            status: 201,
+            data: response,
+        }
     } catch (e: any) {
         throw new Error(e)
     }
+}
+
+export default {
+    getPopularMovies,
 }
