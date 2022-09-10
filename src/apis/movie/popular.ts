@@ -6,9 +6,10 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
 const getPopularMovies = async (params: any, connection: DbConnection) => {
+    //query
     const { page } = params
     try {
-        const response = await axios.post(
+        const response = await axios.get(
             `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=ko&page=${page}`
         )
         const popularMovieList = response.data.results
