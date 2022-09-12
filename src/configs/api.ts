@@ -186,4 +186,18 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/details.ts',
         authorizer: false,
     },
+    upcomingMovies: {
+        urlPath: '/movies/upcoming/:movieId',
+        method: 'get',
+        handlerName: 'upcomingMovies',
+        handlerPath: './src/apis/movie/playing.ts',
+        authorizer: false,
+    },
+    nowPlayingMovies: {
+        urlPath: '/movies/now_playing/:movieId',
+        method: 'get',
+        handlerName: 'nowPlayingMovies',
+        handlerPath: './src/apis/movie/playing.ts',
+        authorizer: false,
+    },
 }
