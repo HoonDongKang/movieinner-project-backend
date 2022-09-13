@@ -180,7 +180,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getMoviesDetails: {
-        urlPath: '/movies/:movieId',
+        urlPath: '/movies/details/:movieId',
         method: 'get',
         handlerName: 'getMoviesDetails',
         handlerPath: './src/apis/movie/details.ts',
@@ -201,7 +201,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getMoviesFromTheme: {
-        urlPath: '/movies/theme/:name',
+        urlPath: '/movies/theme',
         method: 'get',
         handlerName: 'getMoviesFromTheme',
         handlerPath: './src/apis/movie/theme.ts',
