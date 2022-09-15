@@ -208,7 +208,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getMoviesFromTheme: {
-        urlPath: '/movies/theme',
+        urlPath: '/movies/theme/:name',
         method: 'get',
         handlerName: 'getMoviesFromTheme',
         handlerPath: './src/apis/movie/theme.ts',
