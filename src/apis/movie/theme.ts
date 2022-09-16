@@ -41,23 +41,20 @@ interface MovieInfoType {
 
 const insertMoviesinTheme = async (params: any, connection: DbConnection) => {
   const { name, movieId } = params;
-  let insertMovie: MovieInfoType;
+  let insertMovie: MovieInfoType = {
+    themeName: "",
+    movieId: "",
+    movieName: "",
+    releaseDate: "",
+    posterPath: "",
+    backdropPath: "",
+  };
+  let movieDetails: any = [];
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}&language=ko`
     );
-    const movieDetails = response.data;
-    await connection.run(
-      "INSERT INTO movie_theme(theme_name,movie_id,movie_name,release_date,poster_path,backdrop_path) VALUES (?,?,?,?,?,?)",
-      [
-        name,
-        movieDetails.id,
-        movieDetails.title,
-        movieDetails.release_date,
-        movieDetails.poster_path,
-        movieDetails.backdrop_path,
-      ]
-    );
+    movieDetails = response.data;
     insertMovie = {
       themeName: name,
       movieId: movieDetails.id,
@@ -66,14 +63,24 @@ const insertMoviesinTheme = async (params: any, connection: DbConnection) => {
       posterPath: movieDetails.poster_path,
       backdropPath: movieDetails.backdrop_path,
     };
-    console.log(insertMovie);
-    return {
-      status: 201,
-      data: insertMovie,
-    };
+    await connection.run(
+      `INSERT INTO movie_theme(theme_name,movie_id,movie_name,release_date,poster_path,backdrop_path) VALUES (?,?,?,?,?,?)`,
+      [
+        name,
+        insertMovie.movieId,
+        insertMovie.movieName,
+        insertMovie.releaseDate,
+        insertMovie.posterPath,
+        insertMovie.backdropPath,
+      ]
+    );
   } catch (e: any) {
-    tmdbErrorHandler(e);
+    console.log(e);
   }
+  return {
+    status: 201,
+    data: insertMovie,
+  };
 };
 
 export default {
