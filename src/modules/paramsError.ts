@@ -29,3 +29,9 @@ export const jwtErrorHandler = (e: any) => {
         throw new Error(e)
     }
 }
+
+export const tmdbErrorHandler = (e:any)=>{
+    if(e.message === 'Request failed with status code 404'){
+        throw new Error('E0001')
+    }
+}
