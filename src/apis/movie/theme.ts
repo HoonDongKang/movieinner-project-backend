@@ -20,8 +20,10 @@ const getAllThemes = async (params: any, connection: DbConnection) => {
     response.map((resObj: any) => {
         duplicateThemeNames.push(resObj.theme_name)
     })
+    //theme 이름 중복 제거
     const themeNames = [...new Set(duplicateThemeNames)]
 
+    //db theme 가져오기
     let movieInfo: any[] = []
 
     for (let i = 0; i < response.length; i++) {
@@ -33,7 +35,7 @@ const getAllThemes = async (params: any, connection: DbConnection) => {
             backdrop_path: response[i].backdrop_path,
         })
     }
-
+    //theme 별 영화 객체
     let movieThemeList: any = {}
 
     for (let i = 0; i < themeNames.length; i++) {
