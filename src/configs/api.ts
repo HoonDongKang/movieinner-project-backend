@@ -187,14 +187,14 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     upcomingMovies: {
-        urlPath: '/movies/upcoming/:movieId',
+        urlPath: '/movies/upcoming/:page',
         method: 'get',
         handlerName: 'upcomingMovies',
         handlerPath: './src/apis/movie/playing.ts',
         authorizer: false,
     },
     nowPlayingMovies: {
-        urlPath: '/movies/now_playing/:movieId',
+        urlPath: '/movies/now_playing/:page',
         method: 'get',
         handlerName: 'nowPlayingMovies',
         handlerPath: './src/apis/movie/playing.ts',
@@ -214,10 +214,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/theme.ts',
         authorizer: false,
     },
-    insertMoviesinTheme: {
+    insertMoviesInTheme: {
         urlPath: '/movies/theme',
         method: 'post',
-        handlerName: 'insertMoviesinTheme',
+        handlerName: 'insertMoviesInTheme',
         handlerPath: './src/apis/movie/theme.ts',
         authorizer: false,
     },

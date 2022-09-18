@@ -39,7 +39,7 @@ const getMoviesFromTheme = async (params: any, connection: DbConnection) => {
     }
 }
 
-const insertMoviesinTheme = async (params: any, connection: DbConnection) => {
+const insertMoviesInTheme = async (params: any, connection: DbConnection) => {
     const { name, movieId } = params
     let insertMovie: MovieInfoType = {
         themeName: '',
@@ -86,5 +86,5 @@ const insertMoviesinTheme = async (params: any, connection: DbConnection) => {
 export default {
     getAllThemes,
     getMoviesFromTheme,
-    insertMoviesinTheme,
+    insertMoviesInTheme,
 }
