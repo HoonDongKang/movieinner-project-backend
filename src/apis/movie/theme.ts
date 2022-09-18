@@ -16,9 +16,40 @@ interface MovieInfoType {
 
 const getAllThemes = async (params: any, connection: DbConnection) => {
     const response = await connection.run(`SELECT * FROM movie_theme`)
+    let duplicateThemeNames: any[] = []
+    response.map((resObj: any) => {
+        duplicateThemeNames.push(resObj.theme_name)
+    })
+    const themeNames = [...new Set(duplicateThemeNames)]
+
+    let movieInfo: any[] = []
+
+    for (let i = 0; i < response.length; i++) {
+        movieInfo.push({
+            theme_name: response[i].theme_name,
+            movie_id: response[i].movie_id,
+            movie_name: response[i].movie_name,
+            poster_path: response[i].poster_path,
+            backdrop_path: response[i].backdrop_path,
+        })
+    }
+
+    let movieThemeList: any = {}
+
+    for (let i = 0; i < themeNames.length; i++) {
+        movieThemeList[themeNames[i]] = []
+        for (let j = 0; j < movieInfo.length; j++) {
+            if (themeNames[i] === movieInfo[j].theme_name) {
+                movieThemeList[themeNames[i]] = [
+                    ...movieThemeList[themeNames[i]],
+                    movieInfo[j],
+                ]
+            }
+        }
+    }
     return {
         status: 201,
-        data: response,
+        data: movieThemeList,
     }
 }
 
