@@ -12,6 +12,7 @@ const getCredits = async (params: any, conncetion: DbConnection) => {
         const response = await axios.get(
             `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${TMDB_API_KEY}&language=ko`
         )
+        //7명까지만
         for (let i = 0; i < 7; i++) {
             movieCredits.push({
                 gender: response.data.cast[i].gender,
