@@ -186,6 +186,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/details.ts',
         authorizer: false,
     },
+    getCredits: {
+        urlPath: '/movies/credits/:movieId',
+        method: 'get',
+        handlerName: 'getCredits',
+        handlerPath: './src/apis/movie/credits.ts',
+        authorizer: false,
+    },
     upcomingMovies: {
         urlPath: '/movies/upcoming/:page',
         method: 'get',

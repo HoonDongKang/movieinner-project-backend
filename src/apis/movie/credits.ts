@@ -5,13 +5,13 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
-const getMoviesDetails = async (params: any, connection: DbConnection) => {
+const getCredits = async (params: any, conncetion: DbConnection) => {
     const { movieId } = params
     try {
         const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}&language=ko`
+            `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${TMDB_API_KEY}&language=ko`
         )
-        const movieDetails = response.data
+        const movieDetails = response.data.cast
         return {
             status: 201,
             data: movieDetails,
@@ -22,5 +22,5 @@ const getMoviesDetails = async (params: any, connection: DbConnection) => {
 }
 
 export default {
-    getMoviesDetails,
+    getCredits,
 }
