@@ -1,7 +1,7 @@
 import { DbConnection } from '../../modules/connect'
 import axios from 'axios'
 import TMDB from '../../configs/tmdb'
-import { paramsErrorHandler } from './../../modules/paramsError'
+import { tmdbErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
@@ -18,7 +18,7 @@ const getPopularMovies = async (params: any, connection: DbConnection) => {
             data: popularMovieList,
         }
     } catch (e: any) {
-        paramsErrorHandler(e)
+        tmdbErrorHandler(e)
     }
 }
 
