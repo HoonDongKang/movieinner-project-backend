@@ -70,7 +70,7 @@ const deleteLike = async (params: any, connection: DbConnection) => {
     }
 }
 //최근 감상 작품
-//DB 저장
+
 export default {
     checkLiked,
     likedMovie,
