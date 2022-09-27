@@ -242,4 +242,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
+    deleteLike: {
+        urlPath: '/movies/liked',
+        method: 'delete',
+        handlerName: 'deleteLike',
+        handlerPath: './src/apis/movie/like.ts',
+        authorizer: false,
+    },
 }

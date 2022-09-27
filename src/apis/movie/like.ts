@@ -51,11 +51,28 @@ const likedMovie = async (params: any, connection: DbConnection) => {
     }
 }
 
-//찜한 테마
 //찜하기 취소
+const deleteLike = async (params: any, connection: DbConnection) => {
+    const { type, nickname, name } = params
+    try {
+        const response = await connection.run(
+            `DELETE FROM liked WHERE type=? AND nickname=? AND name=?`,
+            [type, nickname, name]
+        )
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
+    } catch (e: any) {
+        tmdbErrorHandler(e)
+    }
+}
 //최근 감상 작품
 //DB 저장
 export default {
     checkLiked,
     likedMovie,
+    deleteLike,
 }
