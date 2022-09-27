@@ -228,4 +228,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/theme.ts',
         authorizer: false,
     },
+    checkLiked: {
+        urlPath: '/movies/liked',
+        method: 'post',
+        handlerName: 'checkLiked',
+        handlerPath: './src/apis/movie/like.ts',
+        authorizer: false,
+    },
 }
