@@ -1,6 +1,6 @@
 import { tmdbErrorHandler } from '../../modules/paramsError'
 import { DbConnection } from './../../modules/connect'
-
+//err handler 확인
 //찜하기 확인
 const checkLiked = async (params: any, connection: DbConnection) => {
     const { type, nickname, movieId } = params
