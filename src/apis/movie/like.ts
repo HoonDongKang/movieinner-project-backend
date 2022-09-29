@@ -1,9 +1,11 @@
-import { paramsErrorHandler, tmdbErrorHandler } from "../../modules/paramsError";
+import {
+  paramsErrorHandler,
+  tmdbErrorHandler,
+} from "../../modules/paramsError";
 import { DbConnection } from "./../../modules/connect";
-//err handler 확인
 //찜하기 확인
 const checkLiked = async (params: any, connection: DbConnection) => {
-  const { type, nickname, movieId,name } = params;
+  const { type, nickname, movieId, name } = params;
   let isExisted = false;
   try {
     if (type === "movie") {
@@ -24,11 +26,11 @@ const checkLiked = async (params: any, connection: DbConnection) => {
       if (count > 0) {
         isExisted = true;
       }
-    }else{
-        throw 'E0001'
+    } else {
+      throw "E0001";
     }
   } catch (e: any) {
-    paramsErrorHandler(e)
+    paramsErrorHandler(e);
   }
   return {
     status: 201,
@@ -51,6 +53,8 @@ const likedMovie = async (params: any, connection: DbConnection) => {
         `INSERT INTO liked(type,nickname,name) VALUES (?,?,?)`,
         [type, nickname, name]
       );
+    } else {
+      throw "E0001";
     }
 
     return {
@@ -60,7 +64,7 @@ const likedMovie = async (params: any, connection: DbConnection) => {
       },
     };
   } catch (e: any) {
-    tmdbErrorHandler(e);
+    paramsErrorHandler(e);
   }
 };
 
@@ -79,7 +83,7 @@ const deleteLike = async (params: any, connection: DbConnection) => {
       },
     };
   } catch (e: any) {
-    tmdbErrorHandler(e);
+    paramsErrorHandler(e);
   }
 };
 //최근 감상 작품
