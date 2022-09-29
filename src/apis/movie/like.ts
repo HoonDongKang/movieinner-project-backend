@@ -86,7 +86,6 @@ const deleteLike = async (params: any, connection: DbConnection) => {
     paramsErrorHandler(e);
   }
 };
-//최근 감상 작품
 
 export default {
   checkLiked,
