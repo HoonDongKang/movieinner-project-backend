@@ -42,12 +42,12 @@ const likedMovie = async (params: any, connection: DbConnection) => {
   const { type, nickname, movieId, name, poster_path, backdrop_path } = params;
   try {
     if (type === "movie") {
-      const response = await connection.run(
+      await connection.run(
         `INSERT INTO liked(type,nickname,movie_id,name,poster_path,backdrop_path) VALUES (?,?,?,?,?,?)`,
         [type, nickname, movieId, name, poster_path, backdrop_path]
       );
     } else if (type === "theme") {
-      const response = await connection.run(
+      await connection.run(
         `INSERT INTO liked(type,nickname,name) VALUES (?,?,?)`,
         [type, nickname, name]
       );
@@ -68,7 +68,7 @@ const likedMovie = async (params: any, connection: DbConnection) => {
 const deleteLike = async (params: any, connection: DbConnection) => {
   const { type, nickname, name } = params;
   try {
-    const response = await connection.run(
+    await connection.run(
       `DELETE FROM liked WHERE type=? AND nickname=? AND name=?`,
       [type, nickname, name]
     );
