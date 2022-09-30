@@ -37,7 +37,7 @@ const checkLiked = async (params: any, connection: DbConnection) => {
     }
 }
 //찜한 영화
-const likedMovie = async (params: any, connection: DbConnection) => {
+const liked = async (params: any, connection: DbConnection) => {
     const { type, nickname, movieId, name, poster_path, backdrop_path } = params
     try {
         if (type === 'movie') {
@@ -114,7 +114,7 @@ const getLiked = async (params: any, connection: DbConnection) => {
 }
 export default {
     checkLiked,
-    likedMovie,
+    liked,
     deleteLike,
     getLiked,
 }

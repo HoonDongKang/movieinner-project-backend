@@ -235,10 +235,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
-    likedMovie: {
+    liked: {
         urlPath: '/movies/liked',
         method: 'post',
-        handlerName: 'likedMovie',
+        handlerName: 'liked',
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
