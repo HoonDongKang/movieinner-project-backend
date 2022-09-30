@@ -119,4 +119,3 @@ export default {
     getLiked,
 }
 
-//게시글 DB 저장  댓글 저장 설계
