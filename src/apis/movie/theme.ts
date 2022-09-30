@@ -33,6 +33,7 @@ const getAllThemes = async (params: any, connection: DbConnection) => {
             movie_name: response[i].movie_name,
             poster_path: response[i].poster_path,
             backdrop_path: response[i].backdrop_path,
+            release_date: response[i].release_date,
         })
     }
     //theme 별 영화 객체
