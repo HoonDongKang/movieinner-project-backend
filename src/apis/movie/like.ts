@@ -89,3 +89,6 @@ export default {
     likedMovie,
     deleteLike,
 }
+
+//유저 별 좋아요 영화, 테마 불러오기
+//게시글 DB 저장  댓글 저장 설계
