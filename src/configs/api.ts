@@ -249,4 +249,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
+    getLiked: {
+        urlPath: '/movies/liked/:type',
+        method: 'get',
+        handlerName: 'getLiked',
+        handlerPath: './src/apis/movie/like.ts',
+        authorizer: false,
+    },
 }

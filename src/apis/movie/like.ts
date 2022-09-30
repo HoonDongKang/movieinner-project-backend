@@ -83,12 +83,40 @@ const deleteLike = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
+//유저 별 좋아요 영화, 테마 불러오기
+const getLiked = async (params: any, connection: DbConnection) => {
+    const { type, nickname } = params //type:path, nickname:query
+    let response = []
+    try {
+        if (type === 'movie') {
+            response = await connection.run(
+                `SELECT idx,type,nickname,movie_id,name,poster_path,backdrop_path FROM liked WHERE type=? AND nickname=?`,
+                [type, nickname]
+            )
+        } else if (type === 'theme') {
+            response = await connection.run(
+                `SELECT idx,type,nickname,name FROM liked WHERE type=? AND nickname=?`,
+                [type, nickname]
+            )
+        } else {
+            throw 'E0001'
+        }
 
+        return {
+            status: 201,
+            data: {
+                liked: response,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 export default {
     checkLiked,
     likedMovie,
     deleteLike,
+    getLiked,
 }
 
-//유저 별 좋아요 영화, 테마 불러오기
 //게시글 DB 저장  댓글 저장 설계
