@@ -256,4 +256,25 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
+    writeContents: {
+        urlPath: '/community',
+        method: 'post',
+        handlerName: 'writeContents',
+        handlerPath: './src/apis/community/contents.ts',
+        authorizer: false,
+    },
+    modifyContents: {
+        urlPath: '/community/:idx',
+        method: 'post',
+        handlerName: 'modifyContents',
+        handlerPath: './src/apis/community/contents.ts',
+        authorizer: false,
+    },
+    deleteContents: {
+        urlPath: '/community/:idx',
+        method: 'delete',
+        handlerName: 'deleteContents',
+        handlerPath: './src/apis/community/contents.ts',
+        authorizer: false,
+    },
 }
