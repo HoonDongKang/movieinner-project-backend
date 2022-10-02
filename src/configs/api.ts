@@ -284,4 +284,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/community.ts',
         authorizer: false,
     },
+    getUserContent: {
+        urlPath: '/community/:nickname',
+        method: 'get',
+        handlerName: 'getUserContent',
+        handlerPath: './src/apis/community/community.ts',
+        authorizer: false,
+    },
 }
