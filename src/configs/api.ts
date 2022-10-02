@@ -278,14 +278,14 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getAllContents: {
-        urlPath: '/community',
+        urlPath: '/community/all',
         method: 'get',
         handlerName: 'getAllContents',
         handlerPath: './src/apis/community/community.ts',
         authorizer: false,
     },
     getUserContent: {
-        urlPath: '/community/:nickname',
+        urlPath: '/community',
         method: 'get',
         handlerName: 'getUserContent',
         handlerPath: './src/apis/community/community.ts',
