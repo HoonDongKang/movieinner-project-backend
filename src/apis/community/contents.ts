@@ -20,7 +20,9 @@ const modifyContents = async (params: any, connection: DbConnection) => {
             `UPDATE community(title,content,file) SET (?,?,?) WHERE nickname=?`,
             [title, content, file, nickname]
         )
-    } catch (e: any) {}
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
 }
 
 const deleteContents = async (params: any, connection: DbConnection) => {
@@ -29,7 +31,9 @@ const deleteContents = async (params: any, connection: DbConnection) => {
         await connection.run(`DELETE FROM community WHERE nickname=?`, [
             nickname,
         ])
-    } catch (e: any) {}
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
 }
 
 export default {
