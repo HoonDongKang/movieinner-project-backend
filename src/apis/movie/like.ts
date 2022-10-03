@@ -47,8 +47,8 @@ const liked = async (params: any, connection: DbConnection) => {
             )
         } else if (type === 'theme') {
             await connection.run(
-                `INSERT INTO liked(type,nickname,name) VALUES (?,?,?)`,
-                [type, nickname, name]
+                `INSERT INTO liked(type,nickname,name,backdrop_path) VALUES (?,?,?,?)`,
+                [type, nickname, name, backdrop_path]
             )
         } else {
             throw 'E0001'
@@ -95,7 +95,7 @@ const getLiked = async (params: any, connection: DbConnection) => {
             )
         } else if (type === 'theme') {
             response = await connection.run(
-                `SELECT idx,type,nickname,name FROM liked WHERE type=? AND nickname=?`,
+                `SELECT idx,type,nickname,name,backdrop_path FROM liked WHERE type=? AND nickname=?`,
                 [type, nickname]
             )
         } else {
@@ -118,4 +118,3 @@ export default {
     deleteLike,
     getLiked,
 }
-
