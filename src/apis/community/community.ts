@@ -2,16 +2,27 @@ import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
 const getAllContents = async (params: any, connection: DbConnection) => {
+    const { page } = params
     try {
         const response: any = await connection.run(
             `SELECT nickname,title,content,file FROM community`,
             []
         )
-        let contents: any = {}
+        // 게시글 수
+        const contentsNumber: number = 20
+        // 페이지 당 게시글 표시 수
+        const contentsNumberInPage: number = 10
+        // 총 페이지 수
+        const pageNumber = Math.trunc(contentsNumber / contentsNumberInPage)
+        let totalPage =
+            contentsNumber % contentsNumberInPage === 0
+                ? pageNumber
+                : pageNumber + 1
+
         return {
             status: 200,
             data: {
-                contents,
+                totalPage,
             },
         }
     } catch (e: any) {
