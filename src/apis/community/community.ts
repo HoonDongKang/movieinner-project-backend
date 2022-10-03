@@ -1,30 +1,39 @@
 import { DbConnection } from './../../modules/connect'
+import { paramsErrorHandler } from './../../modules/paramsError'
 
 const getAllContents = async (params: any, connection: DbConnection) => {
-    const response = await connection.run(
-        `SELECT nickname,title,content,file FROM community`,
-        []
-    )
-    // page 별 정리
-    return {
-        status: 200,
-        data: {
-            response,
-        },
+    try {
+        const response: any = await connection.run(
+            `SELECT nickname,title,content,file FROM community`,
+            []
+        )
+        let contents: any = {}
+        return {
+            status: 200,
+            data: {
+                contents,
+            },
+        }
+    } catch (e: any) {
+        console.error(e)
     }
 }
 
 const getUserContent = async (params: any, connection: DbConnection) => {
     const { nickname } = params //path
-    const response = await connection.run(
-        `SELECT nickname,title,content,file FROM community WHERE nickname=?`,
-        [nickname]
-    )
-    return {
-        status: 200,
-        data: {
-            response,
-        },
+    try {
+        const response = await connection.run(
+            `SELECT nickname,title,content,file FROM community WHERE nickname=?`,
+            [nickname]
+        )
+        return {
+            status: 200,
+            data: {
+                response,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
     }
 }
 
