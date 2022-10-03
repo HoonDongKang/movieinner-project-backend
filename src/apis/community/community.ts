@@ -3,6 +3,7 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
+    let contents:any={}
     try {
         const response: any = await connection.run(
             `SELECT nickname,title,content,file FROM community`,
@@ -14,11 +15,13 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         const contentsNumberInPage: number = 10
         // 총 페이지 수
         const pageNumber = Math.trunc(contentsNumber / contentsNumberInPage)
-        let totalPage =
+        const totalPage =
             contentsNumber % contentsNumberInPage === 0
                 ? pageNumber
                 : pageNumber + 1
-
+        // for (let i =1;i<totalPage+1;i++){
+        //     contents[i]=response[]
+        // }
         return {
             status: 200,
             data: {
