@@ -19,9 +19,9 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             contentsNumber % contentsNumberInPage === 0
                 ? pageNumber
                 : pageNumber + 1
-        // for (let i =1;i<totalPage+1;i++){
-        //     contents[i]=response[]
-        // }
+        for (let i =1;i<totalPage+1;i++){
+            contents[i]=response[]
+        }
         return {
             status: 200,
             data: {
