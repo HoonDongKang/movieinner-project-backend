@@ -10,7 +10,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             []
         )
         // 게시글 수
-        const contentsNumber: number = 20
+        const contentsNumber: number = response.length
         // 페이지 당 게시글 표시 수
         const contentsNumberInPage: number = 10
         // 총 페이지 수
@@ -19,13 +19,19 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             contentsNumber % contentsNumberInPage === 0
                 ? pageNumber
                 : pageNumber + 1
-        for (let i =1;i<totalPage+1;i++){
-            contents[i]=response[]
+        //반복문 반복마다 array에 push할 contents의 index
+        let pushNumber = 0
+        for (let i=1;i<totalPage+1;i++){
+            contents[i]=[]
+          for (let j=pushNumber;j<pushNumber+3;j++){
+            contents[i].push(response[j])
+          }
+          pushNumber+=contentsNumberInPage
         }
         return {
             status: 200,
             data: {
-                totalPage,
+                contents,
             },
         }
     } catch (e: any) {
