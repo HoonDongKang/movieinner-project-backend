@@ -28,10 +28,12 @@ const getAllContents = async (params: any, connection: DbConnection) => {
           }
           pushNumber+=contentsNumberInPage
         }
+        const responseContents=contents[page]
         return {
             status: 200,
             data: {
-                contents,
+                contents:{"page":page,
+                    responseContents},
             },
         }
     } catch (e: any) {
@@ -40,7 +42,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
 }
 
 const getUserContent = async (params: any, connection: DbConnection) => {
-    const { nickname } = params //path
+    const { nickname } = params //query
     try {
         const response = await connection.run(
             `SELECT nickname,title,content,file FROM community WHERE nickname=?`,
