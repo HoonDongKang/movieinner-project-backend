@@ -23,7 +23,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         let pushNumber = 0
         for (let i=1;i<totalPage+1;i++){
             contents[i]=[]
-          for (let j=pushNumber;j<pushNumber+3;j++){
+          for (let j=pushNumber;j<pushNumber+contentsNumberInPage;j++){
             contents[i].push(response[j])
           }
           pushNumber+=contentsNumberInPage
