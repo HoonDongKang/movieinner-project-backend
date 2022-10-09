@@ -278,7 +278,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getAllContents: {
-        urlPath: '/community/:page',
+        urlPath: '/community/page/:page',
         method: 'get',
         handlerName: 'getAllContents',
         handlerPath: './src/apis/community/community.ts',
@@ -288,6 +288,13 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/community',
         method: 'get',
         handlerName: 'getUserContent',
+        handlerPath: './src/apis/community/community.ts',
+        authorizer: false,
+    },
+    getIdxContent: {
+        urlPath: '/community/:idx',
+        method: 'get',
+        handlerName: 'getIdxContent',
         handlerPath: './src/apis/community/community.ts',
         authorizer: false,
     },
