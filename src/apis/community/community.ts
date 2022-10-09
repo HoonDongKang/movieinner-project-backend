@@ -3,7 +3,7 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
-    let contents:any={}
+    let contents: any = {}
     try {
         const response: any = await connection.run(
             `SELECT nickname,title,content,file FROM community`,
@@ -21,19 +21,23 @@ const getAllContents = async (params: any, connection: DbConnection) => {
                 : pageNumber + 1
         //반복문 반복마다 array에 push할 contents의 index
         let pushNumber = 0
-        for (let i=1;i<totalPage+1;i++){
-            contents[i]=[]
-          for (let j=pushNumber;j<pushNumber+contentsNumberInPage;j++){
-            contents[i].push(response[j])
-          }
-          pushNumber+=contentsNumberInPage
+        for (let i = 1; i < totalPage + 1; i++) {
+            contents[i] = []
+            for (
+                let j = pushNumber;
+                j < pushNumber + contentsNumberInPage;
+                j++
+            ) {
+                contents[i].push(response[j])
+            }
+            pushNumber += contentsNumberInPage
         }
-        const responseContents=contents[page]
+        const responseContents = contents[page]
         return {
             status: 200,
+
             data: {
-                contents:{"page":page,
-                    responseContents},
+                contents: { page: page, responseContents },
             },
         }
     } catch (e: any) {
@@ -59,7 +63,28 @@ const getUserContent = async (params: any, connection: DbConnection) => {
     }
 }
 
+const getIdxContent = async (params: any, connection: DbConnection) => {
+    const { idx } = params //query
+    try {
+        const response = await connection.run(
+            `
+        SELECT nickname,title,content,file FROM community WHERE idx =?`,
+            [idx]
+        )
+
+        return {
+            status: 200,
+            data: {
+                content: response[0],
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
+
 export default {
     getAllContents,
     getUserContent,
+    getIdxContent,
 }
