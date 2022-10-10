@@ -271,7 +271,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     deleteContents: {
-        urlPath: '/community/content',
+        urlPath: '/community/content/:idx',
         method: 'delete',
         handlerName: 'deleteContents',
         handlerPath: './src/apis/community/contents.ts',
