@@ -265,7 +265,7 @@ export const apiConfigs: ApiConfigObj = {
     },
     modifyContents: {
         urlPath: '/community/content/:idx',
-        method: 'post',
+        method: 'put',
         handlerName: 'modifyContents',
         handlerPath: './src/apis/community/contents.ts',
         authorizer: false,
