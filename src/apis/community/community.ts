@@ -1,6 +1,6 @@
 import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
-
+//
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
     let contents: any = {}
