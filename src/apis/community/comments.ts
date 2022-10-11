@@ -1,5 +1,5 @@
-import { DbConnection } from './../../modules/connect'
-import { paramsErrorHandler } from './../../modules/paramsError'
+import { DbConnection } from '../../modules/connect'
+import { paramsErrorHandler } from '../../modules/paramsError'
 
 const writeComment = async (params: any, connection: DbConnection) => {
     const { contentIdx, nickname, comment, commentedAt } = params
