@@ -8,6 +8,12 @@ const writeComment = async (params: any, connection: DbConnection) => {
             `INSERT INTO comments(content_idx,nickname,comment,commented_at) VALUES (?,?,?,?)`,
             [contentIdx, nickname, comment, commentedAt]
         )
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
