@@ -298,4 +298,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/community.ts',
         authorizer: false,
     },
+    writeComment: {
+        urlPath: '/community/comment',
+        method: 'post',
+        handlerName: 'writeComment',
+        handlerPath: './src/apis/community/comment.ts',
+        authorizer: false,
+    },
 }
