@@ -18,7 +18,23 @@ const writeComment = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-const modifyComment = async (params: any, connection: DbConnection) => {}
+const modifyComment = async (params: any, connection: DbConnection) => {
+    const { idx, contentIdx, comment } = params
+    try {
+        await connection.run(
+            `UPDATE comments SET comment=? WHERE idx=? AND contentIdx=?`,
+            [comment, idx,contentIdx]
+        )
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 const deleteComment = async (params: any, connection: DbConnection) => {}
 
 const getIdxComments = async (params: any, connection: DbConnection) => {}
