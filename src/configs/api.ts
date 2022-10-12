@@ -305,4 +305,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
+    modifyComment: {
+        urlPath: '/community/comment',
+        method: 'put',
+        handlerName: 'modifyComment',
+        handlerPath: './src/apis/community/comments.ts',
+        authorizer: false,
+    },
 }
