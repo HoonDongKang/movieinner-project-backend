@@ -22,8 +22,8 @@ const modifyComment = async (params: any, connection: DbConnection) => {
     const { idx, contentIdx, comment } = params
     try {
         await connection.run(
-            `UPDATE comments SET comment=? WHERE idx=? AND contentIdx=?`,
-            [comment, idx,contentIdx]
+            `UPDATE comments SET comment=? WHERE idx=? AND content_idx=?`,
+            [comment, idx, contentIdx]
         )
         return {
             status: 201,
