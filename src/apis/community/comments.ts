@@ -35,7 +35,23 @@ const modifyComment = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-const deleteComment = async (params: any, connection: DbConnection) => {}
+const deleteComment = async (params: any, connection: DbConnection) => {
+    const { idx, contentIdx } = params
+    try {
+        await connection.run(
+            `DELETE FROM community WHERE idx=? AND content_idx=?`,
+            [idx]
+        )
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 
 const getIdxComments = async (params: any, connection: DbConnection) => {}
 
