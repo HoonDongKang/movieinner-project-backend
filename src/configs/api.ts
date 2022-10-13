@@ -312,4 +312,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
+    deleteComment: {
+        urlPath: '/community/comment',
+        method: 'delete',
+        handlerName: 'deleteComment',
+        handlerPath: './src/apis/community/comments.ts',
+        authorizer: false,
+    },
 }
