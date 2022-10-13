@@ -4,9 +4,10 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
     let contents: any = {}
+    // 페이지 별 번호 넣기 !!!!!!!!!!!
     try {
         const response: any = await connection.run(
-            `SELECT nickname,title,content,file FROM community`,
+            `SELECT idx,nickname,title,content,file FROM community`,
             []
         )
         // 게시글 수
