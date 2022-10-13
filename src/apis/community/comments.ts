@@ -40,7 +40,7 @@ const deleteComment = async (params: any, connection: DbConnection) => {
     try {
         await connection.run(
             `DELETE FROM community WHERE idx=? AND content_idx=?`,
-            [idx]
+            [idx, contentIdx]
         )
         return {
             status: 201,
