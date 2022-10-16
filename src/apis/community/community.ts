@@ -22,6 +22,8 @@ const getAllContents = async (params: any, connection: DbConnection) => {
                 : pageNumber + 1
         //반복문 반복마다 array에 push할 contents의 index
         let pushNumber = 0
+        //게시물 별 번호
+        let contentsIdx = 0
         for (let i = 1; i < totalPage + 1; i++) {
             contents[i] = []
             for (
