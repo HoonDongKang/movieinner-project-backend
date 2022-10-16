@@ -10,6 +10,9 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             `SELECT idx,nickname,title,content,file FROM community`,
             []
         )
+        for (let i = 0; i < response.length; i++) {
+            response[i]['number'] = i
+        }
         // 게시글 수
         const contentsNumber: number = response.length
         // 페이지 당 게시글 표시 수
