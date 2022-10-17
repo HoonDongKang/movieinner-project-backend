@@ -27,16 +27,22 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         for (let i = 1; i < totalPage + 1; i++) {
             contents[i] = []
             for (
-                let j = contentsNumber - 1;
+                let j = contentsNumber;
                 j > contentsNumber - contentsNumberInPage;
                 j--
             ) {
+                console.log(j)
                 contents[i].push(response[j])
             }
             contentsNumber -= contentsNumberInPage
-            console.log(contentsNumber)
         }
         const responseContents = contents[page]
+
+        for (let i = 0; i < responseContents.length; i++) {
+            if (!responseContents[i]) {
+                responseContents[i] = {}
+            }
+        }
         return {
             status: 200,
 
