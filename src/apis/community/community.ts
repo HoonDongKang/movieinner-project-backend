@@ -4,7 +4,6 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
     let contents: any = {}
-    // 페이지 별 번호 넣기 !!!!!!!!!!!
     try {
         const response: any = await connection.run(
             `SELECT idx,nickname,title,content,file FROM community`,
@@ -15,7 +14,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             response[i]['number'] = i + 1
         }
         // 게시글 수
-        const contentsNumber: number = response.length
+        let contentsNumber: number = response.length
         // 페이지 당 게시글 표시 수
         const contentsNumberInPage: number = 10
         // 총 페이지 수
@@ -24,19 +23,18 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             contentsNumber % contentsNumberInPage === 0
                 ? pageNumber
                 : pageNumber + 1
-        //반복문 반복마다 array에 push할 contents의 index
-        let pushNumber = 0
 
         for (let i = 1; i < totalPage + 1; i++) {
             contents[i] = []
             for (
-                let j = pushNumber;
-                j < pushNumber + contentsNumberInPage;
-                j++
+                let j = contentsNumber - 1;
+                j > contentsNumber - contentsNumberInPage;
+                j--
             ) {
                 contents[i].push(response[j])
             }
-            pushNumber += contentsNumberInPage
+            contentsNumber -= contentsNumberInPage
+            console.log(contentsNumber)
         }
         const responseContents = contents[page]
         return {
