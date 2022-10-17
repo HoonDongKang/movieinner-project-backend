@@ -14,7 +14,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             response[i]['number'] = i + 1
         }
         // 게시글 수
-        let contentsNumber: number = response.length
+        let contentsNumber: number = response.length - 1
         // 페이지 당 게시글 표시 수
         const contentsNumberInPage: number = 10
         // 총 페이지 수
