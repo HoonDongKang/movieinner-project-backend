@@ -31,11 +31,12 @@ export const getContentsPerPages = (
         contentsNumber -= contentsNumberPerPage
     }
     const responseContents = contents[page]
-
+    //undefined to void obj
     for (let i = 0; i < responseContents.length; i++) {
         if (!responseContents[i]) {
             responseContents[i] = {}
         }
     }
+    // 배열 10개씩 말고 있는 수만큼만 보여주기
     return { totalPage: totalPage, contents: responseContents }
 }
