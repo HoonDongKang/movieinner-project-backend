@@ -9,12 +9,16 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             `SELECT idx,nickname,title,content,file FROM community`,
             []
         )
-        const responseContents = getContentsPerPages(response, 10, page)
+        const { totalPage, contents: responseContents } = getContentsPerPages(
+            response,
+            10,
+            page
+        )
         return {
             status: 200,
 
             data: {
-                contents: { page: page, responseContents },
+                contents: { totalPage, currentPage: page, responseContents },
             },
         }
     } catch (e: any) {

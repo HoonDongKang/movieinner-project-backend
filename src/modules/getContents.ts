@@ -37,5 +37,5 @@ export const getContentsPerPages = (
             responseContents[i] = {}
         }
     }
-    return responseContents
+    return { totalPage: totalPage, contents: responseContents }
 }
