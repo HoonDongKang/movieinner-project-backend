@@ -1,6 +1,6 @@
 export const getContentsPerPages = (
     array: any[], // contents array
-    contentsNumberPerPage: number, // a number of contents in a page
+    contentsNumberPerPage: number, // the number of contents in a page
     page: string // a page that to be responsed
 ) => {
     let contents: any = {}
