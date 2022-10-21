@@ -21,26 +21,19 @@ export const getContentsPerPages = (
     for (let i = 1; i < totalPage + 1; i++) {
         contents[i] = []
         for (
+            // 총 게시글 수 - 페이지 별 게시글 수 < 0 -> 남아있는 게시글만 표시되게
             let j = contentsNumber;
             contentsNumber - contentsNumberPerPage > 0
                 ? j > contentsNumber - contentsNumberPerPage
                 : j >= 0;
             j--
         ) {
-            console.log(`j: ${j}`)
-            console.log(`contentsNumber: ${contentsNumber}`)
-            console.log(`차이:${contentsNumber - contentsNumberPerPage}`)
             contents[i].push(array[j])
         }
         contentsNumber -= contentsNumberPerPage
     }
     const responseContents = contents[page]
-    //undefined to void obj
-    for (let i = 0; i < responseContents.length; i++) {
-        if (!responseContents[i]) {
-            responseContents[i] = {}
-        }
-    }
+
     // 배열 10개씩 말고 있는 수만큼만 보여주기
     return { totalPage: totalPage, contents: responseContents }
 }
