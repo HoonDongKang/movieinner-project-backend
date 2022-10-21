@@ -22,7 +22,9 @@ export const getContentsPerPages = (
         contents[i] = []
         for (
             let j = contentsNumber;
-            j > contentsNumber - contentsNumberPerPage;
+            contentsNumber - contentsNumberPerPage < contentsNumberPerPage
+                ? j > contentsNumber - contentsNumberPerPage
+                : contentsNumber == 0;
             j--
         ) {
             console.log(j)
