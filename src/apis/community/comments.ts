@@ -56,7 +56,10 @@ const deleteComment = async (params: any, connection: DbConnection) => {
 const getIdxComments = async (params: any, connection: DbConnection) => {
     const { idx } = params
     try {
-        await connection.run(`SELECT FROM community WHERE idx=?`, [idx])
+        const response = await connection.run(
+            `SELECT FROM community WHERE idx=?`,
+            [idx]
+        )
         return {
             status: 201,
             data: {
