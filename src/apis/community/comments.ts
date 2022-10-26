@@ -39,7 +39,7 @@ const deleteComment = async (params: any, connection: DbConnection) => {
     const { idx, contentIdx } = params
     try {
         await connection.run(
-            `DELETE FROM community WHERE idx=? AND content_idx=?`,
+            `DELETE FROM comments WHERE idx=? AND content_idx=?`,
             [idx, contentIdx]
         )
         return {
@@ -57,7 +57,7 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
     const { idx } = params
     try {
         const response = await connection.run(
-            `SELECT FROM community WHERE idx=?`,
+            `SELECT FROM comments WHERE idx=?`,
             [idx]
         )
         return {
