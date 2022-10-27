@@ -63,7 +63,7 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
         return {
             status: 201,
             data: {
-                success: true,
+                response,
             },
         }
     } catch (e: any) {
@@ -71,7 +71,23 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getUserComments = async (params: any, connection: DbConnection) => {}
+const getUserComments = async (params: any, connection: DbConnection) => {
+    const { idx } = params
+    try {
+        const response = await connection.run(
+            `SELECT FROM comments WHERE idx=?`,
+            [idx]
+        )
+        return {
+            status: 201,
+            data: {
+                response,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 
 export default {
     writeComment,
