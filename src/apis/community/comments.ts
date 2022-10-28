@@ -72,11 +72,11 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
 }
 
 const getUserComments = async (params: any, connection: DbConnection) => {
-    const { nickname } = params
+    const { nickname, idx } = params
     try {
         const response = await connection.run(
-            `SELECT FROM comments WHERE nickname=?`,
-            [nickname]
+            `SELECT FROM comments WHERE nickname=? AND idx=?`,
+            [nickname, idx]
         )
         return {
             status: 201,
