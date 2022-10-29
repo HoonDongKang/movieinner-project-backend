@@ -70,7 +70,7 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-
+//nickname 수정 필요
 const getUserComments = async (params: any, connection: DbConnection) => {
     const { nickname, idx } = params
     try {
