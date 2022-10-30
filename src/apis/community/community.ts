@@ -11,15 +11,12 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         )
         for (let i = 0; i < response.length; i++) {
             const timeStamp = new Date(
-                response[i].updated_at - new Date().getTimezoneOffset() * 120000
+                response[i].updated_at - new Date().getTimezoneOffset() * 120000 //한국 시간
             )
             const date = timeStamp.toISOString().substring(0, 10)
+            response[i].updated_at = date
         }
-        // for (let i = 0; i < response.legnth; i++) {
-        //     let offset = new Date().getTimezoneOffset() * 60000
-        //     let date = response[i].updated_at - offset
-        //     response[i].updated_at = date
-        // }
+
         const { totalPage, contents: responseContents } = getContentsPerPages(
             response,
             10,
