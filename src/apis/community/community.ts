@@ -9,6 +9,17 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             `SELECT idx,nickname,title,content,file,updated_at FROM community`,
             []
         )
+        for (let i = 0; i < response.length; i++) {
+            const timeStamp = new Date(
+                response[i].updated_at - new Date().getTimezoneOffset() * 120000
+            )
+            const date = timeStamp.toISOString().substring(0, 10)
+        }
+        // for (let i = 0; i < response.legnth; i++) {
+        //     let offset = new Date().getTimezoneOffset() * 60000
+        //     let date = response[i].updated_at - offset
+        //     response[i].updated_at = date
+        // }
         const { totalPage, contents: responseContents } = getContentsPerPages(
             response,
             10,
