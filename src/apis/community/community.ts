@@ -6,7 +6,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
     try {
         const response: any = await connection.run(
-            `SELECT idx,nickname,title,content,file FROM community`,
+            `SELECT idx,nickname,title,content,file,updated_at FROM community`,
             []
         )
         const { totalPage, contents: responseContents } = getContentsPerPages(
