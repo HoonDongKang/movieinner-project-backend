@@ -53,8 +53,6 @@ const deleteContents = async (params: any, connection: DbConnection) => {
     }
 }
 
-//조회수
-//게시글 클릭 시 조회 수 1 증가 API
 const increaseHit = async (params: any, connection: DbConnection) => {
     const { idx } = params
     try {
