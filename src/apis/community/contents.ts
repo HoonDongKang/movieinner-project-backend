@@ -64,11 +64,14 @@ const increaseHit = async (params: any, connection: DbConnection) => {
         )
         const { hit } = response[0]
         const increaseHit = hit + 1
-        console.log(increaseHit)
+        await connection.run(`UPDATE community SET hit=? WHERE idx=?`, [
+            increaseHit,
+            idx,
+        ])
         return {
             status: 201,
             data: {
-                increaseHit,
+                success: true,
             },
         }
     } catch (e: any) {
