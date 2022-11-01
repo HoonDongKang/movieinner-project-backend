@@ -278,8 +278,8 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     increaseHit: {
-        urlPath: '/community/content/:idx',
-        method: 'post',
+        urlPath: '/community/content/hit/:idx',
+        method: 'put',
         handlerName: 'increaseHit',
         handlerPath: './src/apis/community/contents.ts',
         authorizer: false,

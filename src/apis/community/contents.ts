@@ -65,6 +65,12 @@ const increaseHit = async (params: any, connection: DbConnection) => {
         const { hit } = response[0]
         const increaseHit = hit + 1
         console.log(increaseHit)
+        return {
+            status: 201,
+            data: {
+                increaseHit,
+            },
+        }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
