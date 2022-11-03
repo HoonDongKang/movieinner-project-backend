@@ -38,7 +38,7 @@ const getUserContent = async (params: any, connection: DbConnection) => {
     const { nickname } = params //query
     try {
         const response = await connection.run(
-            `SELECT nickname,title,content,file FROM community WHERE nickname=?`,
+            `SELECT nickname,title,content,file,hit,created_at FROM community WHERE nickname=?`,
             [nickname]
         )
         return {
@@ -57,7 +57,7 @@ const getIdxContent = async (params: any, connection: DbConnection) => {
     try {
         const response = await connection.run(
             `
-        SELECT nickname,title,content,file,created_at FROM community WHERE idx =?`,
+        SELECT nickname,title,content,file,hit,created_at FROM community WHERE idx =?`,
             [idx]
         )
 
