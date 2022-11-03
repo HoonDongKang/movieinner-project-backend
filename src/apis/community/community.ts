@@ -1,6 +1,7 @@
 import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 import { getContentsPerPages } from './../../modules/getContents'
+import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
 const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
@@ -9,14 +10,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
             `SELECT idx,nickname,title,content,file,hit,created_at FROM community`,
             []
         )
-        for (let i = 0; i < response.length; i++) {
-            const timeStamp = new Date(
-                response[i].updated_at - new Date().getTimezoneOffset() * 120000 //한국 시간
-            )
-            const date = timeStamp.toISOString().substring(0, 10)
-            response[i].updated_at = date
-        }
-
+        changeDbTimeForm(response)
         const { totalPage, contents: responseContents } = getContentsPerPages(
             response,
             10,
@@ -24,7 +18,6 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         )
         return {
             status: 200,
-
             data: {
                 contents: { totalPage, currentPage: page, responseContents },
             },
@@ -38,9 +31,10 @@ const getUserContent = async (params: any, connection: DbConnection) => {
     const { nickname } = params //query
     try {
         const response = await connection.run(
-            `SELECT nickname,title,content,file,hit,created_at FROM community WHERE nickname=?`,
+            `SELECT nickname,title,content,file,created_at FROM community WHERE nickname=?`,
             [nickname]
         )
+        changeDbTimeForm(response)
         return {
             status: 200,
             data: {
@@ -57,10 +51,10 @@ const getIdxContent = async (params: any, connection: DbConnection) => {
     try {
         const response = await connection.run(
             `
-        SELECT nickname,title,content,file,hit,created_at FROM community WHERE idx =?`,
+        SELECT nickname,title,content,file,created_at FROM community WHERE idx =?`,
             [idx]
         )
-
+        changeDbTimeForm(response)
         return {
             status: 200,
             data: {

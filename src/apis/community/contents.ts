@@ -1,5 +1,6 @@
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
+import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
 const writeContents = async (params: any, connection: DbConnection) => {
     const { nickname, title, content, file } = params
@@ -82,6 +83,7 @@ const getTopHitContents = async (params: any, connection: DbConnection) => {
         const response = await connection.run(
             `SELECT idx,title,created_at FROM community ORDER BY hit DESC LIMIT 5`
         )
+        changeDbTimeForm(response)
         return {
             status: 200,
             data: { top5Contents: response },
