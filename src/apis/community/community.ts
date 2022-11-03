@@ -6,7 +6,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
     const { page } = params
     try {
         const response: any = await connection.run(
-            `SELECT idx,nickname,title,content,file,hit,updated_at FROM community`,
+            `SELECT idx,nickname,title,content,file,hit,created_at FROM community`,
             []
         )
         for (let i = 0; i < response.length; i++) {
@@ -57,7 +57,7 @@ const getIdxContent = async (params: any, connection: DbConnection) => {
     try {
         const response = await connection.run(
             `
-        SELECT nickname,title,content,file FROM community WHERE idx =?`,
+        SELECT nickname,title,content,file,created_at FROM community WHERE idx =?`,
             [idx]
         )
 
