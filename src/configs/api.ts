@@ -284,6 +284,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/contents.ts',
         authorizer: false,
     },
+    getTopHitContents: {
+        urlPath: '/community/content/hit',
+        method: 'get',
+        handlerName: 'getTopHitContents',
+        handlerPath: './src/apis/community/contents.ts',
+        authorizer: false,
+    },
     getAllContents: {
         urlPath: '/community/page/:page',
         method: 'get',

@@ -82,6 +82,10 @@ const getTopHitContents = async (params: any, connection: DbConnection) => {
     const response = await connection.run(
       `SELECT TOP 5 * FROM community ORDER BY hit DESC`
     );
+    return{
+        status:200,
+        data:response
+    }
   } catch (e: any) {
     console.error(e);
   }
@@ -92,4 +96,5 @@ export default {
   modifyContents,
   deleteContents,
   increaseHit,
+  getTopHitContents
 };
