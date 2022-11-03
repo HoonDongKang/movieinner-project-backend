@@ -80,7 +80,7 @@ const increaseHit = async (params: any, connection: DbConnection) => {
 const getTopHitContents = async (params: any, connection: DbConnection) => {
   try {
     const response = await connection.run(
-      `SELECT TOP 5 * FROM community ORDER BY hit DESC`
+      `SELECT * FROM community ORDER BY hit DESC LIMIT 5`
     );
     return{
         status:200,
