@@ -4,10 +4,17 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 const writeComment = async (params: any, connection: DbConnection) => {
     const { contentIdx, nickname, comment, commentedAt } = params
     try {
-        await connection.run(
-            `INSERT INTO comments(content_idx,nickname,comment,commented_at) VALUES (?,?,?,?)`,
-            [contentIdx, nickname, comment, commentedAt]
-        )
+        if (commentedAt === null) {
+            await connection.run(
+                `INSERT INTO comments(content_idx,nickname,comment) VALUES (?,?,?)`,
+                [contentIdx, nickname, comment]
+            )
+        } else {
+            await connection.run(
+                `INSERT INTO comments(content_idx,nickname,comment,commentedAt) VALUES (?,?,?,?)`,
+                [contentIdx, nickname, comment, commentedAt]
+            )
+        }
         return {
             status: 201,
             data: {
