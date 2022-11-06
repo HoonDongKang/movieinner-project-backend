@@ -64,7 +64,7 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
     const { idx } = params
     try {
         const response = await connection.run(
-            `SELECT FROM comments WHERE idx=?`,
+            `SELECT * FROM comments WHERE idx=?`,
             [idx]
         )
         return {
