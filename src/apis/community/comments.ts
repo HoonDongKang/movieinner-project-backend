@@ -28,10 +28,10 @@ const writeComment = async (params: any, connection: DbConnection) => {
 const modifyComment = async (params: any, connection: DbConnection) => {
     const { idx, comment } = params
     try {
-        await connection.run(
-            `UPDATE comments SET comment=? WHERE idx=?`,
-            [comment, idx]
-        )
+        await connection.run(`UPDATE comments SET comment=? WHERE idx=?`, [
+            comment,
+            idx,
+        ])
         return {
             status: 201,
             data: {
@@ -43,12 +43,9 @@ const modifyComment = async (params: any, connection: DbConnection) => {
     }
 }
 const deleteComment = async (params: any, connection: DbConnection) => {
-    const { idx, contentIdx } = params
+    const { idx } = params
     try {
-        await connection.run(
-            `DELETE FROM comments WHERE idx=? AND content_idx=?`,
-            [idx, contentIdx]
-        )
+        await connection.run(`DELETE FROM comments WHERE idx=?`, [idx])
         return {
             status: 201,
             data: {
