@@ -28,10 +28,8 @@ export const getContentsPerPages = (
                 : j > 0;
             j--
         ) {
-            console.log(j)
             contents[i].push(array[j - 1])
         }
-        console.log('page2')
         contentsNumber -= contentsNumberPerPage
     }
     const responseContents = contents[page]
