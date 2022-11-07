@@ -84,16 +84,22 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
 }
 
 const getUserComments = async (params: any, connection: DbConnection) => {
-    const { nickname } = params
+    const { nickname, page } = params //path: nickname, query: page
     try {
         const response = await connection.run(
             `SELECT idx, content_idx, nickname,comment, commented_at, created_at FROM comments WHERE nickname=?`,
             [nickname]
         )
+        changeDbTimeForm(response)
+        const { totalPage, contents: comments } = getContentsPerPages(
+            response,
+            10,
+            page
+        )
         return {
             status: 201,
             data: {
-                response,
+                contents: { totalPage, comments },
             },
         }
     } catch (e: any) {
