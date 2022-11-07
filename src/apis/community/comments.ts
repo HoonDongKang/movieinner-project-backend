@@ -58,11 +58,11 @@ const deleteComment = async (params: any, connection: DbConnection) => {
 }
 
 const getIdxComments = async (params: any, connection: DbConnection) => {
-    const { idx } = params
+    const { contentIdx } = params
     try {
         const response = await connection.run(
-            `SELECT * FROM comments WHERE idx=?`,
-            [idx]
+            `SELECT idx, content_idx, nickname,comment, commented_at, created_at FROM comments WHERE content_idx=?`,
+            [contentIdx]
         )
         return {
             status: 201,
@@ -74,13 +74,13 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-//nickname 수정 필요
+
 const getUserComments = async (params: any, connection: DbConnection) => {
-    const { nickname, idx } = params
+    const { nickname } = params
     try {
         const response = await connection.run(
-            `SELECT FROM comments WHERE nickname=? AND idx=?`,
-            [nickname, idx]
+            `SELECT idx, content_idx, nickname,comment, commented_at, created_at FROM comments WHERE nickname=?`,
+            [nickname]
         )
         return {
             status: 201,

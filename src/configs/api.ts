@@ -333,4 +333,18 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
+    getIdxComments: {
+        urlPath: '/community/comment/:contentIdx',
+        method: 'get',
+        handlerName: 'getIdxComments',
+        handlerPath: './src/apis/community/comments.ts',
+        authorizer: false,
+    },
+    getUserComments: {
+        urlPath: '/community/comment/user/:nickname',
+        method: 'get',
+        handlerName: 'getUserComments',
+        handlerPath: './src/apis/community/comments.ts',
+        authorizer: false,
+    },
 }
