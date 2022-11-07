@@ -9,7 +9,7 @@ export const getContentsPerPages = (
         array[i]['number'] = i + 1
     }
     // 게시글 수
-    let contentsNumber: number = array.length - 1
+    let contentsNumber: number = array.length
 
     // 총 페이지 수
     const pageNumber = Math.trunc(contentsNumber / contentsNumberPerPage)
@@ -25,11 +25,13 @@ export const getContentsPerPages = (
             let j = contentsNumber;
             contentsNumber - contentsNumberPerPage > 0
                 ? j > contentsNumber - contentsNumberPerPage
-                : j >= 0;
+                : j > 0;
             j--
         ) {
-            contents[i].push(array[j])
+            console.log(j)
+            contents[i].push(array[j - 1])
         }
+        console.log('page2')
         contentsNumber -= contentsNumberPerPage
     }
     const responseContents = contents[page]
