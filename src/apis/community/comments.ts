@@ -1,5 +1,7 @@
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
+import { changeDbTimeForm } from './../../modules/changeTimeForm'
+import { getContentsPerPages } from './../../modules/getContents'
 //
 const writeComment = async (params: any, connection: DbConnection) => {
     const { contentIdx, nickname, comment, commentedAt } = params
@@ -58,16 +60,22 @@ const deleteComment = async (params: any, connection: DbConnection) => {
 }
 
 const getIdxComments = async (params: any, connection: DbConnection) => {
-    const { contentIdx } = params
+    const { contentIdx, page } = params //path: contentIdx, query: page
     try {
         const response = await connection.run(
             `SELECT idx, content_idx, nickname,comment, commented_at, created_at FROM comments WHERE content_idx=?`,
             [contentIdx]
         )
+        changeDbTimeForm(response)
+        const { totalPage, contents: comments } = getContentsPerPages(
+            response,
+            10,
+            page
+        )
         return {
             status: 201,
             data: {
-                response,
+                contents: { totalPage, comments },
             },
         }
     } catch (e: any) {
