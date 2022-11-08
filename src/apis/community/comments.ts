@@ -75,7 +75,7 @@ const deleteComment = async (params: any, connection: DbConnection) => {
 }
 
 const getIdxComments = async (params: any, connection: DbConnection) => {
-    const { contentIdx, page } = params //path: contentIdx, query: page
+    const { contentIdx } = params //path: contentIdx
     try {
         const response = await connection.run(
             `SELECT idx, content_idx, nickname,comment, response_to, created_at FROM comments WHERE content_idx=?`,
