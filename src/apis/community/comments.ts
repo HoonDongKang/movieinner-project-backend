@@ -73,7 +73,7 @@ const deleteComment = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-
+//대댓글 존재시 갯수 표시
 const getIdxComments = async (params: any, connection: DbConnection) => {
     const { contentIdx } = params //path: contentIdx
     try {
