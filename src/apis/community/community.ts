@@ -50,8 +50,7 @@ const getIdxContent = async (params: any, connection: DbConnection) => {
     const { idx } = params //query
     try {
         const response = await connection.run(
-            `
-        SELECT nickname,title,content,file,created_at FROM community WHERE idx =?`,
+            `SELECT nickname,title,content,file,created_at FROM community WHERE idx =?`,
             [idx]
         )
         changeDbTimeForm(response)
