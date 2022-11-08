@@ -82,15 +82,10 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
             [contentIdx]
         )
         changeDbTimeForm(response)
-        const { totalPage, contents: comments } = getContentsPerPages(
-            response,
-            10,
-            page
-        )
         return {
             status: 201,
             data: {
-                contents: { totalPage, comments },
+                contents: response,
             },
         }
     } catch (e: any) {
