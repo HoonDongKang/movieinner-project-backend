@@ -27,7 +27,7 @@ const writeComment = async (params: any, connection: DbConnection) => {
             idx = insertId
         }
         const getResponse = await connection.run(
-            `SELECT content_idx,nickname,comment,response_to,created_at FROM comments WHERE idx=?`,
+            `SELECT idx, content_idx,nickname,comment,response_to,created_at FROM comments WHERE idx=?`,
             [idx]
         )
         changeDbTimeForm(getResponse)
