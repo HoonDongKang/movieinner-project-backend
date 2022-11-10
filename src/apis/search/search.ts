@@ -1,12 +1,13 @@
 import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
-const contentsSearch = async (params: any, connection: DbConnection) => {
-    const { keyWord } = params
+const contentsTitleSearch = async (params: any, connection: DbConnection) => {
+    let { title } = params
+    title = title.replace(/ /g, '')
     try {
         const response = await connection.run(
             `SELECT * FROM community WHERE content LIKE ?`,
-            ['%' + keyWord + '%']
+            ['%' + title + '%']
         )
         return {
             status: 200,
@@ -20,5 +21,5 @@ const contentsSearch = async (params: any, connection: DbConnection) => {
 }
 
 export default {
-    contentsSearch,
+    contentsTitleSearch,
 }

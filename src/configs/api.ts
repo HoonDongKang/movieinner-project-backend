@@ -347,10 +347,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
-    contentsSearch: {
+    contentsTitleSearch: {
         urlPath: '/content/search',
         method: 'get',
-        handlerName: 'contentsSearch',
+        handlerName: 'contentsTitleSearch',
         handlerPath: './src/apis/search/search.ts',
         authorizer: false,
     },
