@@ -5,8 +5,8 @@ const contentsSearch = async (params: any, connection: DbConnection) => {
     const { keyWord } = params
     try {
         const response = await connection.run(
-            `SELECT * FROM community WHERE content LIKE '%'+?+'%'`,
-            [keyWord]
+            `SELECT * FROM community WHERE content LIKE ?`,
+            ['%' + keyWord + '%']
         )
         return {
             status: 200,
