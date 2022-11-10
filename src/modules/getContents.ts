@@ -1,7 +1,7 @@
 export const getContentsPerPages = (
     array: any[], // contents array
     contentsNumberPerPage: number, // the number of contents in a page
-    page: string // a page that to be responsed
+    page: string // a page that would be responsed
 ) => {
     let contents: any = {}
     //게시글 번호
