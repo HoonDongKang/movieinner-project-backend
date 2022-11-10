@@ -6,7 +6,7 @@ const contentsTitleSearch = async (params: any, connection: DbConnection) => {
     title = title.replace(/ /g, '')
     try {
         const response = await connection.run(
-            `SELECT * FROM community WHERE content LIKE ?`,
+            `SELECT * FROM community WHERE title LIKE ?`,
             ['%' + title + '%']
         )
         return {
