@@ -3,10 +3,10 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 
 const contentsTitleSearch = async (params: any, connection: DbConnection) => {
     let { title } = params
-    title = title.replace(/ /g, '')
+    title = title.replace(/ /g, '') // g-> slash 안에 모든 문자 변경
     try {
         const response = await connection.run(
-            `SELECT * FROM community WHERE title LIKE ?`,
+            `SELECT idx,nickname,title,content,file,hit,created_at FROM community WHERE title LIKE ?`,
             ['%' + title + '%']
         )
         return {
