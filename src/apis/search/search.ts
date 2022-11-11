@@ -58,7 +58,7 @@ const contentsSearch = async (params: any, connection: DbConnection) => {
             }
         }
     } catch (e: any) {
-        console.error(e)
+        paramsErrorHandler(e)
     }
 }
 
