@@ -1,9 +1,10 @@
 import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
+import { getContentsPerPages } from './../../modules/getContents'
 
 const contentsSearch = async (params: any, connection: DbConnection) => {
-    let { type, search } = params //query params
+    let { type, search, page } = params //query params
     let response: any[] = []
     // params 띄어쓰기 제거
     search = search.replace(/ /g, '') // g-> slash 안에 모든 문자 변경
@@ -31,10 +32,19 @@ const contentsSearch = async (params: any, connection: DbConnection) => {
             )
         }
         changeDbTimeForm(response)
+        const { totalPage, contents: responseContents } = getContentsPerPages(
+            response,
+            20,
+            page
+        )
         return {
             status: 200,
             data: {
-                searchResult: response,
+                searchResult: {
+                    totalPage,
+                    currentPage: page,
+                    responseContents,
+                },
             },
         }
     } catch (e: any) {
