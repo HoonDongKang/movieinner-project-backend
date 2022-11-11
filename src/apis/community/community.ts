@@ -13,7 +13,7 @@ const getAllContents = async (params: any, connection: DbConnection) => {
         changeDbTimeForm(response)
         const { totalPage, contents: responseContents } = getContentsPerPages(
             response,
-            10,
+            20,
             page
         )
         return {
