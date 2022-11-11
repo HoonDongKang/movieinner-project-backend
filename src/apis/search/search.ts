@@ -2,7 +2,7 @@ import { DbConnection } from './../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
-const contentsSearchByTitle = async (params: any, connection: DbConnection) => {
+const contentsSearch = async (params: any, connection: DbConnection) => {
     let { type, search } = params //query params
     // params 띄어쓰기 제거
     search = search.replace(/ /g, '') // g-> slash 안에 모든 문자 변경
@@ -61,13 +61,7 @@ const contentsSearchByTitle = async (params: any, connection: DbConnection) => {
         console.error(e)
     }
 }
-//type
-//title
-//content
-//writer
-//titleAndContent
 
-//search
 export default {
-    contentsSearchByTitle,
+    contentsSearch,
 }
