@@ -5,6 +5,7 @@ const { TMDB_API_KEY } = TMDB
 
 const movieSearch = async (params: any, connection: DbConnection) => {
     const { search, searchPage } = params
+    let
     try {
         const response = await connection.run(`
         https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${search}&page=${searchPage}`)
