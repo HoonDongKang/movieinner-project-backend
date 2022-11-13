@@ -348,7 +348,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     contentsSearch: {
-        urlPath: '/content/search',
+        urlPath: '/content/searc/:type/:search/:page',
         method: 'get',
         handlerName: 'contentsSearch',
         handlerPath: './src/apis/search/search.ts',
