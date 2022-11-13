@@ -1,7 +1,7 @@
-import { DbConnection } from './../../modules/connect'
-import { paramsErrorHandler } from './../../modules/paramsError'
-import { changeDbTimeForm } from './../../modules/changeTimeForm'
-import { getContentsPerPages } from './../../modules/getContents'
+import { DbConnection } from '../../modules/connect'
+import { paramsErrorHandler } from '../../modules/paramsError'
+import { changeDbTimeForm } from '../../modules/changeTimeForm'
+import { getContentsPerPages } from '../../modules/getContents'
 
 const contentsSearch = async (params: any, connection: DbConnection) => {
     let { type, search, page } = params //query params
