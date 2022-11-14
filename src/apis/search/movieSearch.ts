@@ -32,13 +32,17 @@ const movieSearch = async (
                 popularity: results[i].popularity,
             })
         }
+        // 유명도 순 내림차순 = 근데 페이지 별 내림차순이라,,
+        const descResultArray = resultArray.sort((a, b) => {
+            return b.popularity - a.popularity
+        })
         return {
             status: 200,
             data: {
                 total_pages,
                 total_results,
                 current_page: page,
-                search: resultArray,
+                search: descResultArray,
             },
         }
     } catch (e: any) {
