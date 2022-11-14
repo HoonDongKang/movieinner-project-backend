@@ -348,10 +348,17 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     contentsSearch: {
-        urlPath: '/content/search/:type/:search/:page',
+        urlPath: '/search/content/:type/:search/:page',
         method: 'get',
         handlerName: 'contentsSearch',
         handlerPath: './src/apis/search/contentSearch.ts',
+        authorizer: false,
+    },
+    movieSearch: {
+        urlPath: '/search/movie/:search/:searchPage',
+        method: 'get',
+        handlerName: 'movieSearch',
+        handlerPath: './src/apis/search/movieSearch.ts',
         authorizer: false,
     },
 }
