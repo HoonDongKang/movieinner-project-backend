@@ -11,7 +11,10 @@ interface ResultArrayType {
     popularity: number
 }
 
-const movieSearch = async (params: any, connection: DbConnection) => {
+const movieSearch = async (
+    params: { search: string; searchPage: string },
+    connection: DbConnection
+) => {
     const { search, searchPage } = params
     let resultArray: Array<ResultArrayType> = []
     try {
