@@ -3,10 +3,17 @@ import TMDB from '../../configs/tmdb'
 import axios from 'axios'
 
 const { TMDB_API_KEY } = TMDB
+interface ResultArrayType {
+    id: string
+    title: string
+    poster_path: string
+    release_date: string
+    popularity: number
+}
 
 const movieSearch = async (params: any, connection: DbConnection) => {
     const { search, searchPage } = params
-    let resultArray: any[] = []
+    let resultArray: Array<ResultArrayType> = []
     try {
         const response = await axios.get(
             `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${search}&page=${searchPage}`
