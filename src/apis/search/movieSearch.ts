@@ -1,6 +1,7 @@
 import { DbConnection } from './../../modules/connect'
 import TMDB from '../../configs/tmdb'
 import axios from 'axios'
+import { paramsErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY } = TMDB
 interface ResultArrayType {
@@ -41,7 +42,7 @@ const movieSearch = async (
             },
         }
     } catch (e: any) {
-        console.error(e)
+        paramsErrorHandler(e)
     }
 }
 
