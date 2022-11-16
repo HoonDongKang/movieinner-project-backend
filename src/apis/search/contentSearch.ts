@@ -4,7 +4,7 @@ import { changeDbTimeForm } from '../../modules/changeTimeForm'
 import { getContentsPerPages } from '../../modules/getContents'
 
 const contentsSearch = async (params: any, connection: DbConnection) => {
-    let { type, search, page } = params //query params
+    let { type, search, page } = params //path: type,  query: search,page
     let response: any[] = []
     // params 띄어쓰기 제거
     search = search.replace(/ /g, '') // g-> slash 안에 모든 문자 변경
