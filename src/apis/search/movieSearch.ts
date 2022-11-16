@@ -52,6 +52,8 @@ const movieSearch = async (
     }
 }
 
+const actorSearch = async (params: any, connection: DbConnection) => {}
+
 //배우, 장르 검색 추가
 
 export default {
