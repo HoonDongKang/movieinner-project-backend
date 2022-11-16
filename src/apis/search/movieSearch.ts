@@ -17,10 +17,11 @@ const movieSearch = async (
     connection: DbConnection
 ) => {
     const { search, searchPage } = params
-    //한글 검색 인코딩
-    const encodedSearch = encodeURIComponent(search)
+
     let resultArray: Array<ResultArrayType> = []
     try {
+        //한글 검색 인코딩
+        const encodedSearch = encodeURIComponent(search)
         const response = await axios.get(
             `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${encodedSearch}&page=${searchPage}`
         )
@@ -52,10 +53,22 @@ const movieSearch = async (
     }
 }
 
-const actorSearch = async (params: any, connection: DbConnection) => {}
+const actorSearch = async (params: any, connection: DbConnection) => {
+    const { search, searchPage } = params
+    try {
+        const encodedSearch = encodeURIComponent(search)
+        const response = await axios.get(
+            `https://api.themoviedb.org/3/search/person?api_key=${TMDB_API_KEY}&language=ko&query=${encodedSearch}&page=${searchPage}&include_adult=true`
+        )
+        const { page, results, total_pages, total_results } = response.data
+    } catch (e: any) {
+        console.error(e)
+    }
+}
 
 //배우, 장르 검색 추가
 
 export default {
     movieSearch,
+    actorSearch,
 }
