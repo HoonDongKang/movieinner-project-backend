@@ -17,10 +17,12 @@ const movieSearch = async (
     connection: DbConnection
 ) => {
     const { search, searchPage } = params
+    //한글 검색 인코딩
+    const encodedSearch = encodeURIComponent(search)
     let resultArray: Array<ResultArrayType> = []
     try {
         const response = await axios.get(
-            `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${search}&page=${searchPage}`
+            `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${encodedSearch}&page=${searchPage}`
         )
         const { page, results, total_pages, total_results } = response.data
         for (let i = 0; i < results.length; i++) {
