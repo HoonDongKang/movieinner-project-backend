@@ -55,12 +55,30 @@ const movieSearch = async (
 
 const actorSearch = async (params: any, connection: DbConnection) => {
     const { search, searchPage } = params
+    let resultArray:any[]=[]
     try {
         const encodedSearch = encodeURIComponent(search)
         const response = await axios.get(
             `https://api.themoviedb.org/3/search/person?api_key=${TMDB_API_KEY}&language=ko&query=${encodedSearch}&page=${searchPage}&include_adult=true`
         )
         const { page, results, total_pages, total_results } = response.data
+        for (let i =0;i<results.length;i++){
+            resultArray.push({
+                id:results[i].id,
+                gender:results[i].gender,
+                department:results[i].known_for_department,
+                movies:results[i].known_for.length,
+                name:results[i].name,
+                popularity:results[i].popularity,
+                profile_path:results[i].profile_path
+            })
+        }
+        return{
+            status:201,
+            data:{
+                resultArray
+            }
+        }
     } catch (e: any) {
         console.error(e)
     }
