@@ -3,14 +3,23 @@ import TMDB from '../../configs/tmdb'
 import axios from 'axios'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
-const { TMDB_API_KEY } = TMDB
-interface ResultArrayType {
+interface MovieResultArrayType {
     id: string
     title: string
     poster_path: string
     release_date: string
     popularity: number
 }
+interface ActorResultArrayType {
+    id:string,
+    gender:number,
+    department:string,
+    name:string,
+    popularity:number,
+    profile_path:string
+}
+
+const { TMDB_API_KEY } = TMDB
 
 const movieSearch = async (
     params: { search: string; searchPage: string },
@@ -18,7 +27,7 @@ const movieSearch = async (
 ) => {
     const { search, searchPage } = params
 
-    let resultArray: Array<ResultArrayType> = []
+    let resultArray: Array<MovieResultArrayType> = []
     try {
         //한글 검색 인코딩
         const encodedSearch = encodeURIComponent(search)
@@ -53,9 +62,9 @@ const movieSearch = async (
     }
 }
 
-const actorSearch = async (params: any, connection: DbConnection) => {
+const actorSearch = async (params: { search: string; searchPage: string }, connection: DbConnection) => {
     const { search, searchPage } = params
-    let resultArray:any[]=[]
+    let resultArray:Array<ActorResultArrayType>=[]
     try {
         const encodedSearch = encodeURIComponent(search)
         const response = await axios.get(
@@ -67,7 +76,6 @@ const actorSearch = async (params: any, connection: DbConnection) => {
                 id:results[i].id,
                 gender:results[i].gender,
                 department:results[i].known_for_department,
-                movies:results[i].known_for.length,
                 name:results[i].name,
                 popularity:results[i].popularity,
                 profile_path:results[i].profile_path
@@ -76,7 +84,10 @@ const actorSearch = async (params: any, connection: DbConnection) => {
         return{
             status:201,
             data:{
-                resultArray
+                total_pages,
+                total_results,
+                current_page: page,
+                search: resultArray,
             }
         }
     } catch (e: any) {
