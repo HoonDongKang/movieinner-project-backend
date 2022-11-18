@@ -100,7 +100,9 @@ const actorSearch = async (
     }
 }
 
-//배우, 장르 검색 추가
+const genreSearch = async (params: any, connection: DbConnection) => {}
+
+//장르 검색 추가
 
 export default {
     movieSearch,
