@@ -109,7 +109,9 @@ const actorSearch = async (
     }
 }
 
-const genreSearch = async (params: any, connection: DbConnection) => {}
+const genreSearch = async (params: any, connection: DbConnection) => {
+    // 장르 이름 검색 , 장르에 포함된 영화
+}
 
 //장르 검색 추가
 
