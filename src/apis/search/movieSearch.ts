@@ -5,6 +5,7 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 
 interface MovieResultArrayType {
     id: string
+    genre: number[]
     title: string
     poster_path: string
     release_date: string
@@ -20,6 +21,7 @@ interface ActorResultArrayType {
 }
 
 const { TMDB_API_KEY } = TMDB
+//genre id 추가하기
 const movieSearch = async (
     params: { search: string; searchPage: string },
     connection: DbConnection
@@ -37,6 +39,7 @@ const movieSearch = async (
         for (let i = 0; i < results.length; i++) {
             resultArray.push({
                 id: results[i].id,
+                genre: results[i].genre_ids,
                 title: results[i].title,
                 poster_path: results[i].poster_path,
                 release_date: results[i].release_date,
