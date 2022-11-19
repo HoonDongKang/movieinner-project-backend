@@ -86,5 +86,16 @@ const genderID = {
 }
 // 장르 별 숫자 -> 글자로 변환
 
-const convertGenreIdtoName = (tmdbArray: MovieResultArrayType) => {}
+export const convertGenreIdtoName = (tmdbArray: any) => {
+    for (let i = 0; i < tmdbArray.length; i++) {
+        let { genre } = tmdbArray[i]
+        for (let j = 0; j < genre.length; j++) {
+            for (let k = 0; k < genreId.length; k++) {
+                if (genre[j] === genreId[k].id) {
+                    genre[j] = genreId[k].name
+                }
+            }
+        }
+    }
+}
 const convertGenderIdtoName = (tmdbArray: ActorResultArrayType) => {}

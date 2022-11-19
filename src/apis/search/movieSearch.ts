@@ -2,10 +2,11 @@ import { DbConnection } from './../../modules/connect'
 import TMDB from '../../configs/tmdb'
 import axios from 'axios'
 import { paramsErrorHandler } from './../../modules/paramsError'
+import { convertGenreIdtoName } from './../../modules/tmdbConvert'
 
 export interface MovieResultArrayType {
     id: string
-    genre: number[]
+    genre: number[] | string[]
     title: string
     poster_path: string
     release_date: string
@@ -46,6 +47,7 @@ const movieSearch = async (
                 popularity: results[i].popularity,
             })
         }
+        convertGenreIdtoName(resultArray)
         // 유명도 순 내림차순 = 근데 페이지 별 내림차순이라,,
         const descResultArray = resultArray.sort(
             (a, b) => b.popularity - a.popularity
