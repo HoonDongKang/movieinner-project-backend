@@ -92,7 +92,7 @@ const actorSearch = async (
                 total_pages,
                 total_results,
                 current_page: page,
-                search: resultArray,
+                search: descArray,
             },
         }
     } catch (e: any) {
