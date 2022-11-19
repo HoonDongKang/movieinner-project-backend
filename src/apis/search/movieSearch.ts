@@ -2,7 +2,10 @@ import { DbConnection } from './../../modules/connect'
 import TMDB from '../../configs/tmdb'
 import axios from 'axios'
 import { paramsErrorHandler } from './../../modules/paramsError'
-import { convertGenreIdtoName } from './../../modules/tmdbConvert'
+import {
+    convertGenderIdtoName,
+    convertGenreIdtoName,
+} from './../../modules/tmdbConvert'
 
 export interface MovieResultArrayType {
     id: string
@@ -14,7 +17,7 @@ export interface MovieResultArrayType {
 }
 export interface ActorResultArrayType {
     id: string
-    gender: number
+    gender: number | string
     department: string
     name: string
     popularity: number
@@ -88,6 +91,7 @@ const actorSearch = async (
                 profile_path: results[i].profile_path,
             })
         }
+        convertGenderIdtoName(resultArray)
         const descArray = resultArray.sort(
             (a, b) => b.popularity - a.popularity
         )

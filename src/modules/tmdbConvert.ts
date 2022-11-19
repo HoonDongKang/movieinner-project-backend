@@ -1,5 +1,3 @@
-import { MovieResultArrayType } from '../apis/search/movieSearch'
-import { ActorResultArrayType } from '../apis/search/movieSearch'
 const genreId = [
     {
         id: 28,
@@ -79,11 +77,20 @@ const genreId = [
     },
 ]
 
-const genderID = {
-    0: '정해지지 않음',
-    1: '여자',
-    2: '남자',
-}
+const genderId = [
+    {
+        id: 0,
+        name: '정해지지 않음',
+    },
+    {
+        id: 1,
+        name: '여',
+    },
+    {
+        id: 2,
+        name: '남',
+    },
+]
 // 장르 별 숫자 -> 글자로 변환
 
 export const convertGenreIdtoName = (tmdbArray: any) => {
@@ -98,4 +105,13 @@ export const convertGenreIdtoName = (tmdbArray: any) => {
         }
     }
 }
-const convertGenderIdtoName = (tmdbArray: ActorResultArrayType) => {}
+export const convertGenderIdtoName = (tmdbArray: any) => {
+    for (let i = 0; i < tmdbArray.length; i++) {
+        let { gender } = tmdbArray[i]
+        for (let j = 0; j < genderId.length; j++) {
+            if (gender === genderId[j].id) {
+                tmdbArray[i].gender = genderId[j].name
+            }
+        }
+    }
+}
