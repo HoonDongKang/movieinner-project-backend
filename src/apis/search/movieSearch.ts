@@ -3,7 +3,7 @@ import TMDB from '../../configs/tmdb'
 import axios from 'axios'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
-interface MovieResultArrayType {
+export interface MovieResultArrayType {
     id: string
     genre: number[]
     title: string
@@ -11,7 +11,7 @@ interface MovieResultArrayType {
     release_date: string
     popularity: number
 }
-interface ActorResultArrayType {
+export interface ActorResultArrayType {
     id: string
     gender: number
     department: string
