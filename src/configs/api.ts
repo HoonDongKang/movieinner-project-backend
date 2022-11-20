@@ -368,4 +368,11 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/search/movieSearch.ts',
         authorizer: false,
     },
+    genreSearch: {
+        urlPath: '/search/genre',
+        method: 'get',
+        handlerName: 'genreSearch',
+        handlerPath: './src/apis/search/movieSearch.ts',
+        authorizer: false,
+    },
 }

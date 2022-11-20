@@ -105,12 +105,25 @@ const actorSearch = async (
             },
         }
     } catch (e: any) {
-        console.error(e)
+        paramsErrorHandler(e)
     }
 }
 
 const genreSearch = async (params: any, connection: DbConnection) => {
-    // 장르 이름 검색 , 장르에 포함된 영화
+    let { search, searchPage } = params
+    search = search.replace(/ /g, '')
+    try {
+        const response = await connection.run(
+            `SELECT theme_name, movie_id,movie_name,poster_path,backdrop_path,release_date FROM movie_theme WHERE replace(theme_name," ","") LIKE ?`,
+            ['%' + search + '%']
+        )
+        return {
+            status: 200,
+            data: response,
+        }
+    } catch (e: any) {
+        console.error(e)
+    }
 }
 
 //장르 검색 추가
@@ -118,4 +131,5 @@ const genreSearch = async (params: any, connection: DbConnection) => {
 export default {
     movieSearch,
     actorSearch,
+    genreSearch,
 }
