@@ -6,15 +6,6 @@ import { organizeThemeForm } from './../../modules/organizeThemeForm'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
-export interface MovieInfoType {
-    theme_name: string
-    movie_id: string
-    movie_name: string
-    release_date: string
-    poster_path: string
-    backdrop_path: string
-}
-
 const getAllThemes = async (params: any, connection: DbConnection) => {
     const response = await connection.run(`SELECT * FROM movie_theme`)
     const movieThemeList = organizeThemeForm(response)
