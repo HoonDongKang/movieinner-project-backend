@@ -3,9 +3,6 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 import { getContentsPerPages } from './../../modules/getContents'
 
-// idx 만 응답하고 idx를 통해 또 다른 api?
-// 한번에 입력값 출력?
-// 처음 요청 값에서 사용?
 const writeComment = async (params: any, connection: DbConnection) => {
     const { contentIdx, nickname, comment, responseTo } = params
     let response: any = []
