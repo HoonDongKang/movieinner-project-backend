@@ -2,10 +2,11 @@ import { DbConnection } from '../../modules/connect'
 import TMDB from '../../configs/tmdb'
 import { tmdbErrorHandler } from './../../modules/paramsError'
 import axios from 'axios'
+import { organizeThemeForm } from './../../modules/organizeThemeForm'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
-interface MovieInfoType {
+export interface MovieInfoType {
     themeName: string
     movieId: string
     movieName: string
@@ -15,41 +16,10 @@ interface MovieInfoType {
 }
 
 const getAllThemes = async (params: any, connection: DbConnection) => {
-    const response = await connection.run(`SELECT * FROM movie_theme`)
-    let duplicateThemeNames: any[] = []
-    response.map((resObj: any) => {
-        duplicateThemeNames.push(resObj.theme_name)
-    })
-    //theme 이름 중복 제거
-    const themeNames = [...new Set(duplicateThemeNames)]
-
-    //db theme 가져오기
-    let movieInfo: any[] = []
-
-    for (let i = 0; i < response.length; i++) {
-        movieInfo.push({
-            theme_name: response[i].theme_name,
-            movie_id: response[i].movie_id,
-            movie_name: response[i].movie_name,
-            poster_path: response[i].poster_path,
-            backdrop_path: response[i].backdrop_path,
-            release_date: response[i].release_date,
-        })
-    }
-    //theme 별 영화 객체
-    let movieThemeList: any = {}
-
-    for (let i = 0; i < themeNames.length; i++) {
-        movieThemeList[themeNames[i]] = []
-        for (let j = 0; j < movieInfo.length; j++) {
-            if (themeNames[i] === movieInfo[j].theme_name) {
-                movieThemeList[themeNames[i]] = [
-                    ...movieThemeList[themeNames[i]],
-                    movieInfo[j],
-                ]
-            }
-        }
-    }
+    const response: Array<MovieInfoType> = await connection.run(
+        `SELECT * FROM movie_theme`
+    )
+    const movieThemeList = organizeThemeForm(response)
     return {
         status: 201,
         data: movieThemeList,
