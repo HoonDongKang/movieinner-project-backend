@@ -6,6 +6,8 @@ import {
     convertGenderIdtoName,
     convertGenreIdtoName,
 } from './../../modules/tmdbConvert'
+import { organizeThemeForm } from '../../modules/organizeThemeForm'
+import { getContentsPerPages } from './../../modules/getContents'
 
 export interface MovieResultArrayType {
     id: string
@@ -109,6 +111,8 @@ const actorSearch = async (
     }
 }
 
+//page 별 설정?
+//하나의 객체?
 const genreSearch = async (params: any, connection: DbConnection) => {
     let { search, searchPage } = params
     search = search.replace(/ /g, '')
@@ -117,9 +121,10 @@ const genreSearch = async (params: any, connection: DbConnection) => {
             `SELECT theme_name, movie_id,movie_name,poster_path,backdrop_path,release_date FROM movie_theme WHERE replace(theme_name," ","") LIKE ?`,
             ['%' + search + '%']
         )
+        const searchResult = organizeThemeForm(response)
         return {
             status: 200,
-            data: response,
+            data: searchResult,
         }
     } catch (e: any) {
         console.error(e)
