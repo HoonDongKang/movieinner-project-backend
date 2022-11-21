@@ -1,7 +1,15 @@
+interface MovieInfoType {
+    theme_name: string
+    movie_id: string
+    movie_name: string
+    release_date: string
+    poster_path: string
+    backdrop_path: string
+}
 // 테마별 영화 정리
-export const organizeThemeForm = (themeArray: any) => {
-    let duplicateThemeNames: any[] = []
-    themeArray.map((resObj: any) => {
+export const organizeThemeForm = (themeArray: Array<MovieInfoType>) => {
+    let duplicateThemeNames: string[] = []
+    themeArray.map((resObj: MovieInfoType) => {
         duplicateThemeNames.push(resObj.theme_name)
     })
     //theme 이름 중복 제거
@@ -21,7 +29,7 @@ export const organizeThemeForm = (themeArray: any) => {
         })
     }
     //theme 별 영화 객체
-    let movieThemeList: any = {}
+    let movieThemeList: { [key: string]: Array<MovieInfoType> } = {}
 
     for (let i = 0; i < themeNames.length; i++) {
         movieThemeList[themeNames[i]] = []
