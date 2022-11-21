@@ -7,18 +7,16 @@ import { organizeThemeForm } from './../../modules/organizeThemeForm'
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
 export interface MovieInfoType {
-    themeName: string
-    movieId: string
-    movieName: string
-    releaseDate: string
-    posterPath: string
-    backdropPath: string
+    theme_name: string
+    movie_id: string
+    movie_name: string
+    release_date: string
+    poster_path: string
+    backdrop_path: string
 }
 
 const getAllThemes = async (params: any, connection: DbConnection) => {
-    const response: Array<MovieInfoType> = await connection.run(
-        `SELECT * FROM movie_theme`
-    )
+    const response = await connection.run(`SELECT * FROM movie_theme`)
     const movieThemeList = organizeThemeForm(response)
     return {
         status: 201,
@@ -45,37 +43,21 @@ const getMoviesFromTheme = async (params: any, connection: DbConnection) => {
 
 const insertMoviesInTheme = async (params: any, connection: DbConnection) => {
     const { name, movieId } = params
-    let insertMovie: MovieInfoType = {
-        themeName: '',
-        movieId: '',
-        movieName: '',
-        releaseDate: '',
-        posterPath: '',
-        backdropPath: '',
-    }
     let movieDetails: any = []
     try {
         const response = await axios.get(
             `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}&language=ko`
         )
         movieDetails = response.data
-        insertMovie = {
-            themeName: name,
-            movieId: movieDetails.id,
-            movieName: movieDetails.title,
-            releaseDate: movieDetails.release_date,
-            posterPath: movieDetails.poster_path,
-            backdropPath: movieDetails.backdrop_path,
-        }
         await connection.run(
             `INSERT INTO movie_theme(theme_name,movie_id,movie_name,release_date,poster_path,backdrop_path) VALUES (?,?,?,?,?,?)`,
             [
                 name,
-                insertMovie.movieId,
-                insertMovie.movieName,
-                insertMovie.releaseDate,
-                insertMovie.posterPath,
-                insertMovie.backdropPath,
+                movieDetails.id,
+                movieDetails.title,
+                movieDetails.release_date,
+                movieDetails.poster_path,
+                movieDetails.backdrop_path,
             ]
         )
     } catch (e: any) {
@@ -83,7 +65,7 @@ const insertMoviesInTheme = async (params: any, connection: DbConnection) => {
     }
     return {
         status: 201,
-        data: insertMovie,
+        success: true,
     }
 }
 
