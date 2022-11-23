@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 import { jwtErrorHandler } from '../../modules/paramsError'
 const { JWT_SECRET } = jsonWebToken
-
+//type
 const refreshToken = async (params: any, connection: DbConnection) => {
     let refreshTokenPayload: any = {}
     let newAccessTokenPayload = {}
