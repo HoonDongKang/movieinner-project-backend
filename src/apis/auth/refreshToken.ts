@@ -1,11 +1,21 @@
 import { DbConnection } from '../../modules/connect'
-import JWT from 'jsonwebtoken'
+import JWT, { Jwt, JwtPayload } from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 import { jwtErrorHandler } from '../../modules/paramsError'
 const { JWT_SECRET } = jsonWebToken
-//type
+
+interface RefreshTokenPayloadType{
+    accessToken:string,
+    refreshTokenExpiredDate:string,
+    iat:number
+}
+
 const refreshToken = async (params: any, connection: DbConnection) => {
-    let refreshTokenPayload: any = {}
+    let refreshTokenPayload:RefreshTokenPayloadType= {
+        accessToken:'',
+        refreshTokenExpiredDate:'',
+        iat:0
+    }
     let newAccessTokenPayload = {}
     let newAccessToken = ''
     let newRefreshTokenPayload = {}
@@ -21,7 +31,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
 
     try {
         const { refreshToken } = params
-        refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET)
+        refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET) as RefreshTokenPayloadType
         console.log(refreshTokenPayload)
         const { accessToken, refreshTokenExpiredDate } = refreshTokenPayload
         const accessTokenPayload: any = JWT.verify(accessToken, JWT_SECRET)
