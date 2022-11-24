@@ -10,6 +10,13 @@ interface RefreshTokenPayloadType{
     iat:number
 }
 
+interface AccessTokenPayloadType{
+    email:string,
+    idx:string,
+    nickname:string
+    iat:number
+}
+
 const refreshToken = async (params: any, connection: DbConnection) => {
     let refreshTokenPayload:RefreshTokenPayloadType= {
         accessToken:'',
@@ -34,7 +41,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
         refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET) as RefreshTokenPayloadType
         console.log(refreshTokenPayload)
         const { accessToken, refreshTokenExpiredDate } = refreshTokenPayload
-        const accessTokenPayload: any = JWT.verify(accessToken, JWT_SECRET)
+        const accessTokenPayload = JWT.verify(accessToken, JWT_SECRET) as AccessTokenPayloadType
         const { email, idx, nickname } = accessTokenPayload
         const now = Date.now()
         const getResponse = await connection.run(
