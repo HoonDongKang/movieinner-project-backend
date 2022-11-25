@@ -3,10 +3,13 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 import { getContentsPerPages } from './../../modules/getContents'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
-const getAllContents = async (params: any, connection: DbConnection) => {
+const getAllContents = async (
+    params: { page: string },
+    connection: DbConnection
+) => {
     const { page } = params
     try {
-        const response: any = await connection.run(
+        const response = await connection.run(
             `SELECT idx,nickname,title,content,file,hit,created_at FROM community`,
             []
         )
@@ -27,7 +30,10 @@ const getAllContents = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getUserContent = async (params: any, connection: DbConnection) => {
+const getUserContent = async (
+    params: { nickname: string },
+    connection: DbConnection
+) => {
     const { nickname } = params //query
     try {
         const response = await connection.run(
@@ -46,7 +52,10 @@ const getUserContent = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getIdxContent = async (params: any, connection: DbConnection) => {
+const getIdxContent = async (
+    params: { idx: string },
+    connection: DbConnection
+) => {
     const { idx } = params //query
     try {
         const response = await connection.run(
