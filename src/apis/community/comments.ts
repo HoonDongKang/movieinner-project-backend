@@ -4,7 +4,12 @@ import { changeDbTimeForm } from './../../modules/changeTimeForm'
 import { getContentsPerPages } from './../../modules/getContents'
 
 const writeComment = async (
-    params: { contentIdx: number; nickname; comment; responseTo },
+    params: {
+        contentIdx: string
+        nickname: string
+        comment: string
+        responseTo: string
+    },
     connection: DbConnection
 ) => {
     const { contentIdx, nickname, comment, responseTo } = params
@@ -42,7 +47,10 @@ const writeComment = async (
         paramsErrorHandler(e)
     }
 }
-const modifyComment = async (params: any, connection: DbConnection) => {
+const modifyComment = async (
+    params: { idx: string; comment: string },
+    connection: DbConnection
+) => {
     const { idx, comment } = params
     try {
         await connection.run(`UPDATE comments SET comment=? WHERE idx=?`, [
@@ -59,7 +67,10 @@ const modifyComment = async (params: any, connection: DbConnection) => {
         paramsErrorHandler(e)
     }
 }
-const deleteComment = async (params: any, connection: DbConnection) => {
+const deleteComment = async (
+    params: { idx: string },
+    connection: DbConnection
+) => {
     const { idx } = params
     try {
         await connection.run(`DELETE FROM comments WHERE idx=?`, [idx])
@@ -74,7 +85,10 @@ const deleteComment = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getIdxComments = async (params: any, connection: DbConnection) => {
+const getIdxComments = async (
+    params: { contentIdx: string },
+    connection: DbConnection
+) => {
     const { contentIdx } = params //path: contentIdx
     try {
         const response = await connection.run(
@@ -93,7 +107,10 @@ const getIdxComments = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getUserComments = async (params: any, connection: DbConnection) => {
+const getUserComments = async (
+    params: { nickname: string; page: string },
+    connection: DbConnection
+) => {
     const { nickname, page } = params //path: nickname, query: page
     try {
         const response = await connection.run(
