@@ -3,7 +3,10 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 import { getContentsPerPages } from './../../modules/getContents'
 
-const writeComment = async (params: any, connection: DbConnection) => {
+const writeComment = async (
+    params: { contentIdx: number; nickname; comment; responseTo },
+    connection: DbConnection
+) => {
     const { contentIdx, nickname, comment, responseTo } = params
     let response: any = []
     let idx = 0
