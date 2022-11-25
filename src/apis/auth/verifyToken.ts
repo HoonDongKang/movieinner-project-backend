@@ -4,7 +4,10 @@ import JWT from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 const { JWT_SECRET } = jsonWebToken
 
-const getPayloadToken = async (params: any, connection: DbConnection) => {
+const getPayloadToken = async (
+    params: { token: string },
+    connection: DbConnection
+) => {
     let payload: any = {}
     try {
         const { token } = params
