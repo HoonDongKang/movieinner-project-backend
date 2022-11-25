@@ -17,7 +17,7 @@ interface AccessTokenPayloadType{
     iat:number
 }
 
-const refreshToken = async (params: any, connection: DbConnection) => {
+const refreshToken = async (params: {refreshToken:string}, connection: DbConnection) => {
     let refreshTokenPayload:RefreshTokenPayloadType= {
         accessToken:'',
         refreshTokenExpiredDate:'',
