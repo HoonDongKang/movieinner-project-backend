@@ -2,7 +2,10 @@ import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from './../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
-const writeContents = async (params: any, connection: DbConnection) => {
+const writeContents = async (
+    params: { nickname: string; title: string; content: string; file: string },
+    connection: DbConnection
+) => {
     const { nickname, title, content, file } = params
     try {
         const response = await connection.run(
@@ -21,7 +24,10 @@ const writeContents = async (params: any, connection: DbConnection) => {
     }
 }
 
-const modifyContents = async (params: any, connection: DbConnection) => {
+const modifyContents = async (
+    params: { idx: string; title: string; content: string; file: string },
+    connection: DbConnection
+) => {
     const { idx, title, content, file } = params
     try {
         await connection.run(
@@ -39,7 +45,10 @@ const modifyContents = async (params: any, connection: DbConnection) => {
     }
 }
 
-const deleteContents = async (params: any, connection: DbConnection) => {
+const deleteContents = async (
+    params: { idx: string },
+    connection: DbConnection
+) => {
     const { idx } = params
     try {
         await connection.run(`DELETE FROM community WHERE idx=?`, [idx])
@@ -54,7 +63,10 @@ const deleteContents = async (params: any, connection: DbConnection) => {
     }
 }
 
-const increaseHit = async (params: any, connection: DbConnection) => {
+const increaseHit = async (
+    params: { idx: string },
+    connection: DbConnection
+) => {
     const { idx } = params
     try {
         const response = await connection.run(
@@ -78,7 +90,7 @@ const increaseHit = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getTopHitContents = async (params: any, connection: DbConnection) => {
+const getTopHitContents = async (params: never, connection: DbConnection) => {
     try {
         const response = await connection.run(
             `SELECT idx,title,created_at FROM community ORDER BY hit DESC LIMIT 5`

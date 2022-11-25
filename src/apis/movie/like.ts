@@ -1,7 +1,10 @@
-import { paramsErrorHandler, tmdbErrorHandler } from '../../modules/paramsError'
+import { paramsErrorHandler } from '../../modules/paramsError'
 import { DbConnection } from './../../modules/connect'
 //찜하기 확인
-const checkLiked = async (params: any, connection: DbConnection) => {
+const checkLiked = async (
+    params: { type: string; nickname: string; movieId: string; name: string },
+    connection: DbConnection
+) => {
     const { type, nickname, movieId, name } = params
     let isExisted = false
     try {

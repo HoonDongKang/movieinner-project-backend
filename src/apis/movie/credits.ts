@@ -1,11 +1,10 @@
-import { DbConnection } from '../../modules/connect'
 import axios from 'axios'
 import TMDB from '../../configs/tmdb'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
-const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
+const { TMDB_API_KEY } = TMDB
 
-const getCredits = async (params: any, conncetion: DbConnection) => {
+const getCredits = async (params: { movieId: string }, conncetion: never) => {
     const { movieId } = params
     const movieCredits: any[] = []
     try {
