@@ -5,7 +5,10 @@ import { tmdbErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
-const getPopularMovies = async (params: any, connection: DbConnection) => {
+const getPopularMovies = async (
+    params: { page: string },
+    connection: never
+) => {
     //query
     const { page } = params //path
     try {

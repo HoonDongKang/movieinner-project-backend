@@ -5,7 +5,7 @@ import { tmdbErrorHandler } from './../../modules/paramsError'
 
 const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
 
-const upcomingMovies = async (params: any, connection: DbConnection) => {
+const upcomingMovies = async (params: { page: string }, connection: never) => {
     const { page } = params
     try {
         const response = await axios.get(
@@ -21,7 +21,10 @@ const upcomingMovies = async (params: any, connection: DbConnection) => {
     }
 }
 
-const nowPlayingMovies = async (params: any, connection: DbConnection) => {
+const nowPlayingMovies = async (
+    params: { page: string },
+    connection: never
+) => {
     const { page } = params
     try {
         const response = await axios.get(

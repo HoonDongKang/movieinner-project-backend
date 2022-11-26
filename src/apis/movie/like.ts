@@ -40,7 +40,17 @@ const checkLiked = async (
     }
 }
 //찜한 영화
-const liked = async (params: any, connection: DbConnection) => {
+const liked = async (
+    params: {
+        type: string
+        nickname: string
+        movieId: string
+        name: string
+        poster_path: string
+        backdrop_path: string
+    },
+    connection: DbConnection
+) => {
     const { type, nickname, movieId, name, poster_path, backdrop_path } = params
     try {
         if (type === 'movie') {
@@ -69,7 +79,10 @@ const liked = async (params: any, connection: DbConnection) => {
 }
 
 //찜하기 취소
-const deleteLike = async (params: any, connection: DbConnection) => {
+const deleteLike = async (
+    params: { type: string; nickname: string; name: string },
+    connection: DbConnection
+) => {
     const { type, nickname, name } = params
     try {
         await connection.run(
@@ -87,7 +100,10 @@ const deleteLike = async (params: any, connection: DbConnection) => {
     }
 }
 //유저 별 좋아요 영화, 테마 불러오기
-const getLiked = async (params: any, connection: DbConnection) => {
+const getLiked = async (
+    params: { type: string; nickname: string },
+    connection: DbConnection
+) => {
     const { type, nickname } = params //type:path, nickname:query
     let response = []
     try {
