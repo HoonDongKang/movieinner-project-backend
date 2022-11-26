@@ -3,7 +3,10 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 import { changeDbTimeForm } from '../../modules/changeTimeForm'
 import { getContentsPerPages } from '../../modules/getContents'
 
-const contentsSearch = async (params: any, connection: DbConnection) => {
+const contentsSearch = async (
+    params: { type: string; search: string; page: string },
+    connection: DbConnection
+) => {
     let { type, search, page } = params //path: type,  query: search,page
     let response: any[] = []
     // params 띄어쓰기 제거
