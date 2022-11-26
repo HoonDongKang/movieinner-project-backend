@@ -4,9 +4,9 @@ import { tmdbErrorHandler } from './../../modules/paramsError'
 import axios from 'axios'
 import { organizeThemeForm } from './../../modules/organizeThemeForm'
 
-const { TMDB_API_KEY, TMDB_IMAGE_URL } = TMDB
+const { TMDB_API_KEY } = TMDB
 
-const getAllThemes = async (params: any, connection: DbConnection) => {
+const getAllThemes = async (params: never, connection: DbConnection) => {
     const response = await connection.run(`SELECT * FROM movie_theme`)
     const movieThemeList = organizeThemeForm(response)
     return {
@@ -15,7 +15,10 @@ const getAllThemes = async (params: any, connection: DbConnection) => {
     }
 }
 
-const getMoviesFromTheme = async (params: any, connection: DbConnection) => {
+const getMoviesFromTheme = async (
+    params: { name: string },
+    connection: DbConnection
+) => {
     const { name } = params //path
     let response = {}
     try {
@@ -32,7 +35,10 @@ const getMoviesFromTheme = async (params: any, connection: DbConnection) => {
     }
 }
 
-const insertMoviesInTheme = async (params: any, connection: DbConnection) => {
+const insertMoviesInTheme = async (
+    params: { name: string; movieId: string },
+    connection: DbConnection
+) => {
     const { name, movieId } = params
     let movieDetails: any = []
     try {
