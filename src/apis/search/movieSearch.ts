@@ -7,7 +7,6 @@ import {
     convertGenreIdtoName,
 } from './../../modules/tmdbConvert'
 import { organizeThemeForm } from '../../modules/organizeThemeForm'
-import { getContentsPerPages } from './../../modules/getContents'
 
 export interface MovieResultArrayType {
     id: string
@@ -30,7 +29,7 @@ const { TMDB_API_KEY } = TMDB
 //genre id 추가하기
 const movieSearch = async (
     params: { search: string; searchPage: string },
-    connection: DbConnection
+    connection: never
 ) => {
     const { search, searchPage } = params
 
@@ -73,7 +72,7 @@ const movieSearch = async (
 
 const actorSearch = async (
     params: { search: string; searchPage: string },
-    connection: DbConnection
+    connection: never
 ) => {
     const { search, searchPage } = params
     let resultArray: Array<ActorResultArrayType> = []
@@ -114,7 +113,7 @@ const actorSearch = async (
 //page 별 설정?
 //하나의 객체?
 const genreSearch = async (params: any, connection: DbConnection) => {
-    let { search, searchPage } = params
+    let { search } = params
     search = search.replace(/ /g, '')
     try {
         const response = await connection.run(
