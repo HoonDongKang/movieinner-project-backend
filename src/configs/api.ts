@@ -256,6 +256,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/movie/like.ts',
         authorizer: false,
     },
+    getGenre: {
+        urlPath: '/movies/genre',
+        method: 'get',
+        handlerName: 'getGenre',
+        handlerPath: './src/apis/movie/getGenre.ts',
+        authorizer: false,
+    },
     writeContents: {
         urlPath: '/community/content',
         method: 'post',
