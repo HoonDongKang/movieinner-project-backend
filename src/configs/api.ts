@@ -267,7 +267,7 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/movies/category',
         method: 'get',
         handlerName: 'searchCategory',
-        handlerPath: './src/apis/movie/getGenre.ts',
+        handlerPath: './src/apis/movie/category.ts',
         authorizer: false,
     },
     writeContents: {

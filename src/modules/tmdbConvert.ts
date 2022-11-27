@@ -1,4 +1,4 @@
-const genreId = [
+export const genreId = [
     {
         id: 28,
         name: '액션',
