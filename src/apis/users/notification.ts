@@ -1,2 +1,2 @@
-// DB 알림
-// 댓글 , 대댓글
+// notfication
+// category
