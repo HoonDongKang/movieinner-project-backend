@@ -1,7 +1,6 @@
 //카테고리별 영화 만들기
 import axios from "axios";
 import {
-  convertGenderIdtoName,
   convertGenreIdtoName,
   genreId,
 } from "../../modules/tmdbConvert";
@@ -29,9 +28,16 @@ const searchCategory = async (params: any, connection: DbConnection) => {
         popularity: objects.popularity,
       });
     });
+    convertGenreIdtoName(resultArray)
+
     return {
       status: 200,
-      data: resultArray,
+            data: {
+                total_pages,
+                total_results,
+                current_page: page,
+                search: resultArray,
+            },
     };
   } catch (e: any) {
     console.error(e);
