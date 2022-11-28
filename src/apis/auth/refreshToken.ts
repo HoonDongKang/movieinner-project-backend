@@ -1,7 +1,6 @@
 import { DbConnection } from '../../modules/connect'
-import JWT, { Jwt, JwtPayload } from 'jsonwebtoken'
+import JWT from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
-import { jwtErrorHandler } from '../../modules/paramsError'
 const { JWT_SECRET } = jsonWebToken
 
 interface RefreshTokenPayloadType{
@@ -17,7 +16,7 @@ interface AccessTokenPayloadType{
     iat:number
 }
 
-const refreshToken = async (params: {refreshToken:string}, connection: DbConnection) => {
+const refreshToken = async (params: any, connection: DbConnection) => {
     let refreshTokenPayload:RefreshTokenPayloadType= {
         accessToken:'',
         refreshTokenExpiredDate:'',
