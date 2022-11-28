@@ -95,7 +95,8 @@ const genderId = [
 
 export const convertGenreIdtoName = (tmdbArray: any) => {
     for (let i = 0; i < tmdbArray.length; i++) {
-        let { genre } = tmdbArray[i]
+        let { genre,genre_ids } = tmdbArray[i]
+        if(genre){
         for (let j = 0; j < genre.length; j++) {
             for (let k = 0; k < genreId.length; k++) {
                 if (genre[j] === genreId[k].id) {
@@ -103,6 +104,15 @@ export const convertGenreIdtoName = (tmdbArray: any) => {
                 }
             }
         }
+    } else {
+        for (let j = 0; j < genre_ids.length; j++) {
+            for (let k = 0; k < genreId.length; k++) {
+                if (genre_ids[j] === genreId[k].id) {
+                    genre_ids[j] = genreId[k].name
+                }
+            }
+        }
+    }
     }
 }
 export const convertGenderIdtoName = (tmdbArray: any) => {
