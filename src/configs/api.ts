@@ -173,7 +173,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getPopularMovies: {
-        urlPath: '/movies/popular/:page',
+        urlPath: '/movies/popular',
         method: 'get',
         handlerName: 'getPopularMovies',
         handlerPath: './src/apis/movie/popular.ts',

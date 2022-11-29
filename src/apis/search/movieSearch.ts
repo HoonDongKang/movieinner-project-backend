@@ -8,9 +8,17 @@ import {
 } from './../../modules/tmdbConvert'
 import { organizeThemeForm } from '../../modules/organizeThemeForm'
 
+export interface TmdbResultArrayType {
+    id: string
+    genre_ids: number[]
+    title: string
+    poster_path: string
+    release_date: string
+    popularity: number
+}
 export interface MovieResultArrayType {
     id: string
-    genre: number[] | string[]
+    genre: number[]
     title: string
     poster_path: string
     release_date: string
@@ -41,16 +49,17 @@ const movieSearch = async (
             `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&language=ko&query=${encodedSearch}&page=${searchPage}`
         )
         const { page, results, total_pages, total_results } = response.data
-        for (let i = 0; i < results.length; i++) {
+        results.forEach((object: TmdbResultArrayType) => {
             resultArray.push({
-                id: results[i].id,
-                genre: results[i].genre_ids,
-                title: results[i].title,
-                poster_path: results[i].poster_path,
-                release_date: results[i].release_date,
-                popularity: results[i].popularity,
+                id: object.id,
+                genre: object.genre_ids,
+                title: object.title,
+                poster_path: object.poster_path,
+                release_date: object.release_date,
+                popularity: object.popularity,
             })
-        }
+        })
+
         convertGenreIdtoName(resultArray)
         // 유명도 순 내림차순 = 근데 페이지 별 내림차순이라,,
         const descResultArray = resultArray.sort(
