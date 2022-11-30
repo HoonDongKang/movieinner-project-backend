@@ -97,6 +97,20 @@ const checkUserEmail = async (
         paramsErrorHandler(e)
     }
 }
+
+const changeUserNickname=async(
+    params:{nickname:string,email:string,newNickname:string},
+    connection:DbConnection
+    )=>{
+        //닉네임 유효성 검사 이후
+        const {nickname, email, newNickname}=params
+        try{
+            const response = await connection.run(``)
+        } catch(e:any){
+            console.error(e)
+        }
+}
+
 const checkUserNickname = async (
     params: { nickname: string },
     connection: DbConnection
