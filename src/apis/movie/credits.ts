@@ -2,11 +2,19 @@ import axios from 'axios'
 import TMDB from '../../configs/tmdb'
 import { paramsErrorHandler } from './../../modules/paramsError'
 
+interface MovieCreditsArrayType{
+    gender:number,
+    name:string,
+    profile_path:string,
+    character:string,
+    known_for_department:string
+}
+
 const { TMDB_API_KEY } = TMDB
 
 const getCredits = async (params: { movieId: string }, conncetion: never) => {
     const { movieId } = params
-    const movieCredits: any[] = []
+    const movieCredits: Array<MovieCreditsArrayType> = []
     try {
         const response = await axios.get(
             `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${TMDB_API_KEY}&language=ko`
