@@ -8,7 +8,7 @@ import { paramsErrorHandler } from '../../modules/paramsError'
 
 const { TMDB_API_KEY } = TMDB
 
-const searchCategory = async (params: {search:string, searchPage:string}, connection: DbConnection) => {
+const searchCategory = async (params: {search:string, searchPage:string}, connection: never) => {
     const { search, searchPage } = params //query search:id
     let resultArray: Array<MovieResultArrayType> = []
     try {
