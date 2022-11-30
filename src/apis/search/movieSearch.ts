@@ -18,7 +18,7 @@ export interface TmdbResultArrayType {
 }
 export interface MovieResultArrayType {
     id: string
-    genre: number[]
+    genre: number[] | string[],
     title: string
     poster_path: string
     release_date: string
