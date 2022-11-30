@@ -1,8 +1,18 @@
 import { paramsErrorHandler } from '../../modules/paramsError'
 import { DbConnection } from './../../modules/connect'
+
+interface LikedMoviesType{
+    type:string,
+    nickname:string,
+    movieId?:string,
+    name?:string,
+    poster_path?:string,
+    backdrop_path?:string
+}
+
 //찜하기 확인
 const checkLiked = async (
-    params: { type: string; nickname: string; movieId: string; name: string },
+    params: LikedMoviesType,
     connection: DbConnection
 ) => {
     const { type, nickname, movieId, name } = params
@@ -41,14 +51,7 @@ const checkLiked = async (
 }
 //찜한 영화
 const liked = async (
-    params: {
-        type: string
-        nickname: string
-        movieId: string
-        name: string
-        poster_path: string
-        backdrop_path: string
-    },
+    params: LikedMoviesType,
     connection: DbConnection
 ) => {
     const { type, nickname, movieId, name, poster_path, backdrop_path } = params
@@ -80,14 +83,14 @@ const liked = async (
 
 //찜하기 취소
 const deleteLike = async (
-    params: { type: string; nickname: string; name: string },
+    params: LikedMoviesType,
     connection: DbConnection
 ) => {
-    const { type, nickname, name } = params
+    const { type, nickname, movieId } = params
     try {
         await connection.run(
-            `DELETE FROM liked WHERE type=? AND nickname=? AND name=?`,
-            [type, nickname, name]
+            `DELETE FROM liked WHERE type=? AND nickname=? AND movie_id=?`,
+            [type, nickname, movieId]
         )
         return {
             status: 201,
@@ -101,7 +104,7 @@ const deleteLike = async (
 }
 //유저 별 좋아요 영화, 테마 불러오기
 const getLiked = async (
-    params: { type: string; nickname: string },
+    params: LikedMoviesType,
     connection: DbConnection
 ) => {
     const { type, nickname } = params //type:path, nickname:query
