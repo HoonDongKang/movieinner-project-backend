@@ -1,157 +1,165 @@
 // 유저 정보 CRUD API
-import { DbConnection } from "../../modules/connect";
-import { paramsErrorHandler } from "../../modules/paramsError";
+import { DbConnection } from '../../modules/connect'
+import { paramsErrorHandler } from '../../modules/paramsError'
 
 //모든 유저 이메일, 이름 가져오기
 const getUsers = async (params: never, connection: DbConnection) => {
-  let response = [];
-  try {
-    response = await connection.run(`SELECT email,name FROM user_info`, []);
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-  return { status: 200, data: response };
-};
+    let response = []
+    try {
+        response = await connection.run(`SELECT email,name FROM user_info`, [])
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+    return { status: 200, data: response }
+}
 
 //특정 유저의 정보 가져오기
 const getIdxUser = async (
-  params: { insertId: string },
-  connection: DbConnection
+    params: { insertId: string },
+    connection: DbConnection
 ) => {
-  let response = [];
-  try {
-    const { insertId } = params;
-    response = await connection.run(`SELECT * FROM user_info WHERE idx=?`, [
-      insertId,
-    ]);
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-  return { status: 200, data: response };
-};
+    let response = []
+    try {
+        const { insertId } = params
+        response = await connection.run(`SELECT * FROM user_info WHERE idx=?`, [
+            insertId,
+        ])
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+    return { status: 200, data: response }
+}
 
 //모든 유저 정보 삭제
 const deleteUsers = async (params: never, connection: DbConnection) => {
-  try {
-    await connection.run(`DELETE FROM user_info`);
-  } catch (e: any) {
-    throw new Error(e);
-  }
-  return { status: 200, data: { success: true } };
-};
+    try {
+        await connection.run(`DELETE FROM user_info`)
+    } catch (e: any) {
+        throw new Error(e)
+    }
+    return { status: 200, data: { success: true } }
+}
 
 //특정 유저 정보 삭제
 const deleteIdxUser = async (
-  params: { insertId: string },
-  connection: DbConnection
+    params: { insertId: string },
+    connection: DbConnection
 ) => {
-  try {
-    const { insertId } = params;
-    await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId]);
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-  return { status: 200, data: { success: true } };
-};
+    try {
+        const { insertId } = params
+        await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId])
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+    return { status: 200, data: { success: true } }
+}
 
 //특정 유저 비밀번호 변경
 const changeUserPassword = async (
-  params: { email: string; newPassword: string },
-  connection: DbConnection
+    params: { email: string; newPassword: string },
+    connection: DbConnection
 ) => {
-  try {
-    const { email, newPassword } = params;
-    await connection.run(`UPDATE user_info SET password=? WHERE email=?`, [
-      newPassword,
-      email,
-    ]);
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-  return { status: 200, data: { success: true } };
-};
+    try {
+        const { email, newPassword } = params
+        await connection.run(`UPDATE user_info SET password=? WHERE email=?`, [
+            newPassword,
+            email,
+        ])
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+    return { status: 200, data: { success: true } }
+}
 
 const checkUserEmail = async (
-  params: { email: string },
-  connection: DbConnection
+    params: { email: string },
+    connection: DbConnection
 ) => {
-  let isExisted = true;
-  try {
-    const { email } = params;
-    const removeString = email.substring(email.indexOf("."));
-    const emailRemoveString = email.replace(removeString, "");
-    const emailWithDotCom = emailRemoveString + ".com";
-    const response = await connection.run(
-      `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
-      [emailWithDotCom]
-    );
-    const { count: emailExisted } = response[0];
-    if (emailExisted === 0) isExisted = false;
-    return {
-      status: 201,
-      data: {
-        isEmailExisted: isExisted,
-      },
-    };
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-};
+    let isExisted = true
+    try {
+        const { email } = params
+        const removeString = email.substring(email.indexOf('.'))
+        const emailRemoveString = email.replace(removeString, '')
+        const emailWithDotCom = emailRemoveString + '.com'
+        const response = await connection.run(
+            `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
+            [emailWithDotCom]
+        )
+        const { count: emailExisted } = response[0]
+        if (emailExisted === 0) isExisted = false
+        return {
+            status: 201,
+            data: {
+                isEmailExisted: isExisted,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 
 const changeUserNickname = async (
-  params: { nickname: string; email: string; newNickname: string },
-  connection: DbConnection
+    params: { nickname: string; email: string; newNickname: string },
+    connection: DbConnection
 ) => {
-  //닉네임 유효성 검사 이후
-  const { nickname, email, newNickname } = params;
-  try {
-    await connection.run(
-      `UPDATE user_info as USER, movie_liked as MOVIELIKED, community as COMMUNITY, comments as COMMENTS SET USER.nickname=?, MOVIELIKED.nickname=?, COMMUNITY.nickname=?, COMMENTS.nickname=? WHERE USER.email=? AND USER.nickname=?
-      `,
-      [newNickname,newNickname,newNickname,newNickname,email,nickname]
-    );
-
-    return {
-      status: 201,
-      data: {
-        success: true,
-      },
-    };
-  } catch (e: any) {
-    console.error(e);
-  }
-};
+    //닉네임 유효성 검사 이후
+    const { nickname, email, newNickname } = params
+    try {
+        const selectRes = await connection.run(
+            `SELECT COUNT(*) as count FROM user_info WHERE email=? AND nickname=?`,
+            [email, nickname]
+        )
+        const { count } = selectRes[0]
+        console.log(count)
+        if (count > 0) {
+            await connection.run(
+                `UPDATE user_info as U, liked as L, community as CMTY, comments as CMTS SET U.nickname=?, L.nickname=?, CMTY.nickname=?, CMTS.nickname=?`,
+                [newNickname, newNickname, newNickname, newNickname]
+            )
+        } else {
+            throw 'E0008'
+        }
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 
 const checkUserNickname = async (
-  params: { nickname: string },
-  connection: DbConnection
+    params: { nickname: string },
+    connection: DbConnection
 ) => {
-  let isExisted = true;
-  try {
-    const { nickname } = params;
-    const response = await connection.run(
-      `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
-      [nickname]
-    );
-    const { count: nicknameExisted } = response[0];
-    if (nicknameExisted === 0) isExisted = false;
-    return {
-      status: 201,
-      data: {
-        isNicknameExisted: isExisted,
-      },
-    };
-  } catch (e: any) {
-    paramsErrorHandler(e);
-  }
-};
+    let isExisted = true
+    try {
+        const { nickname } = params
+        const response = await connection.run(
+            `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
+            [nickname]
+        )
+        const { count: nicknameExisted } = response[0]
+        if (nicknameExisted === 0) isExisted = false
+        return {
+            status: 201,
+            data: {
+                isNicknameExisted: isExisted,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 export default {
-  getUsers,
-  getIdxUser,
-  deleteUsers,
-  deleteIdxUser,
-  changeUserPassword,
-  changeUserNickname,
-  checkUserEmail,
-  checkUserNickname,
-};
+    getUsers,
+    getIdxUser,
+    deleteUsers,
+    deleteIdxUser,
+    changeUserPassword,
+    changeUserNickname,
+    checkUserEmail,
+    checkUserNickname,
+}
