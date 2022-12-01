@@ -81,6 +81,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/checkUser.ts',
         authorizer: false,
     },
+    checkUserPassword: {
+        urlPath: '/users/check/password',
+        method: 'post',
+        handlerName: 'checkUserPassword',
+        handlerPath: './src/apis/users/checkUser.ts',
+        authorizer: false,
+    },
     signin: {
         urlPath: '/users/login',
         method: 'post',

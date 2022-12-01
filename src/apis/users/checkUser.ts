@@ -1,6 +1,7 @@
 // 유저 정보 CRUD API
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
+import bcrypt from 'bcrypt'
 
 const checkUserEmail = async (
     params: { email: string },
@@ -41,7 +42,7 @@ const checkUserNickname = async (
             [nickname]
         )
         const { count: nicknameExisted } = response[0]
-        if (nicknameExisted === 0) isExisted = false
+        isExisted = nicknameExisted === 0 ? false : true
         return {
             status: 201,
             data: {
@@ -52,7 +53,32 @@ const checkUserNickname = async (
         paramsErrorHandler(e)
     }
 }
+
+const checkUserPassword = async (
+    params: { password: string; email: string },
+    connection: DbConnection
+) => {
+    const { password, email } = params
+    let isEqual = false
+    try {
+        const response = await connection.run(
+            `SELECT password FROM user_info WHERE email=?`,
+            [email]
+        )
+        const { password: hashedpassword } = response[0]
+        isEqual = await bcrypt.compare(password, hashedpassword)
+        return {
+            status: 201,
+            data: {
+                isEqual,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
 export default {
     checkUserEmail,
     checkUserNickname,
+    checkUserPassword,
 }
