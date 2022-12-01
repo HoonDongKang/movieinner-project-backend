@@ -20,6 +20,7 @@ const signup = async (params: SignupParamsType, connection: DbConnection) => {
         const { email, password, image_URL, name, gender, birth, nickname } =
             params
         const salt = await bcrypt.genSalt(10)
+        //닉네임 검사
         // 소설 로그인
         if (!password) {
             await connection.run(

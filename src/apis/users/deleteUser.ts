@@ -14,12 +14,12 @@ const deleteUsers = async (params: never, connection: DbConnection) => {
 
 //특정 유저 정보 삭제
 const deleteIdxUser = async (
-    params: { insertId: string },
+    params: { email: string; nickname: string },
     connection: DbConnection
 ) => {
     try {
-        const { insertId } = params
-        await connection.run(`DELETE FROM user_info WHERE idx=?`, [insertId])
+        const { email, nickname } = params
+        await connection.run(`SELECT user_info `, [,])
     } catch (e: any) {
         paramsErrorHandler(e)
     }
