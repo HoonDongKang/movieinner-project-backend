@@ -96,29 +96,16 @@ const genderId = [
 // 장르 별 숫자 -> 글자로 변환
 
 export const convertGenreIdtoName = (tmdbArray: any) => {
-    for(let tmdbObj of tmdbArray){
-        let {genre}=tmdbObj
-        console.log(`genre:${genre}`)
-        for(let movieGenre of genre){
-            console.log(`movieGenre:${movieGenre}`)
-            for(let tmdbGenre of genreId){
-                console.log(`tmbdbGenre:${tmdbGenre}`)
-                if(movieGenre===tmdbGenre.id){
-                    movieGenre=tmdbGenre.name
-                }
-            }
+  for (let i = 0; i < tmdbArray.length; i++) {
+    let { genre } = tmdbArray[i];
+    for (let j = 0; j < genre.length; j++) {
+      for (let k = 0; k < genreId.length; k++) {
+        if (genre[j] === genreId[k].id) {
+          genre[j] = genreId[k].name;
         }
+      }
     }
-//       for (let i = 0; i < tmdbArray.length; i++) {
-//     let { genre } = tmdbArray[i];
-//     for (let j = 0; j < genre.length; j++) {
-//       for (let k = 0; k < genreId.length; k++) {
-//         if (genre[j] === genreId[k].id) {
-//           genre[j] = genreId[k].name;
-//         }
-//       }
-//     }
-//   }
+  }
 };
 export const convertGenderIdtoName = (tmdbArray: any) => {
   for (let i = 0; i < tmdbArray.length; i++) {
