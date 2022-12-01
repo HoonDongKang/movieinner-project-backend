@@ -34,8 +34,17 @@ const changeUserNickname = async (
         console.log(count)
         if (count > 0) {
             await connection.run(
-                `UPDATE user_info as U, liked as L, community as CMTY, comments as CMTS SET U.nickname=?, L.nickname=?, CMTY.nickname=?, CMTS.nickname=?`,
-                [newNickname, newNickname, newNickname, newNickname]
+                `UPDATE user_info as U, liked as L, community as CMTY, comments as CMTS SET U.nickname=?, L.nickname=?, CMTY.nickname=?, CMTS.nickname=? WHERE U.email=? AND L.nickname=? AND CMTY.nickname=? AND CMTS.nickname=?`,
+                [
+                    newNickname,
+                    newNickname,
+                    newNickname,
+                    newNickname,
+                    email,
+                    nickname,
+                    nickname,
+                    nickname,
+                ]
             )
         } else {
             throw 'E0008'

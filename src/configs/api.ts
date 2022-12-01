@@ -40,14 +40,14 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     deleteUsers: {
-        urlPath: '/users',
+        urlPath: '/users/delete',
         method: 'delete',
         handlerName: 'deleteUsers',
         handlerPath: './src/apis/users/deleteUser.ts',
         authorizer: false,
     },
     deleteIdxUser: {
-        urlPath: '/users/:insertId',
+        urlPath: '/users/delete/:insertId',
         method: 'delete',
         handlerName: 'deleteIdxUser',
         handlerPath: './src/apis/users/deleteUser.ts',
@@ -71,14 +71,14 @@ export const apiConfigs: ApiConfigObj = {
         urlPath: '/users/check/email',
         method: 'post',
         handlerName: 'checkUserEmail',
-        handlerPath: './src/apis/users/user.ts',
+        handlerPath: './src/apis/users/checkUser.ts',
         authorizer: false,
     },
     checkUserNickname: {
         urlPath: '/users/check/nickname',
         method: 'post',
         handlerName: 'checkUserNickname',
-        handlerPath: './src/apis/users/user.ts',
+        handlerPath: './src/apis/users/checkUser.ts',
         authorizer: false,
     },
     signin: {
