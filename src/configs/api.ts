@@ -46,10 +46,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/deleteUser.ts',
         authorizer: false,
     },
-    deleteIdxUser: {
-        urlPath: '/users/delete/:insertId',
+    deleteUser: {
+        urlPath: '/users/delete',
         method: 'delete',
-        handlerName: 'deleteIdxUser',
+        handlerName: 'deleteUser',
         handlerPath: './src/apis/users/deleteUser.ts',
         authorizer: false,
     },
