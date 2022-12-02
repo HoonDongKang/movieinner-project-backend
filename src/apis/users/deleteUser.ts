@@ -19,10 +19,12 @@ const deleteUser = async (
 ) => {
     try {
         const { email, nickname } = params
-        await connection.run(
+        const response = await connection.run(
             `DELETE FROM a,b,c,d,e,f USING user_info AS a LEFT JOIN user_token AS b ON a.email=b.email LEFT JOIN email_verify AS c ON a.email=c.email LEFT JOIN community AS d ON a.nickname=d.nickname LEFT JOIN liked AS e ON a.nickname=e.nickname LEFT JOIN comments AS f ON a.nickname=f.nickname WHERE a.email=? AND a.nickname=?`,
             [email, nickname]
         )
+        const { affectedRows } = response
+        if (affectedRows === 0) throw 'E0008'
     } catch (e: any) {
         paramsErrorHandler(e)
     }

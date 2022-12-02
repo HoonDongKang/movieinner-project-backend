@@ -40,7 +40,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     deleteUsers: {
-        urlPath: '/users/delete',
+        urlPath: '/users/delete/all',
         method: 'delete',
         handlerName: 'deleteUsers',
         handlerPath: './src/apis/users/deleteUser.ts',
