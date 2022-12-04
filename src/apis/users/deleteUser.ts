@@ -13,6 +13,7 @@ const deleteUsers = async (params: never, connection: DbConnection) => {
 }
 
 //나중에 delete 통합하는 법 찾기
+// notification table 삭제 추가하기
 const deleteUser = async (
     params: { email: string; nickname: string },
     connection: DbConnection
