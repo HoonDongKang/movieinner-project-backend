@@ -37,7 +37,7 @@ const getUserContent = async (
     const { nickname } = params //query
     try {
         const response = await connection.run(
-            `SELECT nickname,title,content,file,created_at FROM community WHERE nickname=?`,
+            `SELECT idx, nickname,title,content,file,created_at FROM community WHERE nickname=?`,
             [nickname]
         )
         changeDbTimeForm(response)
