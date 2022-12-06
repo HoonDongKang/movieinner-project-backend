@@ -51,7 +51,6 @@ const getUserContent = async (
         paramsErrorHandler(e)
     }
 }
-
 const getIdxContent = async (
     params: { idx: string },
     connection: DbConnection
