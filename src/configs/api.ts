@@ -327,14 +327,14 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getUserContent: {
-        urlPath: '/community',
+        urlPath: '/community/content/user',
         method: 'get',
         handlerName: 'getUserContent',
         handlerPath: './src/apis/community/community.ts',
         authorizer: false,
     },
     getIdxContent: {
-        urlPath: '/community/:idx',
+        urlPath: '/community/content/user/:idx',
         method: 'get',
         handlerName: 'getIdxContent',
         handlerPath: './src/apis/community/community.ts',
@@ -375,9 +375,16 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
-    notification: {
+    pushNotificationDB: {
         urlPath: '/community/notification',
         method: 'post',
+        handlerName: 'pushNotificationDB',
+        handlerPath: './src/apis/community/notification.ts',
+        authorizer: false,
+    },
+    notification: {
+        urlPath: '/community/notification',
+        method: 'get',
         handlerName: 'notification',
         handlerPath: './src/apis/community/notification.ts',
         authorizer: false,

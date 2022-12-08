@@ -1,6 +1,7 @@
 import { DbConnection } from '../../modules/connect'
 
 type NotType = 'comment' | 'reply'
+
 interface NotificationType {
     userIdx: string
     actionUserIdx: string
@@ -8,19 +9,49 @@ interface NotificationType {
     notTypeIdx: string
 }
 
-const notification = async (
+const pushNotificationDB = async (
     params: NotificationType,
     connection: DbConnection
 ) => {
     const { userIdx, actionUserIdx, notType, notTypeIdx } = params
     try {
-        const response = await connection.run(
+        await connection.run(
             `INSERT INTO notification(user_idx, action_user_idx, not_type,not_type_idx) VALUES (?,?,?,?)`,
             [userIdx, actionUserIdx, notType, notTypeIdx]
         )
-    } catch (e: any) {}
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
+    } catch (e: any) {
+        console.error(e)
+    }
+}
+
+const notification = async (
+    params: NotificationType,
+    connection: DbConnection
+) => {
+    const { userIdx } = params
+    try {
+        const response = await connection.run(
+            `SELECT user_idx, action_user_idx, not_type,not_type_idx FROM notification WHERE user_idx=? AND isChecked = 1`,
+            [userIdx]
+        )
+        return {
+            status: 201,
+            data: {
+                response,
+            },
+        }
+    } catch (e: any) {
+        console.error(e)
+    }
 }
 export default {
+    pushNotificationDB,
     notification,
 }
 // notfication
