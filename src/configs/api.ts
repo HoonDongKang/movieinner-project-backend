@@ -375,6 +375,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/comments.ts',
         authorizer: false,
     },
+    notification: {
+        urlPath: '/community/notification',
+        method: 'post',
+        handlerName: 'notification',
+        handlerPath: './src/apis/community/notification.ts',
+        authorizer: false,
+    },
     contentsSearch: {
         urlPath: '/search/content/:type',
         method: 'get',
