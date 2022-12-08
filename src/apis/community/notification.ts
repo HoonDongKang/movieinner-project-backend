@@ -1,5 +1,6 @@
 import { DbConnection } from '../../modules/connect'
 
+//db 값 type 지정 적용이 안됨
 type NotType = 'comment' | 'reply'
 
 interface NotificationType {
