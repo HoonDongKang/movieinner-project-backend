@@ -1,7 +1,17 @@
 import { DbConnection } from '../../modules/connect'
 
-const notification = async (params: any, connection: DbConnection) => {}
-
+const notification = async (params: any, connection: DbConnection) => {
+    const { userIdx, actionUserIdx, notType, notTypeIdx } = params
+    try {
+        const response = await connection.run(
+            `INSERT INTO notification(user_idx, action_user_idx, not_type,not_type_idx) VALUES (?,?,?,?)`,
+            [userIdx, actionUserIdx, notType, notTypeIdx]
+        )
+    } catch (e: any) {}
+}
+export default {
+    notification,
+}
 // notfication
 // 1) 내가 작성한 게시물에 댓글이 달렸다
 // ㄴ user_nickname: 나
