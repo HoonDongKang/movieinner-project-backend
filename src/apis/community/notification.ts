@@ -40,6 +40,7 @@ const notification = async (
             `SELECT user_idx, action_user_idx, not_type,not_type_idx FROM notification WHERE user_idx=? AND isChecked = 1`,
             [userIdx]
         )
+        //베열로 보내면 프론트에서 어떻게 api 보내니..
         return {
             status: 201,
             data: {
