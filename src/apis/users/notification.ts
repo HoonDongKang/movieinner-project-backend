@@ -1,6 +1,17 @@
 import { DbConnection } from '../../modules/connect'
 
-const notification = async (params: any, connection: DbConnection) => {
+type NotType = 'comment' | 'reply'
+interface NotificationType {
+    userIdx: string
+    actionUserIdx: string
+    notType: NotType
+    notTypeIdx: string
+}
+
+const notification = async (
+    params: NotificationType,
+    connection: DbConnection
+) => {
     const { userIdx, actionUserIdx, notType, notTypeIdx } = params
     try {
         const response = await connection.run(
