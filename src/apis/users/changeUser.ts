@@ -31,20 +31,23 @@ const changeUserNickname = async (
             [email, nickname]
         )
         const { count } = selectRes[0]
-        console.log(count)
+        //이거 쿼리 하나로 끝내보기
         if (count > 0) {
             await connection.run(
-                `UPDATE user_info as U, liked as L, community as CMTY, comments as CMTS SET U.nickname=?, L.nickname=?, CMTY.nickname=?, CMTS.nickname=? WHERE U.email=?`,
-                [
-                    newNickname,
-                    newNickname,
-                    newNickname,
-                    newNickname,
-                    email,
-                    nickname,
-                    nickname,
-                    nickname,
-                ]
+                `UPDATE user_info SET user_info.nickname=? WHERE user_info.nickname=?`,
+                [newNickname, nickname]
+            )
+            await connection.run(
+                `UPDATE liked SET liked.nickname=? WHERE liked.nickname=?`,
+                [newNickname, nickname]
+            )
+            await connection.run(
+                `UPDATE community SET community.nickname=? WHERE community.nickname=?`,
+                [newNickname, nickname]
+            )
+            await connection.run(
+                `UPDATE comments SET comments.nickname=? WHERE comments.nickname=?`,
+                [newNickname, nickname]
             )
         } else {
             throw 'E0008'
