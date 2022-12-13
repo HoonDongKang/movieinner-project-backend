@@ -54,7 +54,6 @@ const emailVerifyLink = async (
         },
     }
 }
-//
 const checkEmailLink = async (
     params: { key: string; type: string }, //query
     connection: DbConnection
