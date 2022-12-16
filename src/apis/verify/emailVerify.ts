@@ -53,7 +53,7 @@ const emailVerifyLink = async (
             message: '이메일로 링크 발송 성공',
         },
     }
-}
+}//
 const checkEmailLink = async (
     params: { key: string; type: string }, //query
     connection: DbConnection
