@@ -2,6 +2,7 @@
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
 import bcrypt from 'bcrypt'
+import { IsValidateName } from './../../configs/regExp'
 
 const checkUserEmail = async (
     params: { email: string },
@@ -37,12 +38,14 @@ const checkUserNickname = async (
     let isExisted = true
     try {
         const { nickname } = params
-        const response = await connection.run(
-            `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
-            [nickname]
-        )
-        const { count: nicknameExisted } = response[0]
-        isExisted = nicknameExisted === 0 ? false : true
+        const IsRegExp = IsValidateName(nickname)
+        console.log(IsRegExp)
+        // const response = await connection.run(
+        //     `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
+        //     [nickname]
+        // )
+        // const { count: nicknameExisted } = response[0]
+        // isExisted = nicknameExisted === 0 ? false : true
         return {
             status: 201,
             data: {
@@ -77,6 +80,7 @@ const checkUserPassword = async (
         paramsErrorHandler(e)
     }
 }
+
 export default {
     checkUserEmail,
     checkUserNickname,
