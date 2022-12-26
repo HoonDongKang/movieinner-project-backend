@@ -40,13 +40,15 @@ const checkUserNickname = async (
         const { nickname } = params
         const IsRegExp = IsValidateName(nickname)
         console.log(IsRegExp)
-        //에러메시지 포함하기
-        // const response = await connection.run(
-        //     `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
-        //     [nickname]
-        // )
-        // const { count: nicknameExisted } = response[0]
-        // isExisted = nicknameExisted === 0 ? false : true
+        if (IsRegExp) {
+            const response = await connection.run(
+                `SELECT COUNT(*) AS count FROM user_info WHERE nickname=?`,
+                [nickname]
+            )
+            const { count: nicknameExisted } = response[0]
+            isExisted = nicknameExisted === 0 ? false : true
+        }
+
         return {
             status: 201,
             data: {
