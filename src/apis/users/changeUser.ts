@@ -27,8 +27,10 @@ const changeUserNickname = async (
   //닉네임 유효성 검사 이후
   const { nickname, email, newNickname } = params;
   try {
-    const IsRegExp = IsValidateName(nickname);
-    if (IsRegExp) {
+    const IsValid = IsValidateName(newNickname);
+    console.log(IsValid)
+    if (IsValid) {
+        console.log(IsValid)
       const selectRes = await connection.run(
         `SELECT COUNT(*) as count FROM user_info WHERE email=? AND nickname=?`,
         [email, nickname]
@@ -66,7 +68,6 @@ const changeUserNickname = async (
         status: 400,
         data: {
           success: false,
-          errMsg: "nickname ERR",
         },
       };
     }
