@@ -1,11 +1,12 @@
 import { DbConnection } from '../../modules/connect'
 
 //db 값 type 지정 적용이 안됨
-type NotType = 'comment' | 'reply'
+type NotType = 'content' | 'comment'
 
 interface NotificationType {
     userIdx: string
-    actionUserIdx: string
+    writerIdx: string
+    contentIdx: string
     notType: NotType
     notTypeIdx: string
 }
@@ -14,11 +15,11 @@ const pushNotificationDB = async (
     params: NotificationType,
     connection: DbConnection
 ) => {
-    const { userIdx, actionUserIdx, notType, notTypeIdx } = params
+    const { userIdx, writerIdx, contentIdx, notType, notTypeIdx } = params
     try {
         await connection.run(
-            `INSERT INTO notification(user_idx, action_user_idx, not_type,not_type_idx) VALUES (?,?,?,?)`,
-            [userIdx, actionUserIdx, notType, notTypeIdx]
+            `INSERT INTO notification(user_idx, writer_idx,content_idx,not_type,not_type_idx) VALUES (?,?,?,?)`,
+            [userIdx, writerIdx, contentIdx, notType, notTypeIdx]
         )
         return {
             status: 201,

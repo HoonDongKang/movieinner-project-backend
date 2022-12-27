@@ -3,24 +3,24 @@ import JWT from 'jsonwebtoken'
 import jsonWebToken from '../../configs/jsonWebToken'
 const { JWT_SECRET } = jsonWebToken
 
-interface RefreshTokenPayloadType{
-    accessToken:string,
-    refreshTokenExpiredDate:string,
-    iat:number
+interface RefreshTokenPayloadType {
+    accessToken: string
+    refreshTokenExpiredDate: string
+    iat: number
 }
 
-interface AccessTokenPayloadType{
-    email:string,
-    idx:string,
-    nickname:string
-    iat:number
+interface AccessTokenPayloadType {
+    email: string
+    idx: string
+    nickname: string
+    iat: number
 }
 
 const refreshToken = async (params: any, connection: DbConnection) => {
-    let refreshTokenPayload:RefreshTokenPayloadType= {
-        accessToken:'',
-        refreshTokenExpiredDate:'',
-        iat:0
+    let refreshTokenPayload: RefreshTokenPayloadType = {
+        accessToken: '',
+        refreshTokenExpiredDate: '',
+        iat: 0,
     }
     let newAccessTokenPayload = {}
     let newAccessToken = ''
@@ -37,10 +37,16 @@ const refreshToken = async (params: any, connection: DbConnection) => {
 
     try {
         const { refreshToken } = params
-        refreshTokenPayload = JWT.verify(refreshToken, JWT_SECRET) as RefreshTokenPayloadType
+        refreshTokenPayload = JWT.verify(
+            refreshToken,
+            JWT_SECRET
+        ) as RefreshTokenPayloadType
         console.log(refreshTokenPayload)
         const { accessToken, refreshTokenExpiredDate } = refreshTokenPayload
-        const accessTokenPayload = JWT.verify(accessToken, JWT_SECRET) as AccessTokenPayloadType
+        const accessTokenPayload = JWT.verify(
+            accessToken,
+            JWT_SECRET
+        ) as AccessTokenPayloadType
         const { email, idx, nickname } = accessTokenPayload
         const now = Date.now()
         const getResponse = await connection.run(
@@ -74,19 +80,19 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                 newRefreshToken = JWT.sign(newRefreshTokenPayload, JWT_SECRET)
                 newRefreshTokenExpireIn = new Date(NewRefreshTokenExpiredDate)
             }
+            await connection.run(
+                `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE refresh_token=?`,
+                [
+                    newAccessToken,
+                    expiredDate,
+                    newRefreshToken,
+                    newRefreshTokenExpireIn,
+                    refreshToken,
+                ]
+            )
         } else {
             throw 'E0005'
         }
-        await connection.run(
-            `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE refresh_token=?`,
-            [
-                newAccessToken,
-                expiredDate,
-                newRefreshToken,
-                newRefreshTokenExpireIn,
-                refreshToken,
-            ]
-        )
     } catch (e: any) {
         throw new Error(e)
     }
