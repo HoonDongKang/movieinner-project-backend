@@ -1,4 +1,5 @@
 // 유저 정보 CRUD API
+import { IsValidateName } from '../../configs/regExp';
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
@@ -26,6 +27,8 @@ const changeUserNickname = async (
     //닉네임 유효성 검사 이후
     const { nickname, email, newNickname } = params
     try {
+        const IsRegExp = IsValidateName(nickname)
+        if(IsRegExp){
         const selectRes = await connection.run(
             `SELECT COUNT(*) as count FROM user_info WHERE email=? AND nickname=?`,
             [email, nickname]
@@ -57,6 +60,15 @@ const changeUserNickname = async (
             data: {
                 success: true,
             },
+        }}
+        else{
+            return{
+                status:400,
+                data:{
+                    success:false,
+                    errMsg:'nickname ERR'
+                }
+            }
         }
     } catch (e: any) {
         paramsErrorHandler(e)
