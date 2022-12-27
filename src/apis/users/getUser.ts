@@ -29,7 +29,26 @@ const getIdxUser = async (
     return { status: 200, data: response }
 }
 
+const changeIdxToNickname = async (
+    params: { idx: string },
+    connection: DbConnection
+) => {
+    const { idx } = params
+    let nickname = ''
+    try {
+        const response = await connection.run(
+            `SELECT nickname FROM user_info WHERE idx=?`,
+            [idx]
+        )
+        nickname = response[0]
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+    return { status: 200, data: nickname }
+}
+
 export default {
     getUsers,
     getIdxUser,
+    changeIdxToNickname,
 }

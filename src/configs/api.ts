@@ -39,6 +39,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/getUser.ts',
         authorizer: false,
     },
+    changeIdxToNickname: {
+        urlPath: '/users/nickname/:idx',
+        method: 'get',
+        handlerName: 'changeIdxToNickname',
+        handlerPath: './src/apis/users/getUser.ts',
+        authorizer: false,
+    },
     deleteUsers: {
         urlPath: '/users/delete/all',
         method: 'delete',
