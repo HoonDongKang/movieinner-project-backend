@@ -10,7 +10,7 @@ const getAllContents = async (
     const { page } = params
     try {
         const response = await connection.run(
-            `SELECT idx,nickname,title,content,file,hit,created_at FROM community`,
+            `SELECT idx,user_idx,title,content,file,hit,created_at FROM community`,
             []
         )
         changeDbTimeForm(response)
