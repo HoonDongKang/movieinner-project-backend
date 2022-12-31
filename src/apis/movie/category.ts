@@ -1,14 +1,19 @@
-//카테고리별 영화 만들기
 import axios from 'axios'
 import { convertGenreIdtoName } from '../../modules/tmdbConvert'
 import { DbConnection } from './../../modules/connect'
 import TMDB from '../../configs/tmdb'
-import { MovieResultArrayType, TmdbResultArrayType } from '../search/movieSearch'
+import {
+    MovieResultArrayType,
+    TmdbResultArrayType,
+} from '../search/movieSearch'
 import { paramsErrorHandler } from '../../modules/paramsError'
 
 const { TMDB_API_KEY } = TMDB
 
-const searchCategory = async (params: {search:string, searchPage:string}, connection: never) => {
+const searchCategory = async (
+    params: { search: string; searchPage: string },
+    connection: never
+) => {
     const { search, searchPage } = params //query search:id
     let resultArray: Array<MovieResultArrayType> = []
     try {
