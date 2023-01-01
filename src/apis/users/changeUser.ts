@@ -2,18 +2,41 @@
 import { IsValidateName } from '../../configs/regExp'
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
+import bcrypt from 'bcrypt'
 
 //특정 유저 비밀번호 변경
 const changeUserPassword = async (
-    params: { email: string; newPassword: string },
+    params: { userIdx: string; crtPassword: string; newPassword: string },
     connection: DbConnection
 ) => {
+    const { userIdx, crtPassword, newPassword } = params
+    const salt = await bcrypt.genSalt(10)
     try {
-        const { email, newPassword } = params
-        await connection.run(`UPDATE user_info SET password=? WHERE email=?`, [
-            newPassword,
-            email,
-        ])
+        const response = await connection.run(
+            `SELECT password FROM user_info WHERE idx=?`,
+            [userIdx]
+        )
+        if (response[0]) {
+            const { password: dbPassword } = response[0]
+            const isValidPw = await bcrypt.compare(crtPassword, dbPassword)
+            if (isValidPw) {
+                const hashedPassword = await bcrypt.hash(newPassword, salt)
+                await connection.run(
+                    `UPDATE user_info SET password=? WHERE idx=?`,
+                    [hashedPassword, userIdx]
+                )
+                return {
+                    status: 201,
+                    data: {
+                        success: true,
+                    },
+                }
+            } else {
+                throw 'E0003'
+            }
+        } else {
+            throw 'E0009'
+        }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
