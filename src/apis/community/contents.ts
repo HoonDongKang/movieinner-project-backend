@@ -3,14 +3,14 @@ import { paramsErrorHandler } from './../../modules/paramsError'
 import { changeDbTimeForm } from './../../modules/changeTimeForm'
 
 const writeContents = async (
-    params: { nickname: string; title: string; content: string; file: string },
+    params: { userIdx: string; title: string; content: string; file: string },
     connection: DbConnection
 ) => {
-    const { nickname, title, content, file } = params
+    const { userIdx, title, content, file } = params
     try {
         const response = await connection.run(
-            `INSERT INTO community(nickname,title,content,file) VALUES (?,?,?,?)`,
-            [nickname, title, content, file]
+            `INSERT INTO community(user_idx,title,content,file) VALUES (?,?,?,?)`,
+            [userIdx, title, content, file]
         )
         const idx = response.insertId
         return {
