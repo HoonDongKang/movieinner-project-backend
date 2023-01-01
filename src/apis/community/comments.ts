@@ -6,33 +6,33 @@ import { getContentsPerPages } from './../../modules/getContents'
 const writeComment = async (
     params: {
         contentIdx: string
-        nickname: string
+        userIdx: string
         comment: string
         responseTo: string
     },
     connection: DbConnection
 ) => {
-    const { contentIdx, nickname, comment, responseTo } = params
+    const { contentIdx, userIdx, comment, responseTo } = params
     let response: any = []
     let idx = 0
     try {
         if (responseTo === undefined) {
             response = await connection.run(
-                `INSERT INTO comments(content_idx,nickname,comment) VALUES (?,?,?)`,
-                [contentIdx, nickname, comment]
+                `INSERT INTO comments(content_idx,user_idx,comment) VALUES (?,?,?)`,
+                [contentIdx, userIdx, comment]
             )
             const { insertId } = response
             idx = insertId
         } else {
             response = await connection.run(
-                `INSERT INTO comments(content_idx,nickname,comment,response_to) VALUES (?,?,?,?)`,
-                [contentIdx, nickname, comment, responseTo]
+                `INSERT INTO comments(content_idx,user_idx,comment,response_to) VALUES (?,?,?,?)`,
+                [contentIdx, userIdx, comment, responseTo]
             )
             const { insertId } = response
             idx = insertId
         }
         const getResponse = await connection.run(
-            `SELECT idx, content_idx,nickname,comment,response_to,created_at FROM comments WHERE idx=?`,
+            `SELECT idx, content_idx,user_idx,comment,response_to,created_at FROM comments WHERE idx=?`,
             [idx]
         )
         changeDbTimeForm(getResponse)
@@ -92,7 +92,7 @@ const getIdxComments = async (
     const { contentIdx } = params //path: contentIdx
     try {
         const response = await connection.run(
-            `SELECT idx, content_idx, nickname,comment, response_to, created_at FROM comments WHERE content_idx=?`,
+            `SELECT idx, content_idx, user_idx,comment, response_to, created_at FROM comments WHERE content_idx=?`,
             [contentIdx]
         )
         changeDbTimeForm(response)
@@ -108,14 +108,14 @@ const getIdxComments = async (
 }
 
 const getUserComments = async (
-    params: { nickname: string; page: string },
+    params: { userIdx: string; page: string },
     connection: DbConnection
 ) => {
-    const { nickname, page } = params //path: nickname, query: page
+    const { userIdx, page } = params //path: userIdx, query: page
     try {
         const response = await connection.run(
-            `SELECT idx, content_idx, nickname,comment, response_to, created_at FROM comments WHERE nickname=?`,
-            [nickname]
+            `SELECT CMT.idx, INFO.nickname ,CMT.content_idx, CMT.comment, CMT.response_to, CMT.created_at FROM comments AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx=INFO.idx WHERE user_idx=?`,
+            [userIdx]
         )
         changeDbTimeForm(response)
         const { totalPage, contents: comments } = getContentsPerPages(

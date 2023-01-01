@@ -376,7 +376,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getUserComments: {
-        urlPath: '/community/comment/user/:nickname',
+        urlPath: '/community/comment/user/:userIdx',
         method: 'get',
         handlerName: 'getUserComments',
         handlerPath: './src/apis/community/comments.ts',
