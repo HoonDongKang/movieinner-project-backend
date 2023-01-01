@@ -48,6 +48,11 @@ const errorConfigs: ErrorConfigsType = {
         message: '값이 존재하지 않습니다.',
         status: 400,
     },
+    E0009: {
+        code: 'E0009',
+        message: '해당 유저가 존재하지 않습니다.',
+        status: 404,
+    },
 }
 
 export default errorConfigs
