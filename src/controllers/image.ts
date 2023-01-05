@@ -36,9 +36,11 @@ export const uploadImage = async (req: Request, res: Response) => {
 
 export const deleteImage = async (req: Request, res: Response) => {
     const { imageName } = req.body
+    const imageArray = imageName.split('/')
+    const imageKey = imageArray[3]
     const params = {
         Bucket: 'movie-inner',
-        Key: imageName,
+        Key: imageKey,
     }
     try {
         await s3.deleteObject(params, function (err: Error, data: any) {
