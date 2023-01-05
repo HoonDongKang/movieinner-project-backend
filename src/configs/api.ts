@@ -77,7 +77,7 @@ export const apiConfigs: ApiConfigObj = {
     changeUserImage: {
         urlPath: '/users/change/image',
         method: 'put',
-        handlerName: 'changeUserNickname',
+        handlerName: 'changeUserImage',
         handlerPath: './src/apis/users/changeUser.ts',
         authorizer: false,
     },

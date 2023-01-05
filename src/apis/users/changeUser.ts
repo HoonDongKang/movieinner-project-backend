@@ -94,6 +94,12 @@ const changeUserImage = async (
             imageURL,
             userIdx,
         ])
+        return {
+            status: 201,
+            data: {
+                success: true,
+            },
+        }
     } catch (e: any) {
         console.error(e)
     }
