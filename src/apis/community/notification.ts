@@ -18,7 +18,7 @@ const pushNotificationDB = async (
     const { userIdx, writerIdx, contentIdx, notType, notTypeIdx } = params
     try {
         await connection.run(
-            `INSERT INTO notification(user_idx, writer_idx,content_idx,not_type,not_type_idx) VALUES (?,?,?,?)`,
+            `INSERT INTO notification(user_idx, writer_idx,content_idx,not_type,not_type_idx) VALUES (?,?,?,?,?)`,
             [userIdx, writerIdx, contentIdx, notType, notTypeIdx]
         )
         return {
@@ -39,10 +39,9 @@ const notification = async (
     const { userIdx } = params
     try {
         const response = await connection.run(
-            `SELECT user_idx, action_user_idx, not_type,not_type_idx FROM notification WHERE user_idx=? AND isChecked = 1`,
-            [userIdx]
+            `SELECT INFO.nickname, INFO.image_URL, CMTY.title FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx WHERE NT.idx=''`
         )
-        //베열로 보내면 프론트에서 어떻게 api 보내니..
+
         return {
             status: 201,
             data: {

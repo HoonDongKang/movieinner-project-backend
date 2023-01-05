@@ -32,7 +32,7 @@ const writeComment = async (
             idx = insertId
         }
         const getResponse = await connection.run(
-            `SELECT CMT.idx, CMT.content_idx,CMT.user_idx,INFO.nickname,CMT.comment,CMT.response_to,CMT.created_at FROM comments AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx=INFO.idx WHERE CMT.idx=?`,
+            `SELECT CMT.idx,CMT.content_idx,CMTY.user_idx AS content_writer_idx,CMT.user_idx as comment_writer_idx,INFO.nickname,CMT.comment,CMT.response_to,CMT.created_at FROM comments AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx=INFO.idx INNER JOIN community AS CMTY ON CMT.content_idx=CMTY.idx WHERE CMT.idx=?`,
             [idx]
         )
         changeDbTimeForm(getResponse)
