@@ -397,7 +397,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     notification: {
-        urlPath: '/community/notification',
+        urlPath: '/community/notification/:userIdx',
         method: 'get',
         handlerName: 'notification',
         handlerPath: './src/apis/community/notification.ts',
