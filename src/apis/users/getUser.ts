@@ -29,26 +29,25 @@ const getIdxUser = async (
     return { status: 200, data: response }
 }
 
-const changeIdxToNickname = async (
-    params: { idx: string },
+const getUserImage = async (
+    params: { userIdx: string },
     connection: DbConnection
 ) => {
-    const { idx } = params
-    let nickname = ''
+    const { userIdx } = params
     try {
         const response = await connection.run(
-            `SELECT nickname FROM user_info WHERE idx=?`,
-            [idx]
+            `SELECT image_URL FROM user_info WHERE idx=?`,
+            [userIdx]
         )
-        nickname = response[0]
+        const { image_URL } = response[0]
+        return { status: 200, data: { image_URL } }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
-    return { status: 200, data: nickname }
 }
 
 export default {
     getUsers,
     getIdxUser,
-    changeIdxToNickname,
+    getUserImage,
 }

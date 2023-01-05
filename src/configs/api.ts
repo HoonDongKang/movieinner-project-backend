@@ -39,10 +39,10 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/getUser.ts',
         authorizer: false,
     },
-    changeIdxToNickname: {
-        urlPath: '/users/nickname/:idx',
+    getUserImage: {
+        urlPath: '/users/image/:userIdx',
         method: 'get',
-        handlerName: 'changeIdxToNickname',
+        handlerName: 'getUserImage',
         handlerPath: './src/apis/users/getUser.ts',
         authorizer: false,
     },
