@@ -32,6 +32,8 @@ const pushNotificationDB = async (
     }
 }
 
+
+//notification 마무리 하기
 const notification = async (
     params: NotificationType,
     connection: DbConnection
