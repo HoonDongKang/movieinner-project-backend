@@ -74,6 +74,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/changeUser.ts',
         authorizer: false,
     },
+    changeUserImage: {
+        urlPath: '/users/change/image',
+        method: 'put',
+        handlerName: 'changeUserNickname',
+        handlerPath: './src/apis/users/changeUser.ts',
+        authorizer: false,
+    },
     checkUserEmail: {
         urlPath: '/users/check/email',
         method: 'post',

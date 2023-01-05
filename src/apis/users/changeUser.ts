@@ -84,7 +84,23 @@ const changeUserNickname = async (
     }
 }
 
+const changeUserImage = async (
+    params: { imageURL: string; userIdx: string },
+    connection: DbConnection
+) => {
+    const { imageURL, userIdx } = params
+    try {
+        await connection.run(`UPDATE user_info SET image_URL=? WHERE idx=?`, [
+            imageURL,
+            userIdx,
+        ])
+    } catch (e: any) {
+        console.error(e)
+    }
+}
+
 export default {
     changeUserPassword,
     changeUserNickname,
+    changeUserImage,
 }
