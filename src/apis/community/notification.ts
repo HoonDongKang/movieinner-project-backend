@@ -1,7 +1,7 @@
 import { DbConnection } from '../../modules/connect'
 
 //db 값 type 지정 적용이 안됨
-type NotType = 'content' | 'comment'
+type NotType = 'comment' | 'reply'
 
 interface NotificationType {
     userIdx: string
@@ -41,15 +41,15 @@ const notification = async (
     let response = ''
     try {
         console.log(userIdx, notType)
-        if (notType === 'content') {
+        if (notType === 'comment') {
             response = await connection.run(
                 `SELECT INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         } else {
-            //notType==='comment'
+            //notType==='reply'
             response = await connection.run(
-                `SELECT INFO.nickname, INFO.image_URL, CMT.idx AS comments_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+                `SELECT INFO.nickname, INFO.image_URL, CMT.comment AS reply, CMT.response_to AS comment_idx, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         }
