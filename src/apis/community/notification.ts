@@ -32,7 +32,6 @@ const pushNotificationDB = async (
     }
 }
 
-
 //notification 마무리 하기
 const notification = async (
     params: NotificationType,
@@ -41,15 +40,16 @@ const notification = async (
     const { userIdx, notType } = params //userIdx: path, notType: query
     let response = ''
     try {
+        console.log(userIdx, notType)
         if (notType === 'content') {
             response = await connection.run(
-                `SELECT INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx WHERE NT.user_idx=''`,
+                `SELECT INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         } else {
             //notType==='comment'
             response = await connection.run(
-                `SELECT INFO.nickname, INFO.image_URL, CMT.idx AS comments_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=''`,
+                `SELECT INFO.nickname, INFO.image_URL, CMT.idx AS comments_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         }
