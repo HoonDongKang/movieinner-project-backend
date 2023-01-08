@@ -40,16 +40,15 @@ const notification = async (
     const { userIdx, notType } = params //userIdx: path, notType: query
     let response = ''
     try {
-        console.log(userIdx, notType)
         if (notType === 'comment') {
             response = await connection.run(
-                `SELECT INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         } else {
             //notType==='reply'
             response = await connection.run(
-                `SELECT INFO.nickname, INFO.image_URL, CMT.comment AS reply, CMT.response_to AS comment_idx, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMT.comment AS reply, CMT.response_to AS comment_idx, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
                 [userIdx]
             )
         }
@@ -64,7 +63,39 @@ const notification = async (
         console.error(e)
     }
 }
+
+const numberOfNotification = async (
+    params: NotificationType,
+    connection: DbConnection
+) => {
+    const { userIdx } = params
+    try {
+        const response = await connection.run(
+            `SELECT COUNT(*) AS count FROM notification WHERE user_idx=? AND isChecked='1'`,
+            [userIdx]
+        )
+        const { count: numberOfNotification } = response[0]
+        return {
+            status: 200,
+            data: { numberOfNotification },
+        }
+    } catch (e: any) {
+        console.error(e)
+    }
+}
+
+const checkedNotification = async (
+    params: NotificationType,
+    connection: DbConnection
+) => {
+    const { userIdx } = params
+    try {
+    } catch (e: any) {
+        console.error(e)
+    }
+}
 export default {
     pushNotificationDB,
     notification,
+    numberOfNotification,
 }

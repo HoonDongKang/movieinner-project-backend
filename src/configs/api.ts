@@ -403,6 +403,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/notification.ts',
         authorizer: false,
     },
+    numberOfNotification: {
+        urlPath: '/community/notification/number/:userIdx',
+        method: 'get',
+        handlerName: 'numberOfNotification',
+        handlerPath: './src/apis/community/notification.ts',
+        authorizer: false,
+    },
     contentsSearch: {
         urlPath: '/search/content/:type',
         method: 'get',
