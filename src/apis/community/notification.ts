@@ -4,6 +4,7 @@ import { DbConnection } from '../../modules/connect'
 type NotType = 'comment' | 'reply'
 
 interface NotificationType {
+    notIdx: string
     userIdx: string
     writerIdx: string
     contentIdx: string
@@ -88,8 +89,34 @@ const checkedNotification = async (
     params: NotificationType,
     connection: DbConnection
 ) => {
-    const { userIdx } = params
+    const { userIdx, notIdx } = params
     try {
+        await connection.run(
+            `UPDATE notification SET isChecked='0' WHERE user_idx=? AND idx=?`,
+            [userIdx, notIdx]
+        )
+        return {
+            status: 201,
+            data: { success: true },
+        }
+    } catch (e: any) {
+        console.error(e)
+    }
+}
+const deleteNotification = async (
+    params: NotificationType,
+    connection: DbConnection
+) => {
+    const { userIdx, notIdx } = params
+    try {
+        await connection.run(
+            `DELETE FROM notification WHERE user_idx=? AND idx=?`,
+            [userIdx, notIdx]
+        )
+        return {
+            status: 201,
+            data: { success: true },
+        }
     } catch (e: any) {
         console.error(e)
     }
@@ -98,4 +125,6 @@ export default {
     pushNotificationDB,
     notification,
     numberOfNotification,
+    checkedNotification,
+    deleteNotification,
 }

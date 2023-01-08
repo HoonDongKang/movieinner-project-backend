@@ -410,6 +410,20 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/community/notification.ts',
         authorizer: false,
     },
+    checkedNotification: {
+        urlPath: '/community/notification/check',
+        method: 'put',
+        handlerName: 'checkedNotification',
+        handlerPath: './src/apis/community/notification.ts',
+        authorizer: false,
+    },
+    deleteNotification: {
+        urlPath: '/community/notification',
+        method: 'delete',
+        handlerName: 'deleteNotification',
+        handlerPath: './src/apis/community/notification.ts',
+        authorizer: false,
+    },
     contentsSearch: {
         urlPath: '/search/content/:type',
         method: 'get',
