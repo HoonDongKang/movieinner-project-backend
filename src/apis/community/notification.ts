@@ -43,13 +43,13 @@ const notification = async (
     try {
         if (notType === 'comment') {
             response = await connection.run(
-                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=? AND NT.not_type='comment'`,
                 [userIdx]
             )
         } else {
             //notType==='reply'
             response = await connection.run(
-                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMT.comment AS reply, CMT.response_to AS comment_idx, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+                `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMT.comment AS reply, CMT.response_to AS comment_idx, CMTY.idx AS content_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=? AND NT.not_type='reply'`,
                 [userIdx]
             )
         }
