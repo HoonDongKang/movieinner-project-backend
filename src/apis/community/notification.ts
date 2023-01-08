@@ -11,7 +11,7 @@ interface NotificationType {
     notType: NotType
     notTypeIdx: string
 }
-
+// DB에 알람 삽입
 const pushNotificationDB = async (
     params: NotificationType,
     connection: DbConnection
@@ -33,7 +33,7 @@ const pushNotificationDB = async (
     }
 }
 
-//notification 마무리 하기
+//유저 별 알람 리스트
 const notification = async (
     params: NotificationType,
     connection: DbConnection
@@ -64,7 +64,7 @@ const notification = async (
         console.error(e)
     }
 }
-
+// 유저가 확인하지 않은 알람 개수
 const numberOfNotification = async (
     params: NotificationType,
     connection: DbConnection
@@ -84,7 +84,7 @@ const numberOfNotification = async (
         console.error(e)
     }
 }
-
+// 유저가 알람 확인했을 때 isChecked = 0 변경
 const checkedNotification = async (
     params: NotificationType,
     connection: DbConnection
@@ -103,6 +103,8 @@ const checkedNotification = async (
         console.error(e)
     }
 }
+
+// 알람 삭제
 const deleteNotification = async (
     params: NotificationType,
     connection: DbConnection
