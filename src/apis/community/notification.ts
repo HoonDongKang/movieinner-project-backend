@@ -42,7 +42,7 @@ const notification = async (
     const { userIdx } = params //userIdx: path, notType: query
     try {
         const response = await connection.run(
-            `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment,CMT.response_to AS comment_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=?`,
+            `SELECT NT.idx, INFO.nickname, INFO.image_URL, CMTY.title, CMTY.idx AS content_idx, CMT.comment,CMT.response_to AS comment_idx FROM notification AS NT INNER JOIN user_info AS INFO ON NT.writer_idx=INFO.idx INNER JOIN community AS CMTY ON NT.content_idx = CMTY.idx INNER JOIN comments AS CMT ON NT.not_type_idx = CMT.idx WHERE NT.user_idx=? ORDER BY NT.idx`,
             [userIdx]
         )
         console.log(response)
