@@ -92,7 +92,7 @@ const getIdxComments = async (
     const { contentIdx } = params //path: contentIdx
     try {
         const response = await connection.run(
-            `SELECT idx, content_idx, user_idx,comment, response_to, created_at FROM comments WHERE content_idx=?`,
+            `SELECT comments.idx, comments.content_idx, user_info.nickname,comments.comment, comments.response_to, comments.created_at FROM comments INNER JOIN user_info ON comments.user_idx = user_info.idx WHERE content_idx=?`,
             [contentIdx]
         )
         changeDbTimeForm(response)
