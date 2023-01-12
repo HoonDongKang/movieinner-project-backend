@@ -1,4 +1,3 @@
-// 유저 정보 CRUD API
 import { DbConnection } from '../../modules/connect'
 import { paramsErrorHandler } from '../../modules/paramsError'
 import bcrypt from 'bcrypt'
