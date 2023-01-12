@@ -34,7 +34,6 @@ const pushNotificationDB = async (
 }
 
 //유저 별 알람 리스트
-// comment, reply 합쳐서 시간 순으로 response
 const notification = async (
     params: NotificationType,
     connection: DbConnection
