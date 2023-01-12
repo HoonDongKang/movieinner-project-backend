@@ -1,10 +1,7 @@
 import { DbConnection } from '../../modules/connect'
 import GOOGLE from '../../configs/socialLogin'
 import axios from 'axios'
-import {
-    paramsErrorHandler,
-    unauthorizedErrorHandler,
-} from '../../modules/paramsError'
+import { unauthorizedErrorHandler } from '../../modules/paramsError'
 
 const { GOOGLE_CLIENT_KEY, GOOGLE_CLIENT_PASSWORD, GOOGLE_REDIRECT_URI } =
     GOOGLE

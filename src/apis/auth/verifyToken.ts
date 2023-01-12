@@ -6,7 +6,7 @@ const { JWT_SECRET } = jsonWebToken
 
 const getPayloadToken = async (
     params: { token: string },
-    connection: DbConnection
+    connection: never
 ) => {
     let payload: any = {}
     try {
