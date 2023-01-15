@@ -79,8 +79,33 @@ const checkUserPassword = async (
     }
 }
 
+const checkSocialOrOrdinaryUser = async (
+    params: { userIdx: string },
+    connection: DbConnection
+) => {
+    const { userIdx } = params
+    let IsSocial = false
+    try {
+        const response = await connection.run(
+            `SELECT password FROM user_info WHERE idx=?`,
+            [userIdx]
+        )
+        const { password } = response[0]
+        IsSocial = password == null ? true : false
+        return {
+            status: 201,
+            data: {
+                IsSocial,
+            },
+        }
+    } catch (e: any) {
+        paramsErrorHandler(e)
+    }
+}
+
 export default {
     checkUserEmail,
     checkUserNickname,
     checkUserPassword,
+    checkSocialOrOrdinaryUser,
 }

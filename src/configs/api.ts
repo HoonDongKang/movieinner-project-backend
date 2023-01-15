@@ -102,6 +102,13 @@ export const apiConfigs: ApiConfigObj = {
         handlerPath: './src/apis/users/checkUser.ts',
         authorizer: false,
     },
+    checkSocialOrOrdinaryUser: {
+        urlPath: '/users/check/social/:userIdx',
+        method: 'get',
+        handlerName: 'checkSocialOrOrdinaryUser',
+        handlerPath: './src/apis/users/checkUser.ts',
+        authorizer: false,
+    },
     signin: {
         urlPath: '/users/login',
         method: 'post',
