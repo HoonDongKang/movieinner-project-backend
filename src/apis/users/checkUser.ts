@@ -1,6 +1,6 @@
-import { DbConnection } from '../../modules/connect'
-import { paramsErrorHandler } from '../../modules/paramsError'
-import bcrypt from 'bcrypt'
+import { DbConnection } from "../../modules/connect"
+import { paramsErrorHandler } from "../../modules/paramsError"
+import bcrypt from "bcrypt"
 
 const checkUserEmail = async (
     params: { email: string },
@@ -9,9 +9,9 @@ const checkUserEmail = async (
     let isExisted = true
     try {
         const { email } = params
-        const removeString = email.substring(email.indexOf('.'))
-        const emailRemoveString = email.replace(removeString, '')
-        const emailWithDotCom = emailRemoveString + '.com'
+        const removeString = email.substring(email.indexOf("."))
+        const emailRemoveString = email.replace(removeString, "")
+        const emailWithDotCom = emailRemoveString + ".com"
         const response = await connection.run(
             `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
             [emailWithDotCom]
@@ -102,7 +102,7 @@ const checkSocialOrOrdinaryUser = async (
         paramsErrorHandler(e)
     }
 }
-
+//
 export default {
     checkUserEmail,
     checkUserNickname,
