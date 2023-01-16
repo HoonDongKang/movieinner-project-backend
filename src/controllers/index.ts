@@ -1,15 +1,15 @@
-import { ApiConfigObj } from '../configs/api'
+import { ApiConfigObj } from "../configs/api"
 import {
     CookieOptions,
     Express,
     NextFunction,
     Request,
     Response,
-} from 'express'
-import path from 'path'
-import { ReqConnection } from '../middlewares/dbConnect'
-import { DbConnection } from '../modules/connect'
-import { authorizer } from '../middlewares/authorizer'
+} from "express"
+import path from "path"
+import { ReqConnection } from "../middlewares/dbConnect"
+import { DbConnection } from "../modules/connect"
+import { authorizer } from "../middlewares/authorizer"
 
 interface responseType {
     status: number
@@ -31,7 +31,7 @@ export const registerAllApis = async (
             handlerPath,
             authorizer: isRequireAuthorizer,
         } = apiConfig
-        const getModulePath = path.join(__dirname, '../../', handlerPath)
+        const getModulePath = path.join(__dirname, "../../", handlerPath)
         const { default: apiModule } = await import(getModulePath)
         const apiHandlerFunc: (
             params: any,
@@ -56,7 +56,7 @@ export const registerAllApis = async (
             const connection = req.mysqlConnection
             apiHandlerFunc(params, connection)
                 .then((resObj: responseType) => {
-                    const { status, data, render, cookie } = resObj
+                    const { status, data, cookie } = resObj
                     if (!cookie) {
                         res.status(status)
                         res.json(data)

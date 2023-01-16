@@ -1,12 +1,11 @@
-import axios from 'axios'
-import { convertGenreIdtoName } from '../../modules/tmdbConvert'
-import { DbConnection } from './../../modules/connect'
-import TMDB from '../../configs/tmdb'
+import axios from "axios"
+import { convertGenreIdtoName } from "../../modules/tmdbConvert"
+import TMDB from "../../configs/tmdb"
 import {
     MovieResultArrayType,
     TmdbResultArrayType,
-} from '../search/movieSearch'
-import { paramsErrorHandler } from '../../modules/paramsError'
+} from "../search/movieSearch"
+import { paramsErrorHandler } from "../../modules/paramsError"
 
 const { TMDB_API_KEY } = TMDB
 

@@ -1,7 +1,6 @@
-import { DbConnection } from '../../modules/connect'
-import { jwtErrorHandler } from '../../modules/paramsError'
-import JWT from 'jsonwebtoken'
-import jsonWebToken from '../../configs/jsonWebToken'
+import { jwtErrorHandler } from "../../modules/paramsError"
+import JWT from "jsonwebtoken"
+import jsonWebToken from "../../configs/jsonWebToken"
 const { JWT_SECRET } = jsonWebToken
 
 const getPayloadToken = async (
