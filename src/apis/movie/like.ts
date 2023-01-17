@@ -60,8 +60,8 @@ const liked = async (params: LikedMoviesType, connection: DbConnection) => {
             )
         } else if (type === 'theme') {
             await connection.run(
-                `INSERT INTO liked(type,user_idx,name,backdrop_path) VALUES (?,?,?,?)`,
-                [type, userIdx, name, backdrop_path]
+                `INSERT INTO liked(type,user_idx,name,poster_path) VALUES (?,?,?,?)`,
+                [type, userIdx, name, poster_path]
             )
         } else {
             throw 'E0001'
@@ -111,7 +111,7 @@ const getLiked = async (params: LikedMoviesType, connection: DbConnection) => {
             )
         } else if (type === 'theme') {
             response = await connection.run(
-                `SELECT L.idx,L.type,INFO.nickname,L.name,L.backdrop_path FROM liked AS L INNER JOIN user_info AS INFO ON L.user_idx = INFO.idx WHERE L.type=? AND L.user_idx=?`,
+                `SELECT L.idx,L.type,INFO.nickname,L.name,L.poster_path FROM liked AS L INNER JOIN user_info AS INFO ON L.user_idx = INFO.idx WHERE L.type=? AND L.user_idx=?`,
                 [type, userIdx]
             )
         } else {
