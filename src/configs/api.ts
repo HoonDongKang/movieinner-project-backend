@@ -33,7 +33,7 @@ export const apiConfigs: ApiConfigObj = {
         authorizer: false,
     },
     getIdxUser: {
-        urlPath: '/users/:insertId',
+        urlPath: '/users/:userIdx',
         method: 'get',
         handlerName: 'getIdxUser',
         handlerPath: './src/apis/users/getUser.ts',

@@ -14,14 +14,14 @@ const getUsers = async (params: never, connection: DbConnection) => {
 
 //특정 유저의 정보 가져오기
 const getIdxUser = async (
-    params: { insertId: string },
+    params: { userIdx: string },
     connection: DbConnection
 ) => {
     let response = []
     try {
-        const { insertId } = params
+        const { userIdx } = params
         response = await connection.run(`SELECT * FROM user_info WHERE idx=?`, [
-            insertId,
+            userIdx,
         ])
     } catch (e: any) {
         paramsErrorHandler(e)
