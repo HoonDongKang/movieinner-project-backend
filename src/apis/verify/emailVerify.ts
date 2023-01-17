@@ -79,7 +79,7 @@ const checkEmailLink = async (
     }
     return {
         status: 200,
-        data: { isVerified: isVerified },
+        data: { isVerified },
     }
 }
 export default {

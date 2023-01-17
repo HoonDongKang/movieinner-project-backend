@@ -26,9 +26,7 @@ const pwResetEmailLink = async (
             isEmailExist = false
             return {
                 status: 403,
-                data: {
-                    isEmailExist: isEmailExist,
-                },
+                data: { isEmailExist },
             }
         }
 
@@ -87,7 +85,7 @@ const checkPwResetEmailLink = async (
     }
     return {
         status: 200,
-        data: { isVerified: isVerified },
+        data: { isVerified },
     }
 }
 export default {
