@@ -99,7 +99,7 @@ const getIdxComments = async (
         return {
             status: 201,
             data: {
-                contents: response,
+                comments: response,
             },
         }
     } catch (e: any) {

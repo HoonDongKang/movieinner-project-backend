@@ -15,22 +15,22 @@ const contentsSearch = async (
         // DB 값 띄어쓰기 제거
         if (type === 'title') {
             response = await connection.run(
-                `SELECT idx,nickname,title,content,file,hit,created_at FROM community WHERE replace(title," ","") LIKE ? ORDER BY hit DESC`,
+                `SELECT community.idx,user_info.nickname,community.title,community.content,community.file,community.hit,community.created_at FROM community INNER JOIN user_info ON community.user_idx = user_info.idx WHERE replace(title," ","") LIKE ? ORDER BY hit DESC`,
                 ['%' + search + '%']
             )
         } else if (type === 'content') {
             response = await connection.run(
-                `SELECT idx,nickname,title,content,file,hit,created_at FROM community WHERE replace(content," ","") LIKE ? ORDER BY hit DESC`,
+                `SELECT community.idx,user_info.nickname,community.title,community.content,community.file,community.hit,community.created_at FROM community INNER JOIN user_info ON community.user_idx = user_info.idx WHERE replace(content," ","") LIKE ? ORDER BY hit DESC`,
                 ['%' + search + '%']
             )
         } else if (type === 'writer') {
             response = await connection.run(
-                `SELECT idx,nickname,title,content,file,hit,created_at FROM community WHERE replace(nickname," ","") LIKE ? ORDER BY hit DESC`,
+                `SELECT community.idx,user_info.nickname,community.title,community.content,community.file,community.hit,community.created_at FROM community INNER JOIN user_info ON community.user_idx = user_info.idx WHERE replace(nickname," ","") LIKE ? ORDER BY hit DESC`,
                 ['%' + search + '%']
             )
         } else if (type === 'titleAndContent') {
             response = await connection.run(
-                `SELECT idx,nickname,title,content,file,hit,created_at FROM community WHERE replace(content," ","") LIKE ? OR replace(title," ","") LIKE ? ORDER BY hit DESC`,
+                `SELECT community.idx,user_info.nickname,community.title,community.content,community.file,community.hit,community.created_at FROM community INNER JOIN user_info ON community.user_idx = user_info.idx WHERE replace(content," ","") LIKE ? OR replace(title," ","") LIKE ? ORDER BY hit DESC`,
                 ['%' + search + '%', '%' + search + '%']
             )
         }
