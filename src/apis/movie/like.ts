@@ -83,12 +83,19 @@ const deleteLike = async (
     params: LikedMoviesType,
     connection: DbConnection
 ) => {
-    const { type, userIdx, movieId } = params
+    const { type, userIdx, movieId, name } = params
     try {
-        await connection.run(
-            `DELETE FROM liked WHERE type=? AND user_idx=? AND movie_id=?`,
-            [type, userIdx, movieId]
-        )
+        if (type === 'movie') {
+            await connection.run(
+                `DELETE FROM liked WHERE type=? AND user_idx=? AND movie_id=?`,
+                [type, userIdx, movieId]
+            )
+        } else if (type === 'theme') {
+            await connection.run(
+                `DELETE FROM liked WHERE type=? AND user_idx=? AND name=?`,
+                [type, userIdx, name]
+            )
+        }
         return {
             status: 201,
             data: {
