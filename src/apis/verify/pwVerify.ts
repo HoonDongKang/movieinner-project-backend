@@ -1,9 +1,10 @@
 // 이메일 인증 링크 전송 및 인증 API
-import mailgun from 'mailgun-js'
-import MAIL from '../../configs/mailgun'
-import { DbConnection } from '../../modules/connect'
-import md5 from 'md5'
-import { paramsErrorHandler } from './../../modules/paramsError'
+import Mailgun from "mailgun.js"
+import formData from "form-data"
+import MAIL from "../../configs/mailgun"
+import { DbConnection } from "../../modules/connect"
+import md5 from "md5"
+import { paramsErrorHandler } from "./../../modules/paramsError"
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
 const pwResetEmailLink = async (
@@ -37,17 +38,16 @@ const pwResetEmailLink = async (
         )
 
         // 존재하지 않을 경우 이메일 링크 전송
-        const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
-        const emailLink = `http://localhost:3000/forgot/valid?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
+        const mailgun = new Mailgun(formData)
+        const client = mailgun.client({ username: "api", key: MAILGUN_API_KEY })
+        const emailLink = `http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
         const data = {
             from: MAILGUN_FROM,
             to: email,
-            subject: 'Movie-inner: Please reset your email address.',
+            subject: "Movie-inner: Please verify your email address.",
             text: `Pleace click the link : ${emailLink}`,
         }
-        await mg.messages().send(data, function (error: any, body: any) {
-            console.log(body)
-        })
+        await client.messages.create(MAILGUN_DOMAIN, data)
     } catch (e: any) {
         paramsErrorHandler(e)
     }
@@ -56,7 +56,7 @@ const pwResetEmailLink = async (
         status: 201,
         data: {
             isEmailExist: isEmailExist,
-            message: '이메일로 링크 발송 성공',
+            message: "이메일로 링크 발송 성공",
         },
     }
 }
@@ -73,7 +73,7 @@ const checkPwResetEmailLink = async (
             [key, type]
         )
         if (!response[0]) {
-            throw new Error('E0002')
+            throw new Error("E0002")
         }
 
         const { expired_date: expiredDate } = response[0]
