@@ -41,7 +41,7 @@ const emailVerifyLink = async (
             from: MAILGUN_FROM,
             to: email,
             subject: "Movie-inner: Please verify your email address.",
-            text: `Pleace click the link : ${emailLink}`,
+            template: "email_verify_template",
         }
         await client.messages.create(MAILGUN_DOMAIN, data)
     } catch (e: any) {
