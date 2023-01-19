@@ -1,10 +1,10 @@
 // 이메일 인증 링크 전송 및 인증 API
-import MAIL from "../../configs/mailgun"
-import { DbConnection } from "../../modules/connect"
-import md5 from "md5"
-import { paramsErrorHandler } from "./../../modules/paramsError"
-import Mailgun from "mailgun.js"
-import formData from "form-data"
+import MAIL from '../../configs/mailgun'
+import { DbConnection } from '../../modules/connect'
+import md5 from 'md5'
+import { paramsErrorHandler } from './../../modules/paramsError'
+import Mailgun from 'mailgun.js'
+import formData from 'form-data'
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
 
@@ -25,7 +25,7 @@ const emailVerifyLink = async (
         )
         const { count } = getResponse[0]
         //이미 등록된 이메일일 경우
-        if (count > 0) throw "E0000"
+        if (count > 0) throw 'E0000'
 
         //이메일 정보 및 만료 기한 저장
         await connection.run(
@@ -35,13 +35,18 @@ const emailVerifyLink = async (
 
         // 존재하지 않을 경우 이메일 링크 전송
         const mailgun = new Mailgun(formData)
-        const client = mailgun.client({ username: "api", key: MAILGUN_API_KEY })
-        const emailLink = `http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
+        const client = mailgun.client({ username: 'api', key: MAILGUN_API_KEY })
+        //`http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
         const data = {
             from: MAILGUN_FROM,
             to: email,
-            subject: "Movie-inner: Please verify your email address.",
-            template: "email_verify_template",
+            subject: 'Movie-inner: Please verify your email address.',
+            template: 'email_verify_template',
+            't:variables': JSON.stringify({
+                hashedEmail,
+                email,
+                type,
+            }),
         }
         await client.messages.create(MAILGUN_DOMAIN, data)
     } catch (e: any) {
@@ -51,7 +56,7 @@ const emailVerifyLink = async (
         status: 201,
         data: {
             success: true,
-            message: "이메일로 링크 발송 성공",
+            message: '이메일로 링크 발송 성공',
         },
     }
 }
@@ -68,7 +73,7 @@ const checkEmailLink = async (
             [key, type]
         )
         if (!response[0]) {
-            throw "E0002"
+            throw 'E0002'
         }
 
         const { expired_date: expiredDate } = response[0]
