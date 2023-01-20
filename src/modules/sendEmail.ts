@@ -3,7 +3,7 @@ import formData from "form-data"
 import MAIL from "../configs/mailgun"
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
-
+//http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
 const senVerifyEmail = async (
     hashedEmail: string,
     email: string,
@@ -12,7 +12,6 @@ const senVerifyEmail = async (
     try {
         const mailgun = new Mailgun(formData)
         const client = mailgun.client({ username: "api", key: MAILGUN_API_KEY })
-        //`http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
         const data = {
             from: MAILGUN_FROM,
             to: email,
@@ -38,7 +37,6 @@ const sendResetPWEmail = async (
     try {
         const mailgun = new Mailgun(formData)
         const client = mailgun.client({ username: "api", key: MAILGUN_API_KEY })
-        //`http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
         const data = {
             from: MAILGUN_FROM,
             to: email,
