@@ -1,7 +1,7 @@
-import { DbConnection } from './../../modules/connect'
-import { paramsErrorHandler } from './../../modules/paramsError'
-import { getContentsPerPages } from './../../modules/getContents'
-import { changeDbTimeForm } from './../../modules/changeTimeForm'
+import { DbConnection } from "./../../modules/connect"
+import { paramsErrorHandler } from "./../../modules/paramsError"
+import { getContentsPerPages } from "./../../modules/getContents"
+import { changeDbTimeForm } from "./../../modules/changeTimeForm"
 //
 const getAllContents = async (
     params: { page: string },
@@ -58,7 +58,7 @@ const getIdxContent = async (
     const { idx } = params //path
     try {
         const response = await connection.run(
-            `SELECT INFO.nickname,CMT.title,CMT.content,CMT.file,CMT.created_at FROM community AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx = INFO.idx WHERE CMT.idx=?`,
+            `SELECT INFO.nickname,INFO.image_URL,CMT.title,CMT.content,CMT.file,CMT.created_at FROM community AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx = INFO.idx WHERE CMT.idx=?`,
             [idx]
         )
         changeDbTimeForm(response)

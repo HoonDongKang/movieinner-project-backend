@@ -1,7 +1,7 @@
-import { DbConnection } from '../../modules/connect'
-import { paramsErrorHandler } from '../../modules/paramsError'
-import { changeDbTimeForm } from './../../modules/changeTimeForm'
-import { getContentsPerPages } from './../../modules/getContents'
+import { DbConnection } from "../../modules/connect"
+import { paramsErrorHandler } from "../../modules/paramsError"
+import { changeDbTimeForm } from "./../../modules/changeTimeForm"
+import { getContentsPerPages } from "./../../modules/getContents"
 
 const writeComment = async (
     params: {
@@ -114,7 +114,7 @@ const getUserComments = async (
     const { userIdx, page } = params //path: userIdx, query: page
     try {
         const response = await connection.run(
-            `SELECT CMT.idx, INFO.nickname ,CMT.content_idx, CMT.comment, CMT.response_to, CMT.created_at FROM comments AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx=INFO.idx WHERE user_idx=?`,
+            `SELECT CMT.idx, INFO.nickname, INFO.image_URL ,CMT.content_idx, CMT.comment, CMT.response_to, CMT.created_at FROM comments AS CMT INNER JOIN user_info AS INFO ON CMT.user_idx=INFO.idx WHERE user_idx=?`,
             [userIdx]
         )
         changeDbTimeForm(response)
