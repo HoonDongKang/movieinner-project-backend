@@ -6,6 +6,7 @@ specifiers:
   '@types/cookie-parser': ^1.4.3
   '@types/cors': ^2.8.12
   '@types/express': ^4.17.13
+  '@types/heapdump': ^0.3.1
   '@types/jsonwebtoken': ^8.5.8
   '@types/mailgun-js': ^0.22.12
   '@types/md5': ^2.3.2
@@ -21,6 +22,7 @@ specifiers:
   express: ^4.18.1
   form-data: ^4.0.0
   googleapis: ^107.0.0
+  heapdump: ^0.3.15
   jsonwebtoken: ^8.5.1
   mailgun.js: ^8.0.6
   md5: ^2.3.0
@@ -43,6 +45,7 @@ dependencies:
   express: 4.18.1
   form-data: 4.0.0
   googleapis: 107.0.0
+  heapdump: 0.3.15
   jsonwebtoken: 8.5.1
   mailgun.js: 8.0.6
   md5: 2.3.0
@@ -55,6 +58,7 @@ devDependencies:
   '@types/cookie-parser': 1.4.3
   '@types/cors': 2.8.12
   '@types/express': 4.17.13
+  '@types/heapdump': 0.3.1
   '@types/jsonwebtoken': 8.5.8
   '@types/mailgun-js': 0.22.12
   '@types/md5': 2.3.2
@@ -961,6 +965,10 @@ packages:
       '@types/serve-static': 1.15.0
     dev: true
 
+  /@types/heapdump/0.3.1:
+    resolution: {integrity: sha512-1BaXjnso0bPxgG+Ngh1RKXxyjaugFN++xlXZxdRQxQVosIQf7DuJ6PiIRMCQJfL3MJRe02+zp8ApTsza3sCMgg==}
+    dev: true
+
   /@types/jsonwebtoken/8.5.8:
     resolution: {integrity: sha512-zm6xBQpFDIDM6o9r6HSgDeIcLy82TKWctCXEPbJJcXb5AKmi5BNNdLXneixK4lplX3PqIVcwLBCGE/kAGnlD4A==}
     dependencies:
@@ -1826,6 +1834,14 @@ packages:
       function-bind: 1.1.1
     dev: false
 
+  /heapdump/0.3.15:
+    resolution: {integrity: sha512-n8aSFscI9r3gfhOcAECAtXFaQ1uy4QSke6bnaL+iymYZ/dWs9cqDqHM+rALfsHUwukUbxsdlECZ0pKmJdQ/4OA==}
+    engines: {node: '>=0.10.0'}
+    requiresBuild: true
+    dependencies:
+      nan: 2.17.0
+    dev: false
+
   /html-comment-regex/1.1.2:
     resolution: {integrity: sha512-P+M65QY2JQ5Y0G9KKdlDpo0zK+/OHptU5AaBwUfAIDJZk1MYf32Frm84EcOytfJE0t5JvkAnKlmjsXDnWzCJmQ==}
     dev: false
@@ -2292,6 +2308,10 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       lru-cache: 4.1.5
+    dev: false
+
+  /nan/2.17.0:
+    resolution: {integrity: sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==}
     dev: false
 
   /negotiator/0.6.3:
