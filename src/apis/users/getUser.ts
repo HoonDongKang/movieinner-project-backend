@@ -1,15 +1,18 @@
-import { DbConnection } from '../../modules/connect'
-import { paramsErrorHandler } from '../../modules/paramsError'
+import { DbConnection } from "../../modules/connect"
+import { paramsErrorHandler } from "../../modules/paramsError"
 
 //모든 유저 이메일, 이름 가져오기
 const getUsers = async (params: never, connection: DbConnection) => {
-    let response = []
     try {
-        response = await connection.run(`SELECT email,name FROM user_info`, [])
+        const response = await connection.run(
+            `SELECT email,name FROM user_info`,
+            []
+        )
+
+        return { status: 200, data: response }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
-    return { status: 200, data: response }
 }
 
 //특정 유저의 정보 가져오기
@@ -17,16 +20,17 @@ const getIdxUser = async (
     params: { userIdx: string },
     connection: DbConnection
 ) => {
-    let response = []
     try {
         const { userIdx } = params
-        response = await connection.run(`SELECT * FROM user_info WHERE idx=?`, [
-            userIdx,
-        ])
+        const response = await connection.run(
+            `SELECT * FROM user_info WHERE idx=?`,
+            [userIdx]
+        )
+
+        return { status: 200, data: response }
     } catch (e: any) {
         paramsErrorHandler(e)
     }
-    return { status: 200, data: response }
 }
 
 const getUserImage = async (
