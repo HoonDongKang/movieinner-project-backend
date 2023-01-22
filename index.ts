@@ -1,3 +1,4 @@
+console.log("line 1")
 import express from "express"
 import cors from "cors"
 import { useMysql } from "./src/middlewares/dbConnect"
@@ -6,6 +7,8 @@ import { apiConfigs } from "./src/configs/api"
 import router from "./src/apis/image"
 import { errorHandler } from "./src/middlewares/errorHandler"
 import cookieParser from "cookie-parser"
+
+console.log("line 9")
 
 const app = express()
 const PORT = 3714
