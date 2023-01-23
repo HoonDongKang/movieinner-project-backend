@@ -41,7 +41,7 @@ const sendResetPWEmail = async (
             from: MAILGUN_FROM,
             to: email,
             subject: "Movie-inner: Please verify your email address.",
-            template: "reset_a_password",
+            template: "reset_password",
             "t:variables": JSON.stringify({
                 hashedEmail,
                 email,

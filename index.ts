@@ -1,4 +1,3 @@
-console.log("line 1")
 import express from "express"
 import cors from "cors"
 import { useMysql } from "./src/middlewares/dbConnect"
@@ -7,8 +6,6 @@ import { apiConfigs } from "./src/configs/api"
 import router from "./src/apis/image"
 import { errorHandler } from "./src/middlewares/errorHandler"
 import cookieParser from "cookie-parser"
-
-console.log("line 9")
 
 const app = express()
 const PORT = 3714
@@ -21,7 +18,6 @@ app.use(useMysql)
 app.use(cookieParser())
 
 app.use("/image", router)
-console.log("image")
 registerAllApis(app, apiConfigs)
     .then(() => {
         app.use(errorHandler)
@@ -33,4 +29,3 @@ registerAllApis(app, apiConfigs)
         console.error(e)
         process.exit(-1)
     })
-console.log("all apis")
