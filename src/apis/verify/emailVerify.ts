@@ -15,21 +15,21 @@ const emailVerifyLink = async (
         const expiredDate = new Date(Date.now() + 60 * 1000 * 5) //만료기간 5분
         const hashedEmailFull = md5(email + expiredDate)
         const hashedEmail = hashedEmailFull.substring(0, 12)
-        const getResponse = await connection.run(
-            `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
-            [email]
-        )
-        const { count } = getResponse[0]
-        //이미 등록된 이메일일 경우
-        if (count > 0) throw "E0000"
-        else {
-            MAILGUN.senVerifyEmail(hashedEmail, email, type)
-            //이메일 정보 및 만료 기한 저장
-            await connection.run(
-                `INSERT INTO email_verify(type,email,email_code,expired_date) VALUES(?,?,?,?)`,
-                [type, email, hashedEmail, expiredDate]
-            )
-        }
+        // const getResponse = await connection.run(
+        //     `SELECT COUNT(*) AS count FROM user_info WHERE email=?`,
+        //     [email]
+        // )
+        // const { count } = getResponse[0]
+        // //이미 등록된 이메일일 경우
+        // if (count > 0) throw "E0000"
+        // else {
+        MAILGUN.senVerifyEmail(hashedEmail, email, type)
+        //이메일 정보 및 만료 기한 저장
+        // await connection.run(
+        //     `INSERT INTO email_verify(type,email,email_code,expired_date) VALUES(?,?,?,?)`,
+        //     [type, email, hashedEmail, expiredDate]
+        // )
+        // }
     } catch (e: any) {
         paramsErrorHandler(e)
     }

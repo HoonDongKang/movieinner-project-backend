@@ -3,6 +3,7 @@ import formData from "form-data"
 import MAIL from "../configs/mailgun"
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM } = MAIL
+
 //http://localhost:3000/signup/verify?key=${hashedEmail}&email=${email}&type=${type}` //임시 verify 주소
 const senVerifyEmail = async (
     hashedEmail: string,
@@ -16,7 +17,7 @@ const senVerifyEmail = async (
             from: MAILGUN_FROM,
             to: email,
             subject: "Movie-inner: Please verify your email address.",
-            template: "email_verify_template",
+            template: "verifying_email",
             "t:variables": JSON.stringify({
                 hashedEmail,
                 email,
@@ -41,7 +42,7 @@ const sendResetPWEmail = async (
             from: MAILGUN_FROM,
             to: email,
             subject: "Movie-inner: Please verify your email address.",
-            template: "reset_password",
+            template: "reset_a_password",
             "t:variables": JSON.stringify({
                 hashedEmail,
                 email,
