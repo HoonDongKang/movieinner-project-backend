@@ -8,6 +8,7 @@ const getUserInfoKakao = async (
     connection: never
 ) => {
     try {
+        console.log(`client key = ${KAKAO_REST_API_KEY}`)
         const { authorizationCode } = params
         //accessToken 발급
         const tokenResponse = await axios.post(
@@ -20,6 +21,7 @@ const getUserInfoKakao = async (
             }
         )
         const accessToken = tokenResponse.data.access_token
+        console.log(`accessToken : ${accessToken}`)
         //사용자 정보 가져오기
         const userInfoResponse = await axios.get(
             "https://kapi.kakao.com/v2/user/me",
