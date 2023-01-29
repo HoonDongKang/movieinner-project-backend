@@ -11,7 +11,6 @@ const generateToken = async (
 ) => {
     let accessToken = ""
     let refreshToken = ""
-    // const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
     const refreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
     ) // 6개월
@@ -56,10 +55,8 @@ const generateToken = async (
                 httpOnly: true,
                 path: "/",
                 sameSite: "lax",
-                // domain: 'http://localhost:3000',
             },
         },
-        //token 값 넘길지 말지 고민중
         data: {
             success: true,
             accessToken,

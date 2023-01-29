@@ -27,9 +27,9 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     let newRefreshTokenPayload = {}
     let newRefreshToken = ""
     let newRefreshTokenExpireIn = new Date()
-    const NewRefreshTokenExpiredDate = new Date(
+    const NewRefreshTokenExpiredDate = new Date( //6개월
         Date.now() + 3600 * 1000 * 24 * 180
-    ) //6개월
+    )
 
     // access Token expiry 기간이 지나거나
     // access Token 이 header에서 사라지면 재발급
