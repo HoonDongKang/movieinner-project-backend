@@ -1,6 +1,6 @@
-import { DbConnection } from '../../modules/connect'
-import JWT from 'jsonwebtoken'
-import jsonWebToken from '../../configs/jsonWebToken'
+import { DbConnection } from "../../modules/connect"
+import JWT from "jsonwebtoken"
+import jsonWebToken from "../../configs/jsonWebToken"
 const { JWT_SECRET } = jsonWebToken
 
 interface RefreshTokenPayloadType {
@@ -18,16 +18,15 @@ interface AccessTokenPayloadType {
 
 const refreshToken = async (params: any, connection: DbConnection) => {
     let refreshTokenPayload: RefreshTokenPayloadType = {
-        accessToken: '',
-        refreshTokenExpiredDate: '',
+        accessToken: "",
+        refreshTokenExpiredDate: "",
         iat: 0,
     }
     let newAccessTokenPayload = {}
-    let newAccessToken = ''
+    let newAccessToken = ""
     let newRefreshTokenPayload = {}
-    let newRefreshToken = ''
+    let newRefreshToken = ""
     let newRefreshTokenExpireIn = new Date()
-    const expiredDate = new Date(Date.now() + 3600 * 1000 * 1) //1시간
     const NewRefreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
     ) //6개월
@@ -50,18 +49,19 @@ const refreshToken = async (params: any, connection: DbConnection) => {
         const { email, idx, nickname } = accessTokenPayload
         const now = Date.now()
         const getResponse = await connection.run(
-            `SELECT refresh_token_expires_in FROM user_token WHERE refresh_token=?`,
+            `SELECT COUNT(*) as count FROM user_token WHERE refresh_token=?`,
             [refreshToken]
         )
+        const { count } = getResponse[0]
         //refresh token이 db에 존재할 경우
-        if (getResponse[0]) {
+        if (count > 0) {
             if (
                 // refresh Token 만료가 1달 이상일 경우
                 Date.parse(refreshTokenExpiredDate) >
                 now + 3600 * 1000 * 24 * 30
             ) {
                 //기존 refresh token expiry 대입
-                newAccessTokenPayload = { email, idx, nickname, expiredDate }
+                newAccessTokenPayload = { email, idx, nickname }
                 newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
                 newRefreshTokenPayload = {
                     accessToken: newAccessToken,
@@ -71,7 +71,7 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                 newRefreshTokenExpireIn = new Date(refreshTokenExpiredDate)
             } else {
                 // 새로운 refresh token expiry
-                newAccessTokenPayload = { email, idx, nickname, expiredDate }
+                newAccessTokenPayload = { email, idx, nickname }
                 newAccessToken = JWT.sign(newAccessTokenPayload, JWT_SECRET)
                 newRefreshTokenPayload = {
                     accessToken: newAccessToken,
@@ -81,17 +81,16 @@ const refreshToken = async (params: any, connection: DbConnection) => {
                 newRefreshTokenExpireIn = new Date(NewRefreshTokenExpiredDate)
             }
             await connection.run(
-                `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE refresh_token=?`,
+                `UPDATE user_token SET access_token=?,refresh_token=?,refresh_token_expires_in=? WHERE refresh_token=?`,
                 [
                     newAccessToken,
-                    expiredDate,
                     newRefreshToken,
                     newRefreshTokenExpireIn,
                     refreshToken,
                 ]
             )
         } else {
-            throw 'E0005'
+            throw "E0005"
         }
     } catch (e: any) {
         throw new Error(e)
@@ -100,9 +99,9 @@ const refreshToken = async (params: any, connection: DbConnection) => {
     return {
         status: 201,
         cookie: {
-            name: 'refreshToken',
+            name: "refreshToken",
             val: newRefreshToken,
-            options: { httpOnly: true, path: '/', sameSite: 'lax' },
+            options: { httpOnly: true, path: "/", sameSite: "lax" },
         },
         data: {
             accessToken: newAccessToken,

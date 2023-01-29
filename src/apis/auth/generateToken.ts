@@ -11,7 +11,7 @@ const generateToken = async (
 ) => {
     let accessToken = ""
     let refreshToken = ""
-    const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
+    // const expiredDate = new Date(Date.now() + 3600 * 1000 * 24) //24시간
     const refreshTokenExpiredDate = new Date(
         Date.now() + 3600 * 1000 * 24 * 180
     ) // 6개월
@@ -23,36 +23,25 @@ const generateToken = async (
         )
         const { idx, nickname } = response[0]
 
-        const accessTokenPayload = { email, idx, nickname, expiredDate }
+        const accessTokenPayload = { email, idx, nickname }
         accessToken = JWT.sign(accessTokenPayload, JWT_SECRET)
 
         const refreshTokenPayload = { accessToken, refreshTokenExpiredDate }
         refreshToken = JWT.sign(refreshTokenPayload, JWT_SECRET)
         const getResponse = await connection.run(
-            `SELECT email from user_token WHERE email=?`,
+            `SELECT COUNT(*) as count from user_token WHERE email=?`,
             [email]
         )
-        if (getResponse[0]) {
+        const { count } = getResponse[0]
+        if (count > 0) {
             await connection.run(
-                `UPDATE user_token SET access_token=?,expires_in=?,refresh_token=?,refresh_token_expires_in=? WHERE email=?`,
-                [
-                    accessToken,
-                    expiredDate,
-                    refreshToken,
-                    refreshTokenExpiredDate,
-                    email,
-                ]
+                `UPDATE user_token SET access_token=?,refresh_token=?,refresh_token_expires_in=? WHERE email=?`,
+                [accessToken, refreshToken, refreshTokenExpiredDate, email]
             )
         } else {
             await connection.run(
-                `INSERT INTO user_token(email,access_token,expires_in,refresh_token,refresh_token_expires_in) VALUES(?,?,?,?,?)`,
-                [
-                    email,
-                    accessToken,
-                    expiredDate,
-                    refreshToken,
-                    refreshTokenExpiredDate,
-                ]
+                `INSERT INTO user_token(email,access_token,refresh_token,refresh_token_expires_in) VALUES(?,?,?,?)`,
+                [email, accessToken, refreshToken, refreshTokenExpiredDate]
             )
         }
     } catch (e: any) {
@@ -74,7 +63,6 @@ const generateToken = async (
         data: {
             success: true,
             accessToken,
-            expire_in: expiredDate,
         },
     }
 }
