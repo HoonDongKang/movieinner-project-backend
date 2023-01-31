@@ -1,8 +1,7 @@
-import { Response, Request } from 'express'
-import dotenv from 'dotenv'
-import s3AccessKey from '../configs/s3'
-import aws from 'aws-sdk'
-import { Error } from 'aws-sdk/clients/s3'
+import { Response, Request } from "express"
+import dotenv from "dotenv"
+import s3AccessKey from "../configs/s3"
+import aws, { AWSError } from "aws-sdk"
 dotenv.config()
 
 const { AWS_S3_ACCESS_ID, AWS_S3_ACCESS_KEY, AWS_S3_REGION } = s3AccessKey
@@ -33,35 +32,34 @@ export const uploadImage = async (req: Request, res: Response) => {
         })
     }
 }
-
 export const deleteImage = async (req: Request, res: Response) => {
     const { imageName } = req.body
-    const imageArray = imageName.split('/')
+    const imageArray = imageName.split("/")
     const imageKey = imageArray[3]
     const params = {
-        Bucket: 'movie-inner',
+        Bucket: "movie-inner",
         Key: imageKey,
     }
+    console.log(imageKey)
     try {
-        await s3.deleteObject(params, function (err: Error, data: any) {
+        await s3.deleteObject(params, function (err: AWSError, data: any) {
             //data의 값을 못받아옴
             if (err) {
-                console.log(err)
                 res.status(400)
                 res.json({
                     success: false,
                     error: err,
                 })
             } else {
-                console.log(data)
                 res.status(201)
                 res.json({
                     success: true,
+                    deleted: imageKey,
                 })
             }
         })
     } catch (e) {
-        console.log(e)
+        console.error(e)
         res.status(400)
         res.json({
             success: false,
