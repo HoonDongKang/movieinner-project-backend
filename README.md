@@ -1,6 +1,6 @@
 # Movie-inner project_Back-End part
 
-Movie information and community site.
+Movie information and community web site.
 
 ## 🎥 Demo
 
@@ -50,7 +50,7 @@ Project is created with :
 |    pnpm    | Fast, disk space efficient package manager |
 |   mysql    |  connect the database with an application  |
 
-## Installation
+## 🛠️Installation
 
 ```typescript
 git init
@@ -61,6 +61,6 @@ npm install
 //you can request to localhost:3714
 ```
 
-## With
+## ✋With
 
 Movie-inner Front-End : [CLOUDoort](https://github.com/CLOUDoort/movieinner-project-frontend)
