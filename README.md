@@ -8,7 +8,7 @@ Movie information and community web site.
 
 ## 📸 Screenshots
 
-![ScreenShot](https://user-images.githubusercontent.com/102861831/217987940-0896df76-f297-4874-9a7e-1a905e08c754.png)
+![ScreenShot](https://user-images.githubusercontent.com/102861831/217988459-a227a97d-6fd3-4bf3-9018-61f43bacde88.png)
 ![ScreenShot](https://user-images.githubusercontent.com/102861831/217987931-3ef2a125-d1b2-4749-8f88-f6fa56e65077.png)
 
 ## 💻 Project Description
