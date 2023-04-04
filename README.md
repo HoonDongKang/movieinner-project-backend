@@ -4,9 +4,11 @@ Movie information and community web site.
 
 ## 🎥 Demo
 
-[Movie-inner](https://www.movie-inner.click/)
-[API docs](https://documenter.getpostman.com/view/20766044/2s83ziQ4zN)
-[DB diagram](https://dbdiagram.io/d/62e67468f31da965e84aa61d)
+-   [Movie-inner](https://www.movie-inner.click/)
+
+-   [API docs](https://documenter.getpostman.com/view/20766044/2s83ziQ4zN)
+
+-   [DB diagram](https://dbdiagram.io/d/62e67468f31da965e84aa61d)
 
 ## 📸 Screenshots
 
